@@ -14,7 +14,6 @@ function validateMatricula() {
                 if (validateFormControl('idSeccion', 'number', true, true, 'Seleccionar Seccion.')) {
                     if (numberCheckCursos() > 0) {
                         if (validateDuplicateMatricula() === 0) {
-                            alert();
                             return true;
                         }
                     }
@@ -193,7 +192,7 @@ function confirmGenerateMatricula() {
 }
 
 
-function gridGeneratePlanEstudio() {
+/*function gridGeneratePlanEstudio() {
     if (validateShowCursos() === true) {
         var UserProfession = $('#idUsuarioCarrera').val();
         UserProfession = (UserProfession === undefined) ? '' : UserProfession;
@@ -222,6 +221,49 @@ function gridGeneratePlanEstudio() {
             page: 1,
             rowNum: 100,
             sortName: 'c7.idCiclo,p5.idPlanEstudio',
+            sortOrder: 'asc',
+            title: 'CURSOS PENDIENTES',
+            checkbox: {
+                prefix: 'crs',
+                //accion: 'alert(this.id);'
+                accion: ''
+            }
+        };
+        loadGrid(objGrid);
+        var _btn = '<button class="btn btn-sm btn-info" type="button" onclick="confirmSave(\'bWF0cmljdWxh\',\'Zm9ybU1hdHJpY3VsYQ==\',\'disbledShowButton();\',\'\')">Generar Matrícula</button>';
+        $('.tablePlanEstudiosMatricula div.widget-head div.widget-icons.pull-right').html(_btn);
+    }
+}*/
+
+function gridGeneratePlanEstudio() {
+    if (validateShowCursos() === true) {
+        var UserProfession = $('#idUsuarioCarrera').val();
+        UserProfession = (UserProfession === undefined) ? '' : UserProfession;
+        var Ciclo = $('#idCiclo').val();
+        Ciclo = (Ciclo === undefined) ? '' : Ciclo;
+
+        var objGrid = {
+            div: 'tablePlanEstudiosMatricula',
+            url: baseHTTP + 'controller/__grid.php?action=loadGrid',
+            table: 'usuariocarrera;usuario;personal;carrera;planestudio;curso;ciclo',
+            colNames: ['', 'CICLO', 'CURSO'],
+            colModel: [
+                {name: 'idPlanEstudio', index: '4', align: 'left'},
+                {name: 'cloDescripcion', index: '6'},
+                {name: 'crsNombre', index: '5'}
+            ],
+            join: {
+                type: 'inner;inner;inner;inner;inner;inner',
+                on: 'u0.idUsuario=u1.idUsuario;u1.idPersonal=p2.idPersonal;u0.idCarrera=c3.idCarrera;c3.idCarrera=p4.idCarrera;p4.idCurso=c5.idCurso;p4.idCiclo=c6.idCiclo'
+            },
+            where: {
+                fields: 'u0.idUsuarioCarrera;c6.idCiclo',
+                logical: '=;=',
+                values: UserProfession + ';' + Ciclo
+            },
+            page: 1,
+            rowNum: 100,
+            sortName: 'c6.idCiclo,p4.idPlanEstudio',
             sortOrder: 'asc',
             title: 'CURSOS PENDIENTES',
             checkbox: {

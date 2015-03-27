@@ -37,12 +37,13 @@ if ($action == "save") {
         $matricula[0] = TRUE;
     } else {
         $matricula = $objMatriculaDAO->ExecuteSave($objMatriculaDAO->objMatricula);
+        $idMatricula = $matricula[1];
     }
 
     if ($matricula[0] !== TRUE) {
         $error = TRUE;
     } else {
-        $error = FALSE;
+        $error = TRUE;
         $objMatriculaDetalleDAO2 = new MatriculaDetalleDAO();
         $objMatriculaDetalleDAO2->objMatriculaDetalle->setIdMatricula($idMatricula);
         $deleteMatriculaDetalle = $objMatriculaDetalleDAO2->UpdateDeleteMatriculaDetalle($objMatriculaDetalleDAO2->objMatriculaDetalle);

@@ -35,12 +35,12 @@ function comboboxAlumno() {
 }
 
 function validateUsuarioCarrera() {
-    if (validateFormControl('idUsuario', 'number', false, false, 'Estudiante no válido.')) {
-        if(validateDuplicate('idUsuario','usuariocarrera','idUsuario','idUsuarioCarrera','UserProfession')){
-            if (validateFormControl('idCarrera', 'number', false, false, 'Carrera no válida.')) {
-                if (validateFormControl('idTipoBeneficio', 'number', false, false, 'Beneficio no válido.')) {
-                    return true;
-                }
+    if (validateFormControl('idCarrera', 'number', true, true, 'Carrera no válida.')) {
+        if (validateDuplicate('idUsuario', 'usuariocarrera', 'idUsuario', 'idUsuarioCarrera', 'UserProfession')) {
+            if (validateFormControl('idUsuario', 'number', true, true, 'Estudiante no válido.')) {
+                //if (validateFormControl('idTipoBeneficio', 'number', true, true, 'Beneficio no válido.')) {
+                return true;
+                //}
             }
         }
     }
@@ -294,37 +294,41 @@ function generateReporteInscripcion() {
 
 function gridFichaInscripcionCarrera() {
     var UserProfession = $('#inputUserProfession').val();
-    UserProfession = (UserProfession === undefined) ? '': UserProfession;
+    UserProfession = (UserProfession === undefined) ? '' : UserProfession;
     var User = $('#idUsuario').val();
-    User = (User === undefined) ? '': User;
+    User = (User === undefined) ? '' : User;
     var Profession = $('#idCarrera').val();
-    Profession = (Profession === undefined) ? '': Profession;
-    var objGrid = {
-        div: 'tablePlanEstudios',
-        url: baseHTTP + 'controller/__grid.php?action=loadGrid',
-        table: 'usuariocarrera;usuario;personal;tipobeneficio;carrera;planestudio;curso;ciclo',
-        colNames: ['', 'CICLO', 'CURSO'],
-        colModel: [
-            {name: 'idUsuarioCarrera', index: '0', align: 'left'},
-            {name: 'cloDescripcion', index: '7'},
-            {name: 'crsNombre', index: '6'}
-        ],
-        join: {
-            type: 'inner;inner;inner;inner;inner;inner;inner',
-            on: 'u0.idUsuario=u1.idUsuario;u1.idPersonal=p2.idPersonal;u0.idTipoBeneficio=t3.idTipoBeneficio;u0.idCarrera=c4.idCarrera;c4.idCarrera=p5.idCarrera;p5.idCurso=c6.idCurso;p5.idCiclo=c7.idCiclo'
-        },
-        where: {
-            fields: 'u0.idUsuarioCarrera;u0.idCarrera;u0.idUsuario',
-            logical: 'like;=;=',
-            values: '%' + UserProfession + '%;' + Profession + ';' + User
-        },
-        page: 1,
-        rowNum: 100,
-        sortName: 'c7.idCiclo',
-        sortOrder: 'asc',
-        title: 'PLAN ESTUDIO',
-        check: ''
-    };
-    loadGrid(objGrid);
-    $('.tablePlanEstudios div.widget-head div.widget-icons.pull-right button.btn.btn-sm.btn-info').remove();
+    Profession = (Profession === undefined) ? '' : Profession;
+    if (!empty(Profession)) {
+        var objGrid = {
+            div: 'tablePlanEstudios',
+            url: baseHTTP + 'controller/__grid.php?action=loadGrid',
+            table: 'usuariocarrera;usuario;personal;carrera;planestudio;curso;ciclo',
+            colNames: ['', 'CICLO', 'CURSO'],
+            colModel: [
+                {name: 'idUsuarioCarrera', index: '0', align: 'left'},
+                {name: 'cloDescripcion', index: '6'},
+                {name: 'crsNombre', index: '5'}
+            ],
+            join: {
+                type: 'inner;inner;inner;inner;inner;inner',
+                on: 'u0.idUsuario=u1.idUsuario;u1.idPersonal=p2.idPersonal;u0.idCarrera=c3.idCarrera;c3.idCarrera=p4.idCarrera;p4.idCurso=c5.idCurso;p4.idCiclo=c6.idCiclo'
+            },
+            where: {
+                fields: 'u0.idUsuarioCarrera;u0.idCarrera;u0.idUsuario',
+                logical: 'like;=;=',
+                values: '%' + UserProfession + '%;' + Profession + ';' + User
+            },
+            page: 1,
+            rowNum: 100,
+            sortName: 'c6.idCiclo',
+            sortOrder: 'asc',
+            title: 'PLAN ESTUDIO',
+            check: ''
+        };
+        loadGrid(objGrid);
+        $('.tablePlanEstudios div.widget-head div.widget-icons.pull-right button.btn.btn-sm.btn-info').remove();
+    } else {
+        openPopUp('Seleccionar Carrera','Debe seleccionar un carrera antes de listar el plan de estudio.','','','');
+    }
 }

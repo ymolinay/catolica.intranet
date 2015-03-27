@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.14, created on 2015-03-20 21:27:38
+<?php /* Smarty version Smarty-3.1.14, created on 2015-03-27 07:46:35
          compiled from "./templates/generarInscripcionCarrera.html" */ ?>
 <?php /*%%SmartyHeaderCode:247173747550cd71a781508-28834685%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '223dde561262a408c1afa5ab03e851e84f322e51' => 
     array (
       0 => './templates/generarInscripcionCarrera.html',
-      1 => 1426717112,
+      1 => 1427460391,
       2 => 'file',
     ),
   ),
@@ -15,9 +15,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
-  'has_nocache_code' => false,
   'version' => 'Smarty-3.1.14',
   'unifunc' => 'content_550cd71a7a8393_30312813',
+  'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_550cd71a7a8393_30312813')) {function content_550cd71a7a8393_30312813($_smarty_tpl) {?><?php echo $_smarty_tpl->getSubTemplate ("../structure/HTMLBegin.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null, array(), 0);?>
 
@@ -74,10 +74,10 @@ INSCRIPCION
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-lg-offset-2 col-lg-6">
+                <div class="col-lg-4 col-lg-offset-5">
                     <input id="repJsonData" name="repJsonData" type="text" class="notVisible">
                     <button type="button" class="btn btn-sm btn-info" onclick="confirmSave('dXN1YXJpb0NhcnJlcmE=','Zm9ybUNhcnJlcmFVc3Vhcmlv','gridFichaInscripcionCarrera();','')">Registrar</button>
-                    <button type="button" class="btn btn-sm btn-default" onclick="gridFichaInscripcionCarrera()">Buscar</button>
+                    <!--<button type="button" class="btn btn-sm btn-default" onclick="gridFichaInscripcionCarrera()">Buscar</button>-->
                     <button type="button" class="btn btn-sm btn-default" onclick="clearForm('Zm9ybUNhcnJlcmFVc3Vhcmlv');">Limpiar</button>
                     <!--<button type="button" class="btn btn-sm btn-success">Success</button>
                     <button type="button" class="btn btn-sm btn-info">Info</button>

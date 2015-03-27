@@ -19,13 +19,13 @@ class UsuarioCarreraDAO {
         $idUsuarioCarrera = $this->task->getId(self::TABLE, 'idUsuarioCarrera');
         $idCarrera = $objUsuarioCarrera->getIdCarrera();
         $idUsuario = $objUsuarioCarrera->getIdUsuario();
-        $idTipoBeneficio = $objUsuarioCarrera->getIdTipoBeneficio();
+        //$idTipoBeneficio = $objUsuarioCarrera->getIdTipoBeneficio();
         $fecha = $objUsuarioCarrera->getFecha();
         $hora = $objUsuarioCarrera->getHora();
         $indicador = $objUsuarioCarrera->getIndicador();
         $this->task->setTables(self::TABLE);
-        $this->task->setFields('idUsuarioCarrera;idCarrera;idUsuario;idTipoBeneficio;uocFecha;uocHora;uocIndicador');
-        $this->task->setValues($idCarrera . ';' . $idUsuario . ';' . $idTipoBeneficio . ';' . $fecha . ';' . $hora . ';' . $indicador);
+        $this->task->setFields('idUsuarioCarrera;idCarrera;idUsuario;uocFecha;uocHora;uocIndicador');
+        $this->task->setValues($idCarrera . ';' . $idUsuario . ';' . $fecha . ';' . $hora . ';' . $indicador);
         $usuarioCarrera[0] = $this->task->executeInsert('idUsuarioCarrera');
         $usuarioCarrera[1] = $idUsuarioCarrera;
         return $usuarioCarrera;

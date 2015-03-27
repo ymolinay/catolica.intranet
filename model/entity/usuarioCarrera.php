@@ -4,7 +4,7 @@ class UsuarioCarrera{
     private $idUsuarioCarrera;
     private $idCarrera;
     private $idUsuario;
-    private $idTipoBeneficio;
+    //private $idTipoBeneficio;
     private $fecha;
     private $hora;
     private $indicador;
@@ -21,9 +21,9 @@ class UsuarioCarrera{
         return $this->idUsuario;
     }
 
-    function getIdTipoBeneficio() {
-        return $this->idTipoBeneficio;
-    }
+//    function getIdTipoBeneficio() {
+//        return $this->idTipoBeneficio;
+//    }
 
     function getFecha() {
         return $this->fecha;
@@ -49,9 +49,9 @@ class UsuarioCarrera{
         $this->idUsuario = $idUsuario;
     }
 
-    function setIdTipoBeneficio($idTipoBeneficio) {
-        $this->idTipoBeneficio = $idTipoBeneficio;
-    }
+//    function setIdTipoBeneficio($idTipoBeneficio) {
+//        $this->idTipoBeneficio = $idTipoBeneficio;
+//    }
 
     function setFecha($fecha) {
         $this->fecha = $fecha;

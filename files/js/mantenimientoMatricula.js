@@ -10,7 +10,6 @@ $(document).ready(function () {
 });
 
 function validateMatricula() {
-    alert();
     if (validateFormControl('idUsuarioCarrera', 'number', true, true, 'Estudiante / Inscripción no válido.')) {
         if (validateFormControl('idCiclo', 'number', true, true, 'Seleccionar ciclo.')) {
             if (validateFormControl('idSede', 'number', true, true, 'Seleccionar sede.')) {
@@ -201,25 +200,25 @@ function gridGeneratePlanEstudio() {
         var objGrid = {
             div: 'tablePlanEstudiosMatricula',
             url: baseHTTP + 'controller/__grid.php?action=loadGrid',
-            table: 'usuariocarrera;usuario;personal;tipobeneficio;carrera;planestudio;curso;ciclo',
+            table: 'usuariocarrera;usuario;personal;carrera;planestudio;curso;ciclo',
             colNames: ['', 'CICLO', 'CURSO'],
             colModel: [
-                {name: 'idPlanEstudio', index: '5', align: 'left'},
-                {name: 'cloDescripcion', index: '7'},
-                {name: 'crsNombre', index: '6'}
+                {name: 'idPlanEstudio', index: '4', align: 'left'},
+                {name: 'cloDescripcion', index: '6'},
+                {name: 'crsNombre', index: '5'}
             ],
             join: {
-                type: 'inner;inner;inner;inner;inner;inner;inner',
-                on: 'u0.idUsuario=u1.idUsuario;u1.idPersonal=p2.idPersonal;u0.idTipoBeneficio=t3.idTipoBeneficio;u0.idCarrera=c4.idCarrera;c4.idCarrera=p5.idCarrera;p5.idCurso=c6.idCurso;p5.idCiclo=c7.idCiclo'
+                type: 'inner;inner;inner;inner;inner;inner',
+                on: 'u0.idUsuario=u1.idUsuario;u1.idPersonal=p2.idPersonal;u0.idCarrera=c3.idCarrera;c3.idCarrera=p4.idCarrera;p4.idCurso=c5.idCurso;p4.idCiclo=c6.idCiclo'
             },
             where: {
-                fields: 'u0.idUsuarioCarrera;c7.idCiclo',
+                fields: 'u0.idUsuarioCarrera;c6.idCiclo',
                 logical: '=;=',
                 values: UserProfession + ';' + Ciclo
             },
             page: 1,
             rowNum: 100,
-            sortName: 'c7.idCiclo',
+            sortName: 'c6.idCiclo,p4.idPlanEstudio',
             sortOrder: 'asc',
             title: 'CURSOS PENDIENTES',
             checkbox: {
@@ -264,8 +263,8 @@ function disbledShowButton() {
 }
 
 function validateDuplicateMatricula() {
-    var _idCiclo = $('#idUsuarioCarrera').val();
-    var _idUsuarioCarrera = $('#idCiclo').val();
+    var _idUsuarioCarrera = $('#idUsuarioCarrera').val();
+    var _idCiclo = $('#idCiclo').val();
     var url = baseHTTP + 'controller/__matricula.php?action=searchDuplicate&_idCiclo=' + _idCiclo + '&_idUsuarioCarrera=' + _idUsuarioCarrera;
     var duplicate = jqueryAjax(url, false, '');
     duplicate = jQuery.parseJSON(duplicate);

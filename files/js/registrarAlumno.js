@@ -46,8 +46,8 @@ function searchDataInscripcion() {
     if (id !== undefined) {
         var url = baseHTTP + 'controller/__inscripcion.php?action=searchData&id=' + id;
         var dataInscripcion = jqueryAjax(url, false, '');
-        if(jsonInscripcion !== false && jsonInscripcion != null){
-        var jsonInscripcion = $.parseJSON(dataInscripcion);
+        if (dataInscripcion !== false && dataInscripcion != null) {
+            var jsonInscripcion = $.parseJSON(dataInscripcion);
             var objForm = {
                 insIdPersonal: '',
                 insNombres: jsonInscripcion.insNombres,
@@ -267,6 +267,10 @@ function formAlumno(objForm) {
     form += '<input id="insTelefono" name="insTelefono" type="text" class="form-control" placeholder="Correo" >';
     form += '</div>';
     form += '</div>';
+    form += '<div class="col-lg-4 col-lg-offset-6">';
+    form += '<button type="button" class="btn btn-info btn-sm" onclick="javascript:confirmSave(\'cGVyc29uYWw=\', \'Zm9ybVBlcnNvbmFs\', \'\', \'\');" >Registrar</button>';
+    form += '<button type="reset" class="btn btn-default btn-sm" >Limpiar</button>';
+    form += '</div><br />';
     form += getEndWinget();
     form += '</form>';
 

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.14, created on 2015-03-20 21:29:01
+<?php /* Smarty version Smarty-3.1.14, created on 2015-03-27 07:50:21
          compiled from "./templates/generarMatricula.html" */ ?>
 <?php /*%%SmartyHeaderCode:1923644503550cd76de3f2f6-47291325%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'b959e7f6f758a613847aee4c76479dd9840dadcc' => 
     array (
       0 => './templates/generarMatricula.html',
-      1 => 1426734370,
+      1 => 1427460616,
       2 => 'file',
     ),
   ),
@@ -15,9 +15,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
-  'has_nocache_code' => false,
   'version' => 'Smarty-3.1.14',
   'unifunc' => 'content_550cd76de86920_68110155',
+  'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_550cd76de86920_68110155')) {function content_550cd76de86920_68110155($_smarty_tpl) {?><?php echo $_smarty_tpl->getSubTemplate ("../structure/HTMLBegin.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null, array(), 0);?>
 
@@ -63,12 +63,7 @@ GENERAR MATRÍCULA
                         <option selected="selected" value="">Seleccionar Estudiante</option>
                     </select>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-2 control-label hidden-xs"></label>
-                <div class="col-lg-5 text-left">
-                    <span id="mensajeDNI" class="label label-info" style="padding:10px;">No se seleccionó estudiante.</span>
-                </div>
+                <span id="mensajeDNI" class="label label-info" style="padding:10px;">No se seleccionó estudiante.</span>
             </div>
             <div class="form-group">
                 <label class="col-lg-2 control-label">Sede</label>
@@ -99,13 +94,8 @@ GENERAR MATRÍCULA
                         <option selected="selected" value="">Seleccionar Sección</option>
                     </select>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-2 control-label hidden-xs"></label>
-                <div class="col-lg-5 text-right">
-                    <span id="mensajeMax" class="label label-info" style="padding:10px;">No se seleccionó sección.</span>
-                    <span id="mensajeIni" class="label label-info" style="padding:10px;">No se seleccionó sección.</span>
-                </div>
+                <span id="mensajeMax" class="label label-info" style="padding:10px;">No se seleccionó sección.</span>
+                <span id="mensajeIni" class="label label-info" style="padding:10px;">No se seleccionó sección.</span>
             </div>
             <div class="form-group">
                 <div class="col-lg-offset-2 col-lg-6">

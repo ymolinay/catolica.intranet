@@ -16,7 +16,7 @@ if ($action == "save") {
     $idUsuarioCarrera = $_GET['idUsuarioCarrera'];
     $idCarrera = $_GET['idCarrera'];
     $idUsuario = $_GET['idUsuario'];
-    $idTipoBeneficio = $_GET['idTipoBeneficio'];
+    //$idTipoBeneficio = $_GET['idTipoBeneficio'];
     $fecha = date('Y-m-d');
     $hora = date('H:i:s');
     $indicador = '1';
@@ -24,7 +24,7 @@ if ($action == "save") {
     $objUsuarioCarreraDAO->objUsuarioCarrera->setIdUsuarioCarrera($idUsuarioCarrera);
     $objUsuarioCarreraDAO->objUsuarioCarrera->setIdCarrera($idCarrera);
     $objUsuarioCarreraDAO->objUsuarioCarrera->setIdUsuario($idUsuario);
-    $objUsuarioCarreraDAO->objUsuarioCarrera->setIdTipoBeneficio($idTipoBeneficio);
+    //$objUsuarioCarreraDAO->objUsuarioCarrera->setIdTipoBeneficio($idTipoBeneficio);
     $objUsuarioCarreraDAO->objUsuarioCarrera->setFecha($fecha);
     $objUsuarioCarreraDAO->objUsuarioCarrera->setHora($hora);
     $objUsuarioCarreraDAO->objUsuarioCarrera->setIndicador($indicador);
