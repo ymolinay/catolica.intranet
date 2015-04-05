@@ -52,6 +52,12 @@
     <script src="{$themeDir}js/custom.js"></script> <!-- Custom codes -->
     <script src="{$themeDir}js/charts.js"></script> <!-- Charts & Graphs -->
     
+    <!-- dll - jQueryFileUpload -->
+    <script src="{$jQueryFileUploadDir}js/vendor/jquery.ui.widget.js"></script>
+    <script src="{$jQueryFileUploadDir}js/jquery.iframe-transport.js"></script>
+    <script src="{$jQueryFileUploadDir}js/jquery.fileupload.js"></script>
+    <!-- dll - jQueryFileUpload end -->
+    
     <!-- Propios--->
     <script src="{$defaultJS}" type="text/javascript"></script>
     <script src="{$jsFile}" type="text/javascript"></script>

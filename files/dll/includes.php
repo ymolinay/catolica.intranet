@@ -13,6 +13,8 @@
 	$html->assign('themeDir',$baseHTTP.'files/dll/theme/');//ruta tema
 	$html->assign('defaultJS',$baseHTTP.'files/js/default.js');//ruta js
 	$html->assign('defaultCSS',$baseHTTP.'files/css/default.css');//ruta css
+        /*.:: DLLs ::.*/
+        $html->assign('jQueryFileUploadDir',$baseHTTP.'files/dll/jQueryFileUpload/');//ruta jQueryFileUpload -> plugin para subir archivos
 	/*.:: sessions ::.*/
 	$sessionIdUsuario = $_SESSION["sessionIdUsuario"];
 	$sessionUsuario = $_SESSION["sessionUsuario"];

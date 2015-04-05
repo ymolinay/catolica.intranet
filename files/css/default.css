@@ -68,8 +68,8 @@
 }
 
 .table tbody tr:hover td{
-  background-color: #ffc876;
-  font-style: italic;
+    background-color: #ffc876;
+    font-style: italic;
 }
 
 .table thead tr td span.glyphicon-sort-by-attributes,
@@ -100,3 +100,24 @@
 .spacing{ padding: 5px; }
 .spacing2{ padding: 10px; }
 .spacing3{ padding: 15px; }
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    /*margin: 10px;*/
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.clearFileInput{
+    display: inline-block;
+}

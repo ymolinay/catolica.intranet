@@ -102,4 +102,17 @@ class UsuarioCarreraDAO {
         $this->task->setWhereValues($idUsuarioCarrera.';1');
         return $this->task->executeMultiSelect();
     }
+    
+    public function ExecuteFind($objUsuarioCarrera) {
+        $idUsuarioCarrera = $objUsuarioCarrera->getIdUsuarioCarrera();
+        $this->task->setTables(self::TABLE.';usuario;personal;carrera');
+        $this->task->setFields('idUsuarioCarrera;idCarrera;carDescripcion;idUsuario;usrNombre;uocFecha;uocHora;idPersonal;prsNombre;prsApellidoPaterno;prsApellidoMaterno;prsDNI');
+        $this->task->setIndex('0;0;3;0;1;0;0;1;2;2;2;2');
+        $this->task->setTypeJoin('inner;inner;inner');
+        $this->task->setOnJoin('u0.idUsuario=u1.idUsuario;u1.idPersonal=p2.idPersonal;u0.idCarrera=c3.idCarrera');
+        $this->task->setWhereFields('u0.idUsuarioCarrera;u0.uocIndicador');
+        $this->task->setWhereLogical('=;=');
+        $this->task->setWhereValues($idUsuarioCarrera.';1');
+        return $this->task->executeMultiSelect();
+    }
 }

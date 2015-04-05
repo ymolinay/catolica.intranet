@@ -207,6 +207,12 @@ function validateFormControl(_controlId, _expression, _setFocus, _icon, _msg) {
     if (_expression === 'date') {
         expr = /^([0][1-9]|[12][0-9]|3[01])(\/|-)([0][1-9]|[1][0-2])\2(\d{4})$/;
     }
+    if (_expression === 'file') {
+        expr = /[0-9a-zA-Z\^\&\'\@\{\}\[\]\,\$\=\!\-\#\(\)\.\%\+\~\_ ]+$/;
+    }
+    if (_expression === 'empty') {
+        expr = /([^\s])/;
+    }
     if (!expr.test(control.val().trim())) {
         control.parent().parent().addClass('has-error');
         if (_icon === true) {

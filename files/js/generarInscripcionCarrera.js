@@ -2,6 +2,7 @@ $(document).ready(function () {
     comboboxCarrera();
     comboboxBeneficio();
     comboboxAlumno();
+    currentDateTime();
 });
 
 function comboboxCarrera() {
@@ -331,4 +332,12 @@ function gridFichaInscripcionCarrera() {
     } else {
         openPopUp('Seleccionar Carrera','Debe seleccionar un carrera antes de listar el plan de estudio.','','','');
     }
+}
+
+function currentDateTime(){
+    var _time = myTime();
+    var _date = myDate();
+    $('#inputHora').val(_time);
+    $('#inputFecha').val(_date);
+    setTimeout('currentDateTime()',1000);
 }

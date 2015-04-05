@@ -34,7 +34,7 @@ if ($action == "save") {
     $objMatriculaDAO->objMatricula->setIndicador($Indicador);
 
     if ($idMatricula != '') {
-        $matricula[0] = TRUE;
+        $matricula = $objMatriculaDAO->ExecuteUpdate($objMatriculaDAO->objMatricula);
     } else {
         $matricula = $objMatriculaDAO->ExecuteSave($objMatriculaDAO->objMatricula);
         $idMatricula = $matricula[1];
@@ -105,4 +105,20 @@ if ($action == "findMatricula") {
     }
 
     echo json_encode($jsonMatricula);
+}
+
+if ($action == "delete") {
+    $error = TRUE;
+    $idMatricula = base64_decode($_GET['idMatricula']);
+    $code = $_GET['code'];
+    $indicador = 1;
+    if($code=='1234'){
+        $objMatriculaDAO->objMatricula->setIdMatricula($idMatricula);
+        $objMatriculaDAO->objMatricula->setIndicador($indicador);
+        $matricula = $objMatriculaDAO->ExecuteDelete($objMatriculaDAO->objMatricula);
+        $error = ($matricula !== TRUE) ? TRUE : FALSE;
+        echo ($error) ? 'fail' : 'success';
+    } else {
+        echo 'errorCode';
+    }
 }

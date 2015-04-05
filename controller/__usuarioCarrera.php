@@ -138,3 +138,11 @@ if ($action == 'VerPlanEstudio') {
     }
     echo json_encode($jsonUsuarioCarrera);
 }
+
+if($action == 'attachFileSerach'){
+    $idUsuarioCarrera = base64_decode($_GET['idUsuarioCarrera']);
+    $objUsuarioCarreraDAO->objUsuarioCarrera->setIdUsuarioCarrera($idUsuarioCarrera);
+    $personalFile = $objUsuarioCarreraDAO->ExecuteFind($objUsuarioCarreraDAO->objUsuarioCarrera);
+    $personalFile = $personalFile[0];
+    echo json_encode($personalFile);
+}

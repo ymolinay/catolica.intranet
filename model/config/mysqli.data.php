@@ -35,7 +35,7 @@ class Data {
             $sql = 'call spTransaction("SELECT","' . $_table . '","MAX(' . $_field . ')","","","","","","");';
             $result = array();
             $result = $this->connection->query($sql);
-            if($result){
+            if ($result) {
                 while ($row = mysqli_fetch_row($result)) {
                     $value = $row[0];
                 }
@@ -349,7 +349,8 @@ class Task extends Data {
                 }
             case "multiSelect": {
                     foreach ($mWhereFields as $key => $val) {
-                        if (!empty($mWhereValues[$key])) {
+                        //if (!empty($mWhereValues[$key])) {
+                        if (trim($mWhereValues[$key]) !== '') {
                             $this->whereFields[$key] = $val . " " . $mWhereLogical[$key] . " '" . $mWhereValues[$key] . "'";
                         }
                     }

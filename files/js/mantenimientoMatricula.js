@@ -280,6 +280,7 @@ function gridMatricula() {
     var Seccion = $('#idSeccion').val();
     var Sede = $('#idSede').val();
     var EstadoMatricula = $('#idEstadoMatricula ').val();
+    var indicador = '0';
     UserProfession = (UserProfession === undefined) ? '' : UserProfession;
     Ciclo = (Ciclo === undefined) ? '' : Ciclo;
     Seccion = (Seccion === undefined) ? '' : Seccion;
@@ -309,16 +310,17 @@ function gridMatricula() {
             on: 'm0.idUsuarioCarrera=u1.idUsuarioCarrera;m0.idCiclo=c2.idCiclo;m0.idSeccion=s3.idSeccion;m0.idSede=s4.idSede;m0.idEstadoMatricula=e5.idEstadoMatricula;u1.idCarrera=c6.idCarrera;u1.idUsuario=u7.idUsuario;u7.idPersonal=p8.idPersonal'
         },
         where: {
-            fields: 'm0.idUsuarioCarrera;m0.idCiclo;m0.idSeccion;m0.idSede;m0.idEstadoMatricula',
-            logical: 'like;like;like;like;like',
-            values: UserProfession + '%;' + Ciclo + '%;' + Seccion + '%;' + Sede + '%;' + EstadoMatricula + '%'
+            fields: 'm0.idUsuarioCarrera;m0.idCiclo;m0.idSeccion;m0.idSede;m0.idEstadoMatricula;m0.mtcIndicador',
+            logical: 'like;like;like;like;like;<>',
+            values: UserProfession + '%;' + Ciclo + '%;' + Seccion + '%;' + Sede + '%;' + EstadoMatricula + '%;' + indicador
         },
         page: 1,
         rowNum: 100,
         sortName: 'm0.idMatricula',
         sortOrder: 'desc',
         title: 'MATRÍCULAS',
-        edit: 'editMatricula(this.id)'
+        edit: 'editMatricula(this.id)',
+        delete: 'confirmDeleteMatricula(this.id)'
     };
     loadGrid(objGrid);
     var _btn = '';
@@ -343,15 +345,15 @@ function editMatricula(_id) {
     showExtraData();
     $('#idEstadoMatricula').val(jsonMatricula.idEstadoMatricula);
     gridGeneratePlanEstudio();
-    
+
     $('#idCarrera').prop('disabled', true);
     $('#idUsuarioCarrera').prop('disabled', true);
-    $('#idSede').prop('disabled', true);
+    $('#idSede').prop('disabled', false);
     $('#idCiclo').prop('disabled', true);
     $('#idTurno').prop('disabled', true);
     $('#idSeccion').prop('disabled', true);
     $('#idEstadoMatricula').prop('disabled', true);
-    
+
     $('.tableMatriculas').fadeOut();
 
     url = baseHTTP + 'controller/__matriculaDetalle.php?action=searchDetalleMatricula&idMatricula=' + jsonMatricula.idMatricula;
@@ -359,11 +361,40 @@ function editMatricula(_id) {
     var jsonMatriculaDetalle = jQuery.parseJSON(jsonMatriculaDetalle);
     $('.tablePlanEstudiosMatricula tbody tr td input[type=checkbox][name="_gridCheckBox[]"]').each(function () {
         for (var t = 0; t < jsonMatriculaDetalle.length; t++) {
-            var _inputCheck = $(this);            
-            if(_inputCheck.val() == base64_encoding(jsonMatriculaDetalle[t].idPlanEstudio)){
+            var _inputCheck = $(this);
+            if (_inputCheck.val() == base64_encoding(jsonMatriculaDetalle[t].idPlanEstudio)) {
                 _inputCheck.prop('checked', true);
             }
         }
     });
+}
 
+function confirmDeleteMatricula(_id) {
+    var bodyPopUp = '<div class="form-group">'
+            + '' + '<label class="col-lg-2 control-label">Código</label>'
+            + '<div class="col-lg-10">'
+            + '<input type="text" class="notVisible" id="_inputId" name="_inputId" value="' + _id + '" >'
+            + '<input type="text" class="form-control" id="_inputSecretCode" name="_inputSecretCode" placeholder="Código de Seguridad" >'
+            + '</div>'
+            + '</div>';
+    openPopUp('Código de Seguridad', bodyPopUp, 'deleteMatricula();gridMatricula();', '', '');
+}
+
+function deleteMatricula() {
+    var _id = $('#_inputId').val();
+    var _code = $('#_inputSecretCode').val();
+    var url = baseHTTP + 'controller/__matricula.php?action=delete&idMatricula=' + _id + '&code=' + _code;
+    var result = jqueryAjax(url, true, 'modal-body');
+    if (result == 'errorCode') {
+        $('.modal-body').html('<div class="quest">¡El código que ingresó no es correcto!</div>');
+    } else if (result == 'success') {
+        $('.modal-body').html('<div class="quest">Matrícula eliminada con éxito.</div>');
+    } else {
+        $('.modal-body').html('<div class="quest">Ocurrió un error inesperado, inténtelo nuevamente por favor.</div>');
+    }
+    $('.modal-footer #cancel').remove();
+    $('.modal-footer #confirm').removeClass('btn-info');
+    $('.modal-footer #confirm').addClass('btn-default');
+    $('.modal-footer #confirm').prop('disabled', false);
+    $('.modal-footer #confirm').attr('onclick', 'closePopUp();');
 }
