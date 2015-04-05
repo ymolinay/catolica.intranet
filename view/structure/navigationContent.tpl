@@ -50,9 +50,10 @@ perfil
     <li {$VActive[5]} class="has_sub"><a href=""><i class="fa fa-file"></i> Matriculas  <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a> 
         <ul>
             <li><a href="generarInscripcionCarrera.php">Inscribir Alumno</a></li>
+            <li><a href="adjuntarArchivos.php">Adjuntar Archivos</a></li>
             <li><a href="generarMatricula.php">Matricular Alumno</a></li>
-             <li><a href="pagoMatricula.php">Pago Matricula</a></li>
-             <li><a href="mantenimientoMatricula.php">Mantenimiento Matricula</a></li>
+            <li><a href="pagoMatricula.php">Pago Matricula</a></li>
+            <li><a href="mantenimientoMatricula.php">Mantenimiento Matricula</a></li>
         </ul>
     </li>
     {/if}
