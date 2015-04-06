@@ -1,6 +1,5 @@
 $(document).ready(function () {
     comboboxCarrera();
-    comboboxBeneficio();
     comboboxAlumno();
     currentDateTime();
 });
@@ -12,16 +11,6 @@ function comboboxCarrera() {
     var jsonCarrera = jQuery.parseJSON(result);
     for (i = 0; i < jsonCarrera.length; i++) {
         $('#idCarrera').append(new Option(jsonCarrera[i].carDescripcion, jsonCarrera[i].idCarrera));
-    }
-}
-
-function comboboxBeneficio() {
-    $('#idTipoBeneficio option[value!=""]').remove();
-    var url = baseHTTP + 'controller/__tipoBeneficio.php?action=combobox';
-    var result = jqueryAjax(url, false, '');
-    var jsonTipoBeneicio = jQuery.parseJSON(result);
-    for (i = 0; i < jsonTipoBeneicio.length; i++) {
-        $('#idTipoBeneficio').append(new Option(jsonTipoBeneicio[i].tboDescripcion + ' - (' + jsonTipoBeneicio[i].tboDescuentoPorcentaje + '%)', jsonTipoBeneicio[i].idTipoBeneficio));
     }
 }
 

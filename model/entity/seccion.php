@@ -10,6 +10,7 @@ class Seccion {
     private $anioCreacion;
     private $idTurno;
     private $idCarrera;
+    private $idCiclo;
     private $indicador;
 
     function getIdSeccion() {
@@ -42,6 +43,10 @@ class Seccion {
 
     function getIdCarrera() {
         return $this->idCarrera;
+    }
+
+    function getIdCiclo() {
+        return $this->idCiclo;
     }
 
     function getIndicador() {
@@ -80,8 +85,14 @@ class Seccion {
         $this->idCarrera = $idCarrera;
     }
 
+    function setIdCiclo($idCiclo) {
+        $this->idCiclo = $idCiclo;
+    }
+
     function setIndicador($indicador) {
         $this->indicador = $indicador;
     }
+
+
 
 }

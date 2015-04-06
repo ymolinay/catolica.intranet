@@ -5,7 +5,7 @@ perfil
 3->administrativo
 4->docente
 -->
-{for $i=0 to 5}
+{for $i=0 to 6}
     {if $optionActive eq $i}
     	{$VActive[$i]= 'class="open"'}
     {/if}
@@ -39,7 +39,7 @@ perfil
     </li>
     {/if}
     {if $sessionIdPerfil==1 or $sessionIdPerfil==3}  
-    <li {$VActive[4]} class="has_sub"><a href=""><i class="fa fa-file"></i> Alumnos <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a> 
+    <li {$VActive[4]} class="has_sub"><a href=""><i class="fa fa-users"></i> Alumnos <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a> 
         <ul>
             <li><a href="registrarAlumno.php">Registrar Alumno</a></li>
             <li><a href="alumnos.php">Lista de Alumnos</a></li>
@@ -54,6 +54,14 @@ perfil
             <li><a href="generarMatricula.php">Matricular Alumno</a></li>
             <li><a href="pagoMatricula.php">Pago Matricula</a></li>
             <li><a href="mantenimientoMatricula.php">Mantenimiento Matricula</a></li>
+        </ul>
+    </li>
+    {/if}
+    {if $sessionIdPerfil==1 or $sessionIdPerfil==4}  
+    <li {$VActive[6]} class="has_sub"><a href=""><i class="fa fa-briefcase"></i> Docentes  <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a> 
+        <ul>
+            <li><a href="asignarCursos.php">Asignar Cursos</a></li>
+            <li><a href="ingresarNotas.php">Ingresar Notas</a></li>
         </ul>
     </li>
     {/if}

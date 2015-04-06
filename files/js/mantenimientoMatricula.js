@@ -6,6 +6,7 @@ $(document).ready(function () {
     comboboxTurno();
     comboboxCarrera();
     comboboxEstado();
+    comboboxBeneficio();
     gridMatricula();
 });
 
@@ -27,10 +28,14 @@ function validateMatricula() {
 
 function validateShowCursos() {
     if (validateFormControl('idUsuarioCarrera', 'number', true, true, 'Estudiante / Inscripción no válido.')) {
-        if (validateFormControl('idCiclo', 'number', true, true, 'Seleccionar ciclo.')) {
-            if (validateFormControl('idSede', 'number', true, true, 'Seleccionar sede.')) {
-                if (validateFormControl('idSeccion', 'number', true, true, 'Seleccionar Seccion.')) {
-                    return true;
+        if (validateFormControl('idSede', 'number', true, true, 'Seleccionar sede.')) {
+            if (validateFormControl('idCiclo', 'number', true, true, 'Seleccionar ciclo.')) {
+                if (validateFormControl('idTurno', 'number', true, true, 'Seleccionar Turno.')) {
+                    if (validateFormControl('idSeccion', 'number', true, true, 'Seleccionar Seccion.')) {
+                        if (validateFormControl('idTipoBeneficio', 'number', true, true, 'Seleccionar Beneficio.')) {
+                            return true;
+                        }
+                    }
                 }
             }
         }
@@ -47,7 +52,7 @@ function numberCheckCursos() {
     return _count;
 }
 
-function comboboxSeccion() {
+function comboboxSeccion_DELETE() {
     var idCarrera = $('#idCarrera').val();
     var idTurno = $('#idTurno').val();
 
@@ -55,6 +60,33 @@ function comboboxSeccion() {
     var url = baseHTTP + 'controller/__seccion.php?action=combobox&idCarrera=' + idCarrera + '&idTurno=' + idTurno;
     var result = jqueryAjax(url, false, '');
     var seccion = jQuery.parseJSON(result);
+    for (i = 0; i < seccion.length; i++) {
+        var opt = new Option(seccion[i].scnDescripcion, seccion[i].idSeccion);
+        opt.setAttribute("data-max", seccion[i].scnCantMaxima);
+        opt.setAttribute("data-ini", seccion[i].scnInicio);
+        opt.setAttribute("data-fin", seccion[i].scnFin);
+        $('#idSeccion').append(opt);
+    }
+}
+
+function comboboxSeccion() {
+    var idCarrera = $('#idCarrera').val();
+    var idCiclo = $('#idCiclo').val();
+    var idTurno = $('#idTurno').val();
+
+    $('#idSeccion option[value!=""]').remove();
+    var url = baseHTTP + 'controller/__seccion.php?action=combobox&idCarrera=' + idCarrera + '&idTurno=' + idTurno + '&idCiclo=' + idCiclo;
+    var result = jqueryAjax(url, false, '');
+    var seccion = jQuery.parseJSON(result);
+    if(seccion == false){
+        $('#seccionFound').removeClass('label-success');
+        $('#seccionFound').addClass('label-default');
+        $('#seccionFound').html('No hay secciones.');
+    } else {
+        $('#seccionFound').addClass('label-success');
+        $('#seccionFound').removeClass('label-default');
+        $('#seccionFound').html('Secciones encontradas.');
+    }
     for (i = 0; i < seccion.length; i++) {
         var opt = new Option(seccion[i].scnDescripcion, seccion[i].idSeccion);
         opt.setAttribute("data-max", seccion[i].scnCantMaxima);
@@ -79,13 +111,29 @@ function comboboxUsuarioCarrera() {
     }
 }
 
-function comboboxCiclos() {
+function comboboxCiclos_DELETE() {
     $('#idCiclo option[value!=""]').remove();
     var url = baseHTTP + 'controller/__ciclo.php?action=combobox';
     var result = jqueryAjax(url, false, '');
     var ciclo = jQuery.parseJSON(result);
     for (i = 0; i < ciclo.length; i++) {
         $('#idCiclo').append(new Option(ciclo[i].cloDescripcion, ciclo[i].idCiclo));
+    }
+}
+
+function comboboxCiclos() {
+    var carrera = $('#idCarrera');
+    if (carrera.val() == '') {
+        $('#idCiclo option[value!=""]').remove();
+    } else {
+        $('#idCiclo option[value!=""]').remove();
+        var _max = carrera.find(':selected').data('maxciclo');
+        var url = baseHTTP + 'controller/__ciclo.php?action=comboboxMax&maxCiclo=' + _max;
+        var result = jqueryAjax(url, false, '');
+        var ciclo = jQuery.parseJSON(result);
+        for (i = 0; i < ciclo.length; i++) {
+            $('#idCiclo').append(new Option(ciclo[i].cloDescripcion, ciclo[i].idCiclo));
+        }
     }
 }
 
@@ -238,13 +286,25 @@ function printMatricula() {
     window.open(pdfURL);
 }
 
-function comboboxCarrera() {
+function comboboxCarrera_DELETE() {
     $('#idCarrera option[value!=""]').remove();
     var url = baseHTTP + 'controller/__carrera.php?action=combobox';
     var result = jqueryAjax(url, false, '');
     var jsonCarrera = jQuery.parseJSON(result);
     for (i = 0; i < jsonCarrera.length; i++) {
         $('#idCarrera').append(new Option(jsonCarrera[i].carDescripcion, jsonCarrera[i].idCarrera));
+    }
+}
+
+function comboboxCarrera() {
+    $('#idCarrera option[value!=""]').remove();
+    var url = baseHTTP + 'controller/__carrera.php?action=combobox';
+    var result = jqueryAjax(url, false, '');
+    var jsonCarrera = jQuery.parseJSON(result);
+    for (i = 0; i < jsonCarrera.length; i++) {
+        var opt = new Option(jsonCarrera[i].carDescripcion, jsonCarrera[i].idCarrera);
+        opt.setAttribute("data-maxCiclo", jsonCarrera[i].carPeriodos);
+        $('#idCarrera').append(opt);
     }
 }
 
@@ -272,6 +332,16 @@ function validateDuplicateMatricula() {
     return duplicate.count;
 }
 
+function comboboxBeneficio() {
+    $('#idTipoBeneficio option[value!=""]').remove();
+    var url = baseHTTP + 'controller/__tipoBeneficio.php?action=combobox';
+    var result = jqueryAjax(url, false, '');
+    var jsonTipoBeneicio = jQuery.parseJSON(result);
+    for (i = 0; i < jsonTipoBeneicio.length; i++) {
+        $('#idTipoBeneficio').append(new Option(jsonTipoBeneicio[i].tboDescripcion + ' - (' + jsonTipoBeneicio[i].tboDescuentoPorcentaje + '%)', jsonTipoBeneicio[i].idTipoBeneficio));
+    }
+}
+
 function gridMatricula() {
     //if (validateShowCursos() === true) {
 
@@ -289,8 +359,8 @@ function gridMatricula() {
     var objGrid = {
         div: 'tableMatriculas',
         url: baseHTTP + 'controller/__grid.php?action=loadGrid',
-        table: 'matricula;usuariocarrera;ciclo;seccion;sede;estadomatricula;carrera;usuario;personal',
-        colNames: ['', 'NOMBRES', 'APE. PATERNO', 'APE. MATERNO', 'DNI', 'CARRERA', 'CICLO', 'SECCIÓN', 'SEDE', 'FECHA', 'HORA', 'ESTADO'],
+        table: 'matricula;usuariocarrera;ciclo;seccion;sede;estadomatricula;carrera;usuario;personal;tipobeneficio',
+        colNames: ['', 'NOMBRES', 'APE. PATERNO', 'APE. MATERNO', 'DNI', 'CARRERA', 'CICLO', 'SECCIÓN', 'SEDE', 'BENEFICIO', 'FECHA', 'ESTADO'],
         colModel: [
             {name: 'idMatricula', index: '0', align: 'left'},
             {name: 'prsNombre', index: '8'},
@@ -301,13 +371,13 @@ function gridMatricula() {
             {name: 'cloDescripcion', index: '2'},
             {name: 'scnDescripcion', index: '3'},
             {name: 'sdeNombre', index: '4'},
+            {name: 'tboDescripcion', index: '9'},
             {name: 'mtcFecha', index: '0'},
-            {name: 'mtcHora', index: '0'},
             {name: 'etmDescripcion', index: '5'}
         ],
         join: {
-            type: 'inner;inner;inner;inner;inner;inner;inner;inner',
-            on: 'm0.idUsuarioCarrera=u1.idUsuarioCarrera;m0.idCiclo=c2.idCiclo;m0.idSeccion=s3.idSeccion;m0.idSede=s4.idSede;m0.idEstadoMatricula=e5.idEstadoMatricula;u1.idCarrera=c6.idCarrera;u1.idUsuario=u7.idUsuario;u7.idPersonal=p8.idPersonal'
+            type: 'inner;inner;inner;inner;inner;inner;inner;inner;inner',
+            on: 'm0.idUsuarioCarrera=u1.idUsuarioCarrera;m0.idCiclo=c2.idCiclo;m0.idSeccion=s3.idSeccion;m0.idSede=s4.idSede;m0.idEstadoMatricula=e5.idEstadoMatricula;u1.idCarrera=c6.idCarrera;u1.idUsuario=u7.idUsuario;u7.idPersonal=p8.idPersonal;m0.idTipoBeneficio=t9.idTipoBeneficio'
         },
         where: {
             fields: 'm0.idUsuarioCarrera;m0.idCiclo;m0.idSeccion;m0.idSede;m0.idEstadoMatricula;m0.mtcIndicador',
@@ -335,6 +405,8 @@ function editMatricula(_id) {
     $('#idMatricula').val(jsonMatricula.idMatricula);
     $('#idCarrera').val(jsonMatricula.idCarrera);
     comboboxUsuarioCarrera();
+    comboboxCiclos();
+    comboboxSeccion();
     $('#idUsuarioCarrera').val(jsonMatricula.idUsuarioCarrera);
     showExtraData();
     $('#idSede').val(jsonMatricula.idSede);
@@ -344,6 +416,7 @@ function editMatricula(_id) {
     $('#idSeccion').val(jsonMatricula.idSeccion);
     showExtraData();
     $('#idEstadoMatricula').val(jsonMatricula.idEstadoMatricula);
+    $('#idTipoBeneficio').val(jsonMatricula.idTipoBeneficio);
     gridGeneratePlanEstudio();
 
     $('#idCarrera').prop('disabled', true);
@@ -352,7 +425,12 @@ function editMatricula(_id) {
     $('#idCiclo').prop('disabled', true);
     $('#idTurno').prop('disabled', true);
     $('#idSeccion').prop('disabled', true);
+    $('#idTipoBeneficio').prop('disabled', false);
     $('#idEstadoMatricula').prop('disabled', true);
+
+    $('#buttonShowCourses').prop('disabled', true);
+    $('#buttomClearFil').prop('disabled', true);
+    $('#buttomBackMant').prop('disabled', false);
 
     $('.tableMatriculas').fadeOut();
 

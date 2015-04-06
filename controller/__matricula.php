@@ -3,10 +3,12 @@
 session_start();
 require_once __DIR__ . '/../model/dao/matriculaDAO.php';
 require_once __DIR__ . '/../model/dao/matriculaDetalleDAO.php';
+require_once __DIR__ . '/../model/dao/matriculaNotasDAO.php';
 require_once __DIR__ . '/../model/dao/gridDAO.php';
 
 $objMatriculaDAO = new MatriculaDAO();
 $objMatriculaDetalleDAO = new MatriculaDetalleDAO();
+$objMatriculaNotasDAO = new MatriculaNotasDAO();
 $objGridDAO = new GridDAO();
 
 $action = $_GET["action"];
@@ -20,6 +22,7 @@ if ($action == "save") {
     $idCiclo = $_GET['idCiclo'];
     $idSeccion = $_GET['idSeccion'];
     $idSede = $_GET['idSede'];
+    $idTipoBeneficio = $_GET['idTipoBeneficio'];
     $idEstadoMatricula = 1;
     $Indicador = 1;
 
@@ -30,6 +33,7 @@ if ($action == "save") {
     $objMatriculaDAO->objMatricula->setIdCiclo($idCiclo);
     $objMatriculaDAO->objMatricula->setIdSeccion($idSeccion);
     $objMatriculaDAO->objMatricula->setIdSede($idSede);
+    $objMatriculaDAO->objMatricula->setIdTipoBeneficio($idTipoBeneficio);
     $objMatriculaDAO->objMatricula->setIdEstadoMatricula($idEstadoMatricula);
     $objMatriculaDAO->objMatricula->setIndicador($Indicador);
 
@@ -55,6 +59,31 @@ if ($action == "save") {
                 $objMatriculaDetalleDAO->objMatriculaDetalle->setIdPlanEstudio(base64_decode($val));
                 $objMatriculaDetalleDAO->objMatriculaDetalle->setIndicador($Indicador);
                 $result2 = $objMatriculaDetalleDAO->ExecuteSave($objMatriculaDetalleDAO->objMatriculaDetalle);
+
+                /* Creación de datos en tabla matriculanotas */
+                $u1Ev1 = $u1Ev2 = $u1Ev3 = $u1Ev4 = $u1PromPract = $u1ExParcial = $u1Promedio = $u2Ev1 = $u2Ev2 = $u2Ev3 = $u2Ev4 = $u2PromPract = $u2Trabajo = $u2ExFinal = $u2Promedio = $susti = $promedioFinal = 0;
+                $indicadorNotas = 1;
+                $objMatriculaNotasDAO->objMatriculaNotas->setU1Ev1($u1Ev1);
+                $objMatriculaNotasDAO->objMatriculaNotas->setU1Ev2($u1Ev2);
+                $objMatriculaNotasDAO->objMatriculaNotas->setU1Ev3($u1Ev3);
+                $objMatriculaNotasDAO->objMatriculaNotas->setU1Ev4($u1Ev4);
+                $objMatriculaNotasDAO->objMatriculaNotas->setU1PromPract($u1PromPract);
+                $objMatriculaNotasDAO->objMatriculaNotas->setU1ExParcial($u1ExParcial);
+                $objMatriculaNotasDAO->objMatriculaNotas->setU1Promedio($u1Promedio);
+                $objMatriculaNotasDAO->objMatriculaNotas->setU2Ev1($u2Ev1);
+                $objMatriculaNotasDAO->objMatriculaNotas->setU2Ev2($u2Ev2);
+                $objMatriculaNotasDAO->objMatriculaNotas->setU2Ev3($u2Ev3);
+                $objMatriculaNotasDAO->objMatriculaNotas->setU2Ev4($u2Ev4);
+                $objMatriculaNotasDAO->objMatriculaNotas->setU2PromPract($u2PromPract);
+                $objMatriculaNotasDAO->objMatriculaNotas->setU2Trabajo($u2Trabajo);
+                $objMatriculaNotasDAO->objMatriculaNotas->setU2ExFinal($u2ExFinal);
+                $objMatriculaNotasDAO->objMatriculaNotas->setU2Promedio($u2Promedio);
+                $objMatriculaNotasDAO->objMatriculaNotas->setSusti($susti);
+                $objMatriculaNotasDAO->objMatriculaNotas->setPromedioFinal($promedioFinal);
+                $objMatriculaNotasDAO->objMatriculaNotas->setIdMatriculaDetalle($result2[1]);
+                $objMatriculaNotasDAO->objMatriculaNotas->setIndicador($indicadorNotas);
+                $objMatriculaNotasDAO->ExecuteSave($objMatriculaNotasDAO->objMatriculaNotas);
+                /* Creación de datos en tabla matriculanotas - FIN */
             }
         }
 
@@ -112,7 +141,7 @@ if ($action == "delete") {
     $idMatricula = base64_decode($_GET['idMatricula']);
     $code = $_GET['code'];
     $indicador = 1;
-    if($code=='1234'){
+    if ($code == '1234') {
         $objMatriculaDAO->objMatricula->setIdMatricula($idMatricula);
         $objMatriculaDAO->objMatricula->setIndicador($indicador);
         $matricula = $objMatriculaDAO->ExecuteDelete($objMatriculaDAO->objMatricula);

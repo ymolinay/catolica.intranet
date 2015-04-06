@@ -18,7 +18,7 @@
             <div class="form-group">
                 <label class="col-lg-2 control-label">Carrera</label>
                 <div class="col-lg-5">
-                    <select id="idCarrera" name="idCarrera" class="form-control" onchange="comboboxUsuarioCarrera();comboboxSeccion();">
+                    <select id="idCarrera" name="idCarrera" class="form-control" onchange="comboboxUsuarioCarrera();comboboxCiclos();comboboxSeccion();">
                         <option selected="selected" value="">Seleccionar Carrera</option>
                     </select>
                 </div>
@@ -50,7 +50,7 @@
             <div class="form-group">
                 <label class="col-lg-2 control-label">Ciclo</label>
                 <div class="col-lg-2">
-                    <select id="idCiclo" name="idCiclo" class="form-control">
+                    <select id="idCiclo" name="idCiclo" class="form-control" onchange="comboboxSeccion();">
                         <option selected="selected" value="">Seleccionar Ciclo</option>
                     </select>
                 </div>
@@ -68,6 +68,7 @@
                         <option selected="selected" value="">Seleccionar Sección</option>
                     </select>
                 </div>
+                <span id="seccionFound" class="label label-default" style="padding:10px;">No hay secciones.</span>
                 <span id="mensajeMax" class="label label-info" style="padding:10px;">No se seleccionó sección.</span>
                 <span id="mensajeIni" class="label label-info" style="padding:10px;">No se seleccionó sección.</span>
             </div>
@@ -87,14 +88,19 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-lg-offset-2 col-lg-6">
+                <label class="col-lg-2 control-label">Benficio</label>
+                <div class="col-lg-5">
+                    <select id="idTipoBeneficio" name="idTipoBeneficio" class="form-control">
+                        <option selected="selected" value="">Seleccionar Beneficio</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-4 col-lg-6">
                     <!--<button type="button" class="btn btn-sm btn-primary" onclick="verDetallePlanEstudio();">Ver Cursos</button>-->
                     <button id="buttonShowCourses" type="button" class="btn btn-sm btn-info" onclick="gridMatricula();">Buscar</button>
-                    <button type="button" class="btn btn-sm btn-default" onclick="clearForm('Zm9ybU1hdHJpY3VsYU0=');reloadPage();">Limpiar</button>
-                    <!--<button type="button" class="btn btn-sm btn-success">Success</button>
-                    <button type="button" class="btn btn-sm btn-info">Info</button>
-                    <button type="button" class="btn btn-sm btn-warning">Warning</button>
-                    <button type="button" class="btn btn-sm btn-danger">Danger</button>-->
+                    <button id="buttomClearFil" type="button" class="btn btn-sm btn-default" onclick="clearForm('Zm9ybU1hdHJpY3VsYU0=');">Limpiar</button>
+                    <button id="buttomBackMant" type="button" class="btn btn-sm btn-default" onclick="reloadPage();" disabled="disabled">Atrás</button>
                 </div>
             </div>
         {include file="../structure/endWinget.tpl"}

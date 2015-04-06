@@ -33,15 +33,18 @@ $action = $_GET["action"];
 //}
 
 if ($action == "combobox") {
-    $cbx = array();
+    $cbx = false;
     $combo = array();
     $idCarrera = $_GET['idCarrera'];
     $idTurno = $_GET['idTurno'];
+    $idCiclo = $_GET['idCiclo'];
     $idCarrera = (!empty($idCarrera)) ? $idCarrera : FALSE;
     $idTurno = (!empty($idTurno)) ? $idTurno : FALSE;
-    if ($idCarrera && $idTurno) {
+    $idCiclo = (!empty($idCiclo)) ? $idCiclo : FALSE;
+    if ($idCarrera && $idTurno && $idCiclo) {
         $objSeccionDAO->objSeccion->setIdCarrera($idCarrera);
         $objSeccionDAO->objSeccion->setIdTurno($idTurno);
+        $objSeccionDAO->objSeccion->setIdCiclo($idCiclo);
         $combo = $objSeccionDAO->ExecuteCompleteCombobox($objSeccionDAO->objSeccion);
     }
     foreach ($combo as $key => $val) {
@@ -63,6 +66,7 @@ if ($action == 'save') {
     $anioCreacion = date('Y');
     $idTurno = $_GET['inputTurno'];
     $idCarrera = $_GET['inputCarrera'];
+    $idCiclo = $_GET['idCiclo'];
     $indicador = '1';
 
     $objSeccionDAO->objSeccion->setIdSeccion($idSeccion);
@@ -73,6 +77,7 @@ if ($action == 'save') {
     $objSeccionDAO->objSeccion->setFin($fin);
     $objSeccionDAO->objSeccion->setAnioCreacion($anioCreacion);
     $objSeccionDAO->objSeccion->setIdCarrera($idCarrera);
+    $objSeccionDAO->objSeccion->setIdCiclo($idCiclo);
     $objSeccionDAO->objSeccion->setIndicador($indicador);
 
     if ($idSeccion != '') {

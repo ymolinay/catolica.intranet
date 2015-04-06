@@ -73,3 +73,5 @@ Archivo: mysqli.data.php	Error 00002: Access denied for user 'cato'@'localhost' 
 Archivo: mysqli.data.php	Error 00002: Access denied for user 'cato'@'localhost' (using password: YES)	Tiempo: 27.03.2015 06:54:51
 Archivo: mysqli.data.php	Error 00002: Access denied for user 'cato'@'localhost' (using password: YES)	Tiempo: 27.03.2015 06:54:51
 Archivo: mysqli.data.php	Error 00003: Error al ejecutar la consulta {call spTransaction("SELECT","archivo","MAX(idArchivo)","","","","","","");}	Tiempo: 04.04.2015 11:31:35
+Archivo: mysqli.data.php	Error 00003: Error al ejecutar la consulta {call spTransaction("SELECT","docenteseccioncurso","MAX(idDocenteSeccionCurso)","","","","","","");}	Tiempo: 05.04.2015 10:30:28
+Archivo: mysqli.data.php	Error 00003: Error al ejecutar la consulta {call spTransaction("SELECT","docenteseccioncurso","MAX(idDocenteSeccionCurso)","","","","","","");}	Tiempo: 05.04.2015 10:31:40

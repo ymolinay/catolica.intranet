@@ -12,39 +12,21 @@
 {include file="../structure/beginMainbarContent.tpl"}
 {include file="../structure/beginMatterContent.tpl"}
 
-    <form id="formMatricula" name="formMatricula" class="form-horizontal" role="form">
-        {include file="../structure/beginWinget.tpl"}GENERAR MATRÍCULA
+    <form id="formAsignarCursos" name="formAsignarCursos" class="form-horizontal" role="form">
+        {include file="../structure/beginWinget.tpl"}ASIGNAR CURSOS
         {include file="../structure/contentWinget.tpl"}
             <div class="form-group">
                 <label class="col-lg-2 control-label">Carrera</label>
                 <div class="col-lg-5">
-                    <select id="idCarrera" name="idCarrera" class="form-control" onchange="comboboxUsuarioCarrera();comboboxCiclos();comboboxSeccion();">
+                    <select id="idCarrera" name="idCarrera" class="form-control" onchange="comboboxCiclos();comboboxSeccion();comboboxCursosPlanEstudio();">
                         <option selected="selected" value="">Seleccionar Carrera</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-2 control-label">Estudiante</label>
-                <div class="col-lg-5">
-                    <input id="idMatricula" name="idMatricula" type="text" class="notVisible">
-                    <select id="idUsuarioCarrera" name="idUsuarioCarrera" class="form-control" onchange="showExtraData();">
-                        <option selected="selected" value="">Seleccionar Estudiante</option>
-                    </select>
-                </div>
-                <span id="mensajeDNI" class="label label-info" style="padding:10px;">No se seleccionó estudiante.</span>
-            </div>
-            <div class="form-group">
-                <label class="col-lg-2 control-label">Sede</label>
-                <div class="col-lg-5">
-                    <select id="idSede" name="idSede" class="form-control">
-                        <option selected="selected" value="">Seleccionar Sede</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-lg-2 control-label">Ciclo</label>
                 <div class="col-lg-2">
-                    <select id="idCiclo" name="idCiclo" class="form-control" onchange="comboboxSeccion();">
+                    <select id="idCiclo" name="idCiclo" class="form-control" onchange="comboboxSeccion();comboboxCursosPlanEstudio();">
                         <option selected="selected" value="">Seleccionar Ciclo</option>
                     </select>
                 </div>
@@ -58,31 +40,35 @@
             <div class="form-group">
                 <label class="col-lg-2 control-label">Seccion</label>
                 <div class="col-lg-3">
-                    <select id="idSeccion" name="idSeccion" class="form-control" onchange="showExtraData();">
+                    <select id="idSeccion" name="idSeccion" class="form-control">
                         <option selected="selected" value="">Seleccionar Sección</option>
                     </select>
                 </div>
                 <span id="seccionFound" class="label label-default" style="padding:10px;">No hay secciones.</span>
-                <span id="mensajeMax" class="label label-info" style="padding:10px;">No se seleccionó sección.</span>
-                <span id="mensajeIni" class="label label-info" style="padding:10px;">No se seleccionó sección.</span>
+                <!--<span id="mensajeMax" class="label label-info" style="padding:10px;">No se seleccionó sección.</span>
+                <span id="mensajeIni" class="label label-info" style="padding:10px;">No se seleccionó sección.</span>-->
             </div>
             <div class="form-group">
-                <label class="col-lg-2 control-label">Benficio</label>
+                <label class="col-lg-2 control-label">Docente</label>
                 <div class="col-lg-5">
-                    <select id="idTipoBeneficio" name="idTipoBeneficio" class="form-control">
-                        <option selected="selected" value="">Seleccionar Beneficio</option>
+                    <select id="idDocente" name="idDocente" class="form-control">
+                        <option selected="selected" value="">Seleccionar Docente</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Cursos</label>
+                <div class="col-lg-5">
+                    <select id="idPlanEstudioCursos" name="idPlanEstudioCursos" class="form-control">
+                        <option selected="selected" value="">Seleccionar Cursos</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-lg-offset-2 col-lg-6">
                     <!--<button type="button" class="btn btn-sm btn-primary" onclick="verDetallePlanEstudio();">Ver Cursos</button>-->
-                    <button id="buttonShowCourses" type="button" class="btn btn-sm btn-info disabled" onclick="gridGeneratePlanEstudio();">Ver Cursos</button>
-                    <button type="button" class="btn btn-sm btn-default" onclick="clearForm('Zm9ybU1hdHJpY3VsYQ==');">Limpiar</button>
-                    <!--<button type="button" class="btn btn-sm btn-success">Success</button>
-                    <button type="button" class="btn btn-sm btn-info">Info</button>
-                    <button type="button" class="btn btn-sm btn-warning">Warning</button>
-                    <button type="button" class="btn btn-sm btn-danger">Danger</button>-->
+                    <button type="button" class="btn btn-sm btn-info" onclick="confirmSave('ZG9jZW50ZVNlY2Npb25DdXJzbw==','Zm9ybUFzaWduYXJDdXJzb3M=','clearFormAsignarCursos();gridDocentesCursos();','');">Guardar</button>
+                    <button type="button" class="btn btn-sm btn-default" onclick="clearForm('Zm9ybUFzaWduYXJDdXJzb3M=');">Limpiar</button>
                 </div>
             </div>
         {include file="../structure/endWinget.tpl"}
@@ -111,7 +97,7 @@
             </div>
         </div>-->
 
-    <div class="tablePlanEstudiosMatricula widget"></div>
+    <div class="tableDocentesCursos widget"></div>
 
     </form>
 <!-- -->

@@ -8,6 +8,7 @@ class Matricula{
     private $idCiclo;
     private $idSeccion;
     private $idSede;
+    private $idTipoBeneficio;
     private $idEstadoMatricula;
     private $Indicador;
     
@@ -37,6 +38,10 @@ class Matricula{
 
     function getIdSede() {
         return $this->idSede;
+    }
+
+    function getIdTipoBeneficio() {
+        return $this->idTipoBeneficio;
     }
 
     function getIdEstadoMatricula() {
@@ -75,6 +80,10 @@ class Matricula{
         $this->idSede = $idSede;
     }
 
+    function setIdTipoBeneficio($idTipoBeneficio) {
+        $this->idTipoBeneficio = $idTipoBeneficio;
+    }
+
     function setIdEstadoMatricula($idEstadoMatricula) {
         $this->idEstadoMatricula = $idEstadoMatricula;
     }
@@ -82,7 +91,6 @@ class Matricula{
     function setIndicador($Indicador) {
         $this->Indicador = $Indicador;
     }
-
 
 
 }

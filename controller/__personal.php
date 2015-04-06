@@ -98,6 +98,16 @@ if ($action == "save" && $type == "usuario") {
     $indicador = '1';
     $idUsuario = $_GET['idUsuario'];
     $nombre = $_GET['inputUsuario'];
+    
+    /*Datos necesarios y faltantes*/
+    $direccion='';
+    $sexo='M';
+    $estadoCivil = '1';
+    $fNacimiento = '1993-02-02';
+    $nacionalidad = '1';
+    /*Datos necesarios y faltantes fin*/
+    
+    
     if ($_GET['inputPassword'] != '') {
         $clave = md5($_GET['inputPassword']);
     }
@@ -116,6 +126,13 @@ if ($action == "save" && $type == "usuario") {
     $objPersonalDAO->objPersonal->setTelefono($telefono);
     $objPersonalDAO->objPersonal->setEmail($email);
     $objPersonalDAO->objPersonal->setIdUbigeo($idUbigeo);
+    /*Datos necesarios y faltantes*/
+    $objPersonalDAO->objPersonal->setDireccion($direccion);
+    $objPersonalDAO->objPersonal->setSexo($sexo);
+    $objPersonalDAO->objPersonal->setEstadoCivil($estadoCivil);
+    $objPersonalDAO->objPersonal->setFNacimiento($fNacimiento);
+    $objPersonalDAO->objPersonal->setNacionalidad($nacionalidad);
+    /*Datos necesarios y faltantes fin*/
     $objPersonalDAO->objPersonal->setIndicador($indicador);
     $objUsuarioDAO->objUsuario->setIdUsuario($idUsuario);
     $objUsuarioDAO->objUsuario->setNombre($nombre);

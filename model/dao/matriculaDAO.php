@@ -23,22 +23,24 @@ class MatriculaDAO {
         $idCiclo = $objMatricula->getIdCiclo();
         $idSeccion = $objMatricula->getIdSeccion();
         $idSede = $objMatricula->getIdSede();
+        $idTipoBeneficio = $objMatricula->getIdTipoBeneficio();
         $idEstadoMatricula = $objMatricula->getIdEstadoMatricula();
         $Indicador = $objMatricula->getIndicador();
         $this->task->setTables(self::TABLE);
-        $this->task->setFields('idMatricula;mtcFecha;mtcHora;idUsuarioCarrera;idCiclo;idSeccion;idSede;idEstadoMatricula;mtcIndicador');
-        $this->task->setValues($Fecha . ';' . $Hora . ';' . $idUsuarioCarrera . ';' . $idCiclo . ';' . $idSeccion . ';' . $idSede . ';' . $idEstadoMatricula . ';' . $Indicador);
+        $this->task->setFields('idMatricula;mtcFecha;mtcHora;idUsuarioCarrera;idCiclo;idSeccion;idSede;idTipoBeneficio;idEstadoMatricula;mtcIndicador');
+        $this->task->setValues($Fecha . ';' . $Hora . ';' . $idUsuarioCarrera . ';' . $idCiclo . ';' . $idSeccion . ';' . $idSede . ';' . $idTipoBeneficio . ';' . $idEstadoMatricula . ';' . $Indicador);
         $result[0] = $this->task->executeInsert('idMatricula');
         $result[1] = $idMatricula;
         return $result;
     }
-    
-    public function ExecuteUpdate($objMatricula){
+
+    public function ExecuteUpdate($objMatricula) {
         $idMatricula = $objMatricula->getIdMatricula();
         $idSede = $objMatricula->getIdSede();
+        $idTipoBeneficio = $objMatricula->getIdTipoBeneficio();
         $this->task->setTables(self::TABLE);
-        $this->task->setFields('idSede');
-        $this->task->setValues($idSede);
+        $this->task->setFields('idSede;idTipoBeneficio');
+        $this->task->setValues($idSede . ';' . $idTipoBeneficio);
         $this->task->setWhereFields('idMatricula');
         $this->task->setWhereLogical('=');
         $this->task->setWhereValues($idMatricula);
@@ -46,8 +48,8 @@ class MatriculaDAO {
         $result[1] = $idMatricula;
         return $result;
     }
-    
-    public function ExecuteDelete($objMatricula){       
+
+    public function ExecuteDelete($objMatricula) {
         $idMatricula = $objMatricula->getIdMatricula();
         $this->task->setTables(self::TABLE);
         $this->task->setFields('mtcIndicador');
@@ -84,9 +86,9 @@ class MatriculaDAO {
     public function SearchMatriculaID($objMatricula) {
         $idMatricula = $objMatricula->getIdMatricula();
         $this->task->setTables(self::TABLE . ';usuariocarrera;seccion');
-        $this->task->setFields('idMatricula;mtcFecha;mtcHora;idUsuarioCarrera;idCarrera;idUsuario;idCiclo;idSeccion;idTurno;idSede;idEstadoMatricula;mtcIndicador');
-        $this->task->setIndex('0;0;0;0;1;1;0;0;2;0;0;0');
-        $this->task->setTypeJoin('inner');
+        $this->task->setFields('idMatricula;mtcFecha;mtcHora;idUsuarioCarrera;idCarrera;idUsuario;idCiclo;idSeccion;idTurno;idSede;idTipoBeneficio;idEstadoMatricula;mtcIndicador');
+        $this->task->setIndex('0;0;0;0;1;1;0;0;2;0;0;0;0');
+        $this->task->setTypeJoin('inner;inner');
         $this->task->setOnJoin('m0.idUsuarioCarrera=u1.idUsuarioCarrera;m0.idSeccion=s2.idSeccion');
         $this->task->setWhereFields('m0.idMatricula');
         $this->task->setWhereLogical('=');

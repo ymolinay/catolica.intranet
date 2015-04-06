@@ -16,13 +16,6 @@
 {include file="../structure/contentWinget.tpl"}
 <form id="formSeccion" name="formSeccion" class="form-horizontal" role="form" >
     <div class="form-group">
-        <label class="col-lg-2 control-label">Descripción</label>
-        <div class="col-lg-4">
-            <input type="text" class="notVisible" id="inputIdSeccion" name="inputIdSeccion">
-            <input type="text" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripcion" >
-        </div>
-    </div>
-    <div class="form-group">
         <label class="col-lg-2 control-label">Cant. Máxima</label>
         <div class="col-lg-2">
             <input type="text" class="form-control" id="inputCantMaxima" name="inputCantMaxima" placeholder="Cantidad Máxima" >
@@ -61,9 +54,30 @@
     <div class="form-group">
         <label class="col-lg-2 control-label">Carrera</label>
         <div class="col-lg-3">
-            <select id="inputCarrera" name="inputCarrera" class="form-control">
-                <option selected="selected" value="">Seleccionar Carrera</option>
+            <select id="inputCarrera" name="inputCarrera" class="form-control" onchange="comboboxCiclos();">
+                <option value="">Seleccionar Carrera</option>
             </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Ciclo</label>
+        <div class="col-lg-3">
+            <select class="form-control" name="idCiclo" id="idCiclo">
+                <option value="" selected="selected">Seleccionar Ciclo</option>
+                <option value="1">1ro</option>
+                <option value="2">2do</option>
+                <option value="3">3ro</option>
+                <option value="4">4to</option>
+                <option value="5">5to</option>
+                <option value="6">6to</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Descripción</label>
+        <div class="col-lg-4">
+            <input type="text" class="notVisible" id="inputIdSeccion" name="inputIdSeccion">
+            <input type="text" class="form-control" id="inputDescripcion" name="inputDescripcion" placeholder="Descripcion" >
         </div>
     </div>
     <div class="col-lg-8 col-lg-offset-4">

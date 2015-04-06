@@ -3,6 +3,7 @@ $(document).ready(function () {
     $('#insFin').datetimepicker({pickTime: false});
     comboboxTurno();
     comboboxCarrera();
+    comboboxCiclos();
     gridSeccion();
 });
 
@@ -12,7 +13,9 @@ function comboboxCarrera() {
     var result = jqueryAjax(url, false, '');
     var jsonCarrera = jQuery.parseJSON(result);
     for (i = 0; i < jsonCarrera.length; i++) {
-        $('#inputCarrera').append(new Option(jsonCarrera[i].carDescripcion, jsonCarrera[i].idCarrera));
+        var opt = new Option(jsonCarrera[i].carDescripcion, jsonCarrera[i].idCarrera);
+        opt.setAttribute("data-maxCiclo", jsonCarrera[i].carPeriodos);
+        $('#inputCarrera').append(opt);
     }
 }
 
@@ -26,6 +29,22 @@ function comboboxTurno() {
     }
 }
 
+function comboboxCiclos() {
+    var carrera = $('#inputCarrera');
+    if (carrera.val() == '') {
+        $('#idCiclo option[value!=""]').remove();
+    } else {
+        $('#idCiclo option[value!=""]').remove();
+        var _max = carrera.find(':selected').data('maxciclo');
+        var url = baseHTTP + 'controller/__ciclo.php?action=comboboxMax&maxCiclo=' + _max;
+        var result = jqueryAjax(url, false, '');
+        var ciclo = jQuery.parseJSON(result);
+        for (i = 0; i < ciclo.length; i++) {
+            $('#idCiclo').append(new Option(ciclo[i].cloDescripcion, ciclo[i].idCiclo));
+        }
+    }
+}
+
 function gridSeccion() {
     var descripcion = $('#inputDescripcion').val();
     descripcion = (descripcion === undefined) ? '' : descripcion;
@@ -33,29 +52,32 @@ function gridSeccion() {
     turno = (turno === undefined) ? '' : turno;
     var carrera = $('#inputCarrera').val();
     carrera = (carrera === undefined) ? '' : carrera;
+    var ciclo = $('#idCiclo').val();
+    ciclo = (ciclo === undefined) ? '' : ciclo;
 
     var objGrid = {
         div: 'tableSeccion',
         url: baseHTTP + 'controller/__grid.php?action=loadGrid',
-        table: 'seccion;carrera;turno',
-        colNames: ['', 'Sección', 'Cant. Máxima', 'Inicio', 'Fin', 'Turno', 'Carrera'],
+        table: 'seccion;carrera;turno;ciclo',
+        colNames: ['', 'SECCIÓN', 'CANT. MÁXIMA', 'INICIO', 'FIN', 'CICLO', 'TURNO', 'CARRERA'],
         colModel: [
             {name: 'idSeccion', index: '0'},
             {name: 'scnDescripcion', index: '0'},
             {name: 'scnCantMaxima', index: '0'},
             {name: 'scnInicio', index: '0'},
             {name: 'scnFin', index: '0'},
+            {name: 'cloDescripcion', index: '3'},
             {name: 'troDescripcion', index: '2'},
             {name: 'carDescripcion', index: '1'}
         ],
         join: {
-            type: 'inner;inner',
-            on: 's0.idCarrera=c1.idCarrera;s0.idTurno=t2.idTurno'
+            type: 'inner;inner;inner',
+            on: 's0.idCarrera=c1.idCarrera;s0.idTurno=t2.idTurno;s0.idCiclo=c3.idCiclo'
         },
         where: {
-            fields: 's0.scnDescripcion;s0.idTurno;s0.idCarrera;s0.scnIndicador',
-            logical: 'like;like;like;=',
-            values: descripcion + '%;' + turno + '%;' + carrera + '%;1'
+            fields: 's0.scnDescripcion;s0.idTurno;s0.idCarrera;s0.idCiclo;s0.scnIndicador',
+            logical: 'like;like;like;like;=',
+            values: descripcion + '%;' + turno + '%;' + carrera + '%;' + ciclo + '%;1'
         },
         page: 1,
         rowNum: 10,
@@ -143,4 +165,6 @@ function editSeccion(_id) {
 
     $('#inputTurno').val(jsonSeccion.idTurno);
     $('#inputCarrera').val(jsonSeccion.idCarrera);
+    comboboxCiclos();
+    $('#idCiclo').val(jsonSeccion.idCiclo);
 }
