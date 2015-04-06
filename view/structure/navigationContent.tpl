@@ -57,10 +57,12 @@ perfil
         </ul>
     </li>
     {/if}
-    {if $sessionIdPerfil==1 or $sessionIdPerfil==4}  
+    {if $sessionIdPerfil==1 or $sessionIdPerfil==3 or $sessionIdPerfil==4}  
     <li {$VActive[6]} class="has_sub"><a href=""><i class="fa fa-briefcase"></i> Docentes  <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a> 
         <ul>
+            {if $sessionIdPerfil==1 or $sessionIdPerfil==3}  
             <li><a href="asignarCursos.php">Asignar Cursos</a></li>
+            {/if}
             <li><a href="ingresarNotas.php">Ingresar Notas</a></li>
         </ul>
     </li>

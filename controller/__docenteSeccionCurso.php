@@ -29,3 +29,21 @@ if ($action == 'save') {
     $error = ($resultDocenteSeccionCurso !== TRUE) ? TRUE : FALSE;
     echo ($error) ? 'fail' : 'success';
 }
+
+if ($action == "comboboxDocente") {
+    $idPerfil = $_SESSION['sessionIdPerfil'];
+    /* if ($idPerfil == 4) {
+      $idUsuario = $_SESSION['sessionIdUsuario'];
+      } else if ($idPerfil == 3 || $idPerfil == 1) {
+      $idUsuario = '';
+      } */
+    $idUsuario = ($idPerfil == 4) ? $_SESSION['sessionIdUsuario'] : (($idPerfil == 3 || $idPerfil == 1) ? '' : 'undefined');
+    $objDocenteSeccionCursoDAO->objDocenteSeccionCurso->setIdUsuario($idUsuario);
+    $cbx = false;
+    $combo = array();
+    $combo = $objDocenteSeccionCursoDAO->CompleteComboboxDocente($objDocenteSeccionCursoDAO->objDocenteSeccionCurso);
+    foreach ($combo as $key => $val) {
+        $cbx[$key] = array("idDocenteSeccionCurso" => $idDocenteSeccionCurso, "idUsuario" => $val->idUsuario, "prsNombre" => $val->prsNombre, "prsApellidoPaterno" => $val->prsApellidoPaterno, "prsApellidoMaterno" => $val->prsApellidoMaterno, "prsDNI" => $val->prsDNI);
+    }
+    echo json_encode($cbx);
+}
