@@ -33,7 +33,7 @@ function gridAlumnos() {
             values: '%' + Name + '%;%' + FName + '%;%' + MName + '%;%' + DNI + '%;2'
         },
         page: 1,
-        rowNum: 5,
+        rowNum: 10,
         sortName: 'idPersonal',
         sortOrder: 'asc',
         title: 'ALUMNOS',

@@ -121,3 +121,16 @@
 .clearFileInput{
     display: inline-block;
 }
+
+.contentRatingStudent{
+    padding: 3px 0 !important;
+    text-align: center;
+}
+
+.inputRatingStudent{
+    border: 1px solid #ccc;
+    border-radius: 0;
+    padding: 0;
+    text-align: center;
+    width: 40px;
+}

@@ -43,4 +43,19 @@ class MatriculaNotasDAO {
         return $this->task->executeInsert('idMatriculaNotas');
     }
 
+    public function SearchRatingsStudentsOfSeccionPlanEstudio($objMatriculaNotas, $idCarrera, $idCiclo, $idPlanEstudio, $idTurno, $idSeccion) {
+        $indicador = $objMatriculaNotas->getIndicador();
+        $this->task->setTables(self::TABLE . ';matriculadetalle;matricula;usuariocarrera;usuario;personal;planestudio;curso;carrera;ciclo;seccion;turno');
+        $this->task->setFields('idMatriculaNotas;mntU1Ev1;mntU1Ev2;mntU1Ev3;mntU1Ev4;mntU1PromPract;mntU1ExParcial;mntU1Promedio;mntU2Ev1;mntU2Ev2;mntU2Ev3;mntU2Ev4;mntU2PromPract;mntU2Trabajo;mntU2ExFinal;mntU2Promedio;mntSusti;mntPromedioFinal;idMatriculaDetalle;idMatricula;idUsuarioCarrera;idUsuario;idPersonal;prsNombre;prsApellidoPaterno;prsApellidoMaterno;prsDNI;idCarrera;carDescripcion;idCiclo;cloDescripcion;idSeccion;scnDescripcion;idPlanEstudio;crsNombre;idTurno;troDescripcion');
+        $this->task->setIndex('0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;1;2;3;4;5;5;5;5;6;8;2;9;2;10;1;7;10;11');
+        $this->task->setTypeJoin('inner;inner;inner;inner;inner;inner;inner;inner;inner;inner;inner');
+        $this->task->setOnJoin('m0.idMatriculaDetalle=m1.idMatriculaDetalle;m1.idMatricula=m2.idMatricula;m2.idUsuarioCarrera=u3.idUsuarioCarrera;u3.idUsuario=u4.idUsuario;u4.idPersonal=p5.idPersonal;m1.idPlanEstudio=p6.idPlanEstudio;p6.idCurso=c7.idCurso;p6.idCarrera=c8.idCarrera;m2.idCiclo=c9.idCiclo;m2.idSeccion=s10.idSeccion;s10.idTurno=t11.idTurno');
+        $this->task->setWhereFields('u3.idCarrera;m2.idCiclo;m1.idPlanEstudio;s10.idTurno;m2.idSeccion;m2.mtcIndicador;m1.mtdIndicador;m0.mntIndicador');
+        $this->task->setWhereLogical('=;=;=;=;=;=;=;=');
+        $this->task->setWhereValues($idCarrera . ';' . $idCiclo . ';' . $idPlanEstudio . ';' . $idTurno . ';' . $idSeccion . ';1;1;1');
+        $this->task->setOrder('CONCAT(p5.prsApellidoPaterno,p5.prsApellidoMaterno,p5.prsNombre)');
+        $this->task->setValuesOrder('asc');
+        return $this->task->executeMultiSelect();
+    }
+
 }

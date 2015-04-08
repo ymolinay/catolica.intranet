@@ -67,14 +67,17 @@
             <div class="form-group">
                 <div class="col-lg-offset-2 col-lg-6">
                     <!--<button type="button" class="btn btn-sm btn-primary" onclick="verDetallePlanEstudio();">Ver Cursos</button>-->
-                    <button type="button" class="btn btn-sm btn-info" onclick="">Ver Alumnos y Notas</button>
+                    <button type="button" class="btn btn-sm btn-info" onclick="SearchRatingsStudentsOfSeccionPlanEstudio();">Ver Alumnos y Notas</button>
                     <button type="button" class="btn btn-sm btn-default" onclick="clearFormNotas();">Limpiar</button>
                 </div>
             </div>
         {include file="../structure/endWinget.tpl"}
     </form>
     
-    <div class="tableDocentesCursos widget"></div>
+    <form id="formRatingsNotasStudents" name="formRatingsNotasStudents">
+        <div class="tableDocentesCursos widget"></div>
+    </form>
+    
 
     
 <!-- -->
