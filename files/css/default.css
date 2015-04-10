@@ -175,10 +175,10 @@ input[value="20"].inputRatingStudent{color: rgb(0,0,0);}
     box-shadow: none;
 }
 
-#data-table > tbody > tr {
+#formRatingsNotasStudents #data-table > tbody > tr {
     cursor: pointer;
 }
-#data-table tr.active td {
+#formRatingsNotasStudents #data-table tr.active td {
     background: none repeat scroll 0 0 #bfbfbf;
     font-weight: bold;
 }

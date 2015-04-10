@@ -84,6 +84,7 @@ class MatriculaNotasDAO {
         $this->task->setWhereFields('u3.idCarrera;m2.idCiclo;m1.idPlanEstudio;s10.idTurno;m2.idSeccion;m2.mtcIndicador;m1.mtdIndicador;m0.mntIndicador');
         $this->task->setWhereLogical('=;=;=;=;=;=;=;=');
         $this->task->setWhereValues($idCarrera . ';' . $idCiclo . ';' . $idPlanEstudio . ';' . $idTurno . ';' . $idSeccion . ';1;1;1');
+        $this->task->setGroup('m0.idMatriculaNotas');
         $this->task->setOrder('CONCAT(p5.prsApellidoPaterno,p5.prsApellidoMaterno,p5.prsNombre)');
         $this->task->setValuesOrder('asc');
         return $this->task->executeMultiSelect();
