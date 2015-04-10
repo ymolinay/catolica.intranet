@@ -134,3 +134,51 @@
     text-align: center;
     width: 40px;
 }
+
+input[value="0"].inputRatingStudent{color: rgb(255,0,0);}
+input[value="1"].inputRatingStudent{color: rgb(255,0,0);}
+input[value="2"].inputRatingStudent{color: rgb(255,0,0);}
+input[value="3"].inputRatingStudent{color: rgb(255,0,0);}
+input[value="4"].inputRatingStudent{color: rgb(255,0,0);}
+input[value="5"].inputRatingStudent{color: rgb(255,0,0);}
+input[value="6"].inputRatingStudent{color: rgb(255,0,0);}
+input[value="7"].inputRatingStudent{color: rgb(255,0,0);}
+input[value="8"].inputRatingStudent{color: rgb(255,0,0);}
+input[value="9"].inputRatingStudent{color: rgb(255,0,0);}
+input[value="10"].inputRatingStudent{color: rgb(255,0,0);}
+input[value="11"].inputRatingStudent{color: rgb(0,0,0);}
+input[value="12"].inputRatingStudent{color: rgb(0,0,0);}
+input[value="13"].inputRatingStudent{color: rgb(0,0,0);}
+input[value="14"].inputRatingStudent{color: rgb(0,0,0);}
+input[value="15"].inputRatingStudent{color: rgb(0,0,0);}
+input[value="16"].inputRatingStudent{color: rgb(0,0,0);}
+input[value="17"].inputRatingStudent{color: rgb(0,0,0);}
+input[value="18"].inputRatingStudent{color: rgb(0,0,0);}
+input[value="19"].inputRatingStudent{color: rgb(0,0,0);}
+input[value="20"].inputRatingStudent{color: rgb(0,0,0);}
+
+#formRatingsNotasStudents .INFormControl{
+    margin-bottom: 2px;
+}
+
+#formRatingsNotasStudents .INLeft{
+    display: inline-block;
+}
+
+#formRatingsNotasStudents .INRight{
+    display: inline-block;
+}
+
+#formRatingsNotasStudents .INFormControl .form-control{
+    background-color: rgba(0, 0, 0, 0);
+    border: medium none;
+    box-shadow: none;
+}
+
+#data-table > tbody > tr {
+    cursor: pointer;
+}
+#data-table tr.active td {
+    background: none repeat scroll 0 0 #bfbfbf;
+    font-weight: bold;
+}

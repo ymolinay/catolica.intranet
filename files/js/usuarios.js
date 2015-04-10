@@ -217,7 +217,7 @@ function gridUsuarios() {
             {name: 'prsCorreo'}
         ],
         page: 1,
-        rowNum: 5,
+        rowNum: 10,
         sortName: 'idPersonal',
         sortOrder: 'asc',
         title: 'USUARIOS',
