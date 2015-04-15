@@ -97,5 +97,19 @@ class MatriculaDAO {
         $this->task->setEndLimit('1');
         return $this->task->executeMultiSelect();
     }
+    
+    public function ExecuteCompleteCombobox() {
+        $this->task->setTables(self::TABLE . ';usuario');
+        $this->task->setFields('idUsuario;prsNombre;prsApellidoPaterno;prsApellidoMaterno;prsDNI');
+        $this->task->setIndex('1;0;0;0;0');
+        $this->task->setTypeJoin('inner');
+        $this->task->setOnJoin('p0.idPersonal=u1.idPersonal');
+        $this->task->setWhereFields('p0.prsIndicador;u1.usrIndicador');
+        $this->task->setWhereLogical('=;=');
+        $this->task->setWhereValues('1;1');
+        $this->task->setOrder('p0.prsApellidoPaterno');
+        $this->task->setValuesOrder('asc');
+        return $this->task->executeMultiSelect();
+    }
 
 }
