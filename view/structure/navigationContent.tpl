@@ -43,6 +43,7 @@ perfil
         <ul>
             <li><a href="registrarAlumno.php">Registrar Alumno</a></li>
             <li><a href="alumnos.php">Lista de Alumnos</a></li>
+            <li><a href="notas.php">Mis Notas</a></li>
         </ul>
     </li>
     {/if}

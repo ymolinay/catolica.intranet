@@ -151,3 +151,14 @@ if ($action == "delete") {
         echo 'errorCode';
     }
 }
+
+if ($action == 'combobox') {
+    $cbx = array();
+    $idUsuarioCarrera = $_GET['idUsuarioCarrera'];
+    $objMatriculaDAO->objMatricula->setIdUsuarioCarrera($idUsuarioCarrera);
+    $combo = $objMatriculaDAO->ExecuteCompleteCombobox($objMatriculaDAO->objMatricula);
+    foreach ($combo as $key => $val) {
+        $cbx[$key] = array("idMatricula" => $val->idMatricula, "mtcFecha" => $val->mtcFecha, "mtcHora" => $val->mtcHora, "idTipoBeneficio" => $val->idTipoBeneficio, "tboDescripcion" => $val->tboDescripcion, "idSeccion" => $val->idSeccion, "scnDescripcion" => $val->scnDescripcion, "idSede" => $val->idSede, "sdeNombre" => $val->sdeNombre, "idEstadoMatricula" => $val->idEstadoMatricula, "etmDescripcion" => $val->etmDescripcion, "idCiclo" => $val->idCiclo, "cloDescripcion" => $val->cloDescripcion, "idTurno" => $val->idTurno, "troDescripcion" => $val->troDescripcion);
+    }
+    echo json_encode($cbx);
+}

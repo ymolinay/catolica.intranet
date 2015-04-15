@@ -97,17 +97,18 @@ class MatriculaDAO {
         $this->task->setEndLimit('1');
         return $this->task->executeMultiSelect();
     }
-    
-    public function ExecuteCompleteCombobox() {
-        $this->task->setTables(self::TABLE . ';usuario');
-        $this->task->setFields('idUsuario;prsNombre;prsApellidoPaterno;prsApellidoMaterno;prsDNI');
-        $this->task->setIndex('1;0;0;0;0');
-        $this->task->setTypeJoin('inner');
-        $this->task->setOnJoin('p0.idPersonal=u1.idPersonal');
-        $this->task->setWhereFields('p0.prsIndicador;u1.usrIndicador');
-        $this->task->setWhereLogical('=;=');
-        $this->task->setWhereValues('1;1');
-        $this->task->setOrder('p0.prsApellidoPaterno');
+
+    public function ExecuteCompleteCombobox($objMatricula) {
+        $idUsuarioCarrera = $objMatricula->getIdUsuarioCarrera();
+        $this->task->setTables(self::TABLE . ';usuariocarrera;tipobeneficio;seccion;sede;estadomatricula;ciclo;turno');
+        $this->task->setFields('idMatricula;mtcFecha;mtcHora;idUsuarioCarrera;idTipoBeneficio;tboDescripcion;idSeccion;scnDescripcion;idSede;sdeNombre;idEstadoMatricula;etmDescripcion;idCiclo;cloDescripcion;idTurno;troDescripcion');
+        $this->task->setIndex('0;0;0;1;0;2;0;3;0;4;0;5;0;6;3;7');
+        $this->task->setTypeJoin('inner;inner;inner;inner;inner;inner;inner');
+        $this->task->setOnJoin('m0.idUsuarioCarrera=u1.idUsuarioCarrera;m0.idTipoBeneficio=t2.idTipoBeneficio;m0.idSeccion=s3.idSeccion;m0.idSede=s4.idSede;m0.idEstadoMatricula=e5.idEstadoMatricula;m0.idCiclo=c6.idCiclo;s3.idTurno=t7.idTurno');
+        $this->task->setWhereFields('m0.idUsuarioCarrera;m0.mtcIndicador;u1.uocIndicador');
+        $this->task->setWhereLogical('=;=;=');
+        $this->task->setWhereValues($idUsuarioCarrera . ';1;1');
+        $this->task->setOrder('m0.idMatricula');
         $this->task->setValuesOrder('asc');
         return $this->task->executeMultiSelect();
     }

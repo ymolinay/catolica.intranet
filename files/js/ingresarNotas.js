@@ -152,10 +152,17 @@ function SearchRatingsStudentsOfSeccionPlanEstudio() {
         var rangeSeccion = true;
 
         if (!(dateValidCurrent >= dateValidStart && dateValidCurrent <= dateValidEnd)) {
+            var messaggeShowRating = '';
+            if(dateValidCurrent <= dateValidStart){
+                messaggeShowRating = '<strong>Fuera de Fecha!</strong> las notas no pueden ser editadas mientras las clases no hayan iniciado.';
+            } else if(dateValidCurrent >= dateValidEnd){
+                messaggeShowRating = '<strong>Fuera de Fecha!</strong> las notas no pueden ser editadas luego de que las clases hayan terminado.';
+            }
+            
             editRatings = ' disabled="disabled" ';
             messageAlertRating = '<div class="col-xs-12">'
                     + '<div role="alert" class="alert alert-danger" style="margin-bottom: 10px;padding: 5px 15px;">'
-                    + '<strong>Fuera de Fecha!</strong> las notas no pueden ser editadas.'
+                    + messaggeShowRating
                     + '</div>'
                     + '</div>';
             rangeSeccion = false;
@@ -446,7 +453,7 @@ function calculePromedioFinal(_ths) {
     var susti = parseFloat($('#_mntSusti-' + index).val());
     var u1promedio = parseFloat($('#_mntU1Promedio-' + index).val());
     var u2promedio = parseFloat($('#_mntU2Promedio-' + index).val());
-    if (u1exParcial < u2exFinal) {
+    if (u1exParcial <= u2exFinal) {
         if (u1exParcial < susti) {
             var u1promPract = parseFloat($('#_mntU1PromPract-' + index).val());
             var u1exParcial = susti;
