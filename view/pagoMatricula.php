@@ -5,9 +5,9 @@ $html->assign('titlePage', 'Pago Matricula');
 $html->assign('headerContent', 'Matricula');
 $html->assign('headerIconContent', 'fa fa-file');
 $html->assign('showSubHeader', 'si');
+$html->assign('subHeader', array('link' => 'pagoMatricula.php', 'title' => 'Matriculas', 'header' => 'Pago Matricula'));
 $html->assign('optionActive', '5');
-$html->assign('jsFile', $baseHTTP . 'files/js/fichaInscripcion.js');
-$html->assign('subHeader', array('link' => 'pagomatricula.php', 'title' => 'Matriculas', 'header' => 'Pago Matricula'));
+$html->assign('jsFile', $baseHTTP . 'files/js/pagoMatricula.js');
 //
 //mostrar sub header
 //$html->assign('subHeader',array('link'=>'configuracion.php','header'=>'Configuración'));

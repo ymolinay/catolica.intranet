@@ -13,82 +13,107 @@
 {include file="../structure/beginMatterContent.tpl"}
 <!-- contenido -->
 	<form id="formInscripcion" name="formInscripcion" class="form-horizontal" role="form" >
-    {include file="../structure/beginWinget.tpl"}PROCESAR PAGO MATRICULA
-	{include file="../structure/contentWinget.tpl"}
-    <input id="idInscripcion" name="idInscripcion" type="text" class="notVisible">
-    <input id="idInscripcionMarketing" name="idInscripcionMarketing" type="text" class="notVisible">
-    <input id="idPersonal" name="idPersonal" type="text" class="notVisible">
-    <!--<input id="userType" name="userType" type="hidden" value="YWx1bW5v">-->
-    <div class="form-group">
-    <label class="col-lg-2 control-label">ALUMNO</label>
-    <div class="col-lg-5">
-        <input id="insNombre" name="insNombre" type="text" class="form-control" placeholder="Nombres" value="Luis Armando Durand Martinez - 45110916" >
-    </div>
-    </div>
-    <div class="form-group">
-    <label class="col-lg-2 control-label">Tipo Pago</label>
-    <div class="col-lg-5">
-        <div class="radio">
-            <label>
-                <input type="radio" name="insSexo" id="insSexoM" value="M" checked="checked">Matricula
-            </label>
-         </div>
-        <div class="radio">
-            <label>
-                <input type="radio" name="insSexo" id="insSexoF" value="F" >Mensualidad
-            </label>
-         </div>	
-    </div>
-    </div>
-    <div class="form-group">
-    <label class="col-lg-2 control-label">Modo de Pago</label>
-    <div class="col-lg-3">
-        <select id="insEstadocivil" name="insEstadocivil" class="form-control">
-        <option value="1">Total</option>
-        </select>
-    </div>
-    
-    </div>
-     <div class="form-group">
-    <label class="col-lg-2 control-label">Tipo Comprobante</label>
-    <div class="col-lg-3">
-        <select id="tdocumento" name="tdocumento" class="form-control">
-        <option value="1">Recibo</option>
-         <option value="2">Boleta</option>
-          <option value="3">Factura</option>
-        </select>
-    </div>
-    
-    </div>
-    <div class="form-group">
-    <label class="col-lg-2 control-label">Monto</label>
-    <div class="col-lg-3">
-        <input id="insNombre" name="insNombre" type="text" class="form-control" placeholder="Pago" value="350,00" >
-    </div>
-    </div>
-    <div class="form-group">
-    <label class="col-lg-2 control-label">Descuento</label>
-    <div class="col-lg-3">
-        <input id="insNombre" name="insNombre" type="text" class="form-control" placeholder="Descuento" value="0,00" >
-    </div>
-    </div>
-    <div class="form-group">
-    <label class="col-lg-2 control-label">Fecha de Pago</label>
-    <div class="col-lg-3">
-       <div id="insFNacimiento" name="insFNacimiento" class="input-append input-group dtpicker">
-              <input id="FNacimiento" name="FNacimiento" data-format="dd-MM-yyyy" type="text" class="form-control">
-              <span class="input-group-addon add-on">
-                  <i data-time-icon="fa fa-times" data-date-icon="fa fa-calendar" class="fa fa-calendar"></i>
-              </span>
-          </div>
-    </div>
-    </div>
-    
-    <div class="col-lg-5 col-lg-offset-5">
-		<button type="button" class="btn btn-info btn-sm" onclick="finalizarPago()" >Registrar</button>
-		<button type="reset" class="btn btn-default btn-sm" >Limpiar</button>
-	</div><br />
-    {include file="../structure/endWinget.tpl"}
+		{include file="../structure/beginWinget.tpl"}PROCESAR PAGO MATRICULA
+		{include file="../structure/contentWinget.tpl"}
+			<input id="idInscripcion" name="idInscripcion" type="text" class="notVisible">
+			<input id="idInscripcionMarketing" name="idInscripcionMarketing" type="text" class="notVisible">
+			<input id="idPersonal" name="idPersonal" type="text" class="notVisible">
+			<!--<input id="userType" name="userType" type="hidden" value="YWx1bW5v">-->
+			<div class="form-group">
+                <label class="col-lg-2 control-label">Carrera</label>
+                <div class="col-lg-5">
+                    <select id="idCarrera" name="idCarrera" class="form-control" onchange="comboboxUsuarioCarrera()">
+                        <option selected="selected" value="">Seleccionar Carrera</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Estudiante</label>
+                <div class="col-lg-5">
+                    <select id="idUsuarioCarrera" name="idUsuarioCarrera" class="form-control" onchange="showExtraData();comboboxMatricula();">
+                        <option selected="selected" value="">Seleccionar Estudiante</option>
+                    </select>
+                </div>
+                <span id="mensajeDNI" class="label label-info" style="padding:10px;">No se seleccionó estudiante.</span>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Matrícula</label>
+                <div class="col-lg-5">
+                    <select id="idMatricula" name="idMatricula" class="form-control" onchange="showExtraData();">
+                        <option selected="selected" value="">Seleccionar Matrícula</option>
+                    </select>
+                </div>
+            </div>
+			<div class="form-group">
+                <div class="clearfix col-lg-10 col-lg-offset-2">
+                    <span id="mensajeCiclo" class="label label-info matriculaNFO" style="padding:10px;">No se seleccionó Matrícula.</span>
+                    <span id="mensajeSeccion" class="label label-info matriculaNFO" style="padding:10px;">No se seleccionó Matrícula.</span>
+                    <span id="mensajeTurno" class="label label-info matriculaNFO" style="padding:10px;">No se seleccionó Matrícula.</span>
+                    <span id="mensajeSede" class="label label-info matriculaNFO" style="padding:10px;">No se seleccionó Matrícula.</span>
+                    <span id="mensajeEstado" class="label label-info matriculaNFO" style="padding:10px;">No se seleccionó Matrícula.</span>
+                </div>
+            </div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">Tipo Pago</label>
+				<div class="col-lg-5">
+					<div class="radio">
+						<label>
+							<input type="radio" name="insSexo" id="insSexoM" value="M" checked="checked">Matricula
+						</label>
+					</div>
+					<div class="radio">
+						<label>
+							<input type="radio" name="insSexo" id="insSexoF" value="F" >Mensualidad
+						</label>
+					 </div>	
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">Modo de Pago</label>
+				<div class="col-lg-3">
+					<select id="insEstadocivil" name="insEstadocivil" class="form-control">
+						<option value="1">Total</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">Tipo Comprobante</label>
+				<div class="col-lg-3">
+					<select id="tdocumento" name="tdocumento" class="form-control">
+						<option value="1">Recibo</option>
+						<option value="2">Boleta</option>
+						<option value="3">Factura</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">Monto</label>
+				<div class="col-lg-3">
+					<input id="insNombre" name="insNombre" type="text" class="form-control" placeholder="Pago" value="350,00" >
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">Descuento</label>
+				<div class="col-lg-3">
+					<input id="insNombre" name="insNombre" type="text" class="form-control" placeholder="Descuento" value="0,00" >
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">Fecha de Pago</label>
+				<div class="col-lg-3">
+					<div id="insFNacimiento" name="insFNacimiento" class="input-append input-group dtpicker">
+						<input id="FNacimiento" name="FNacimiento" data-format="dd-MM-yyyy" type="text" class="form-control">
+						<span class="input-group-addon add-on">
+							<i data-time-icon="fa fa-times" data-date-icon="fa fa-calendar" class="fa fa-calendar"></i>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-5 col-lg-offset-5">
+				<button type="button" class="btn btn-info btn-sm" onclick="finalizarPago()" >Registrar</button>
+				<button type="reset" class="btn btn-default btn-sm" >Limpiar</button>
+			</div>
+		{include file="../structure/endWinget.tpl"}
     </form>
 <!-- -->
 {include file="../structure/endMatterContent.tpl"}
