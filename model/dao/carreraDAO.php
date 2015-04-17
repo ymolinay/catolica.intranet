@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__.'/../config/mysqli.data.php';
-require_once __DIR__.'/../entity/carrera.php';
+require_once __DIR__ . '/../config/mysqli.data.php';
+require_once __DIR__ . '/../entity/carrera.php';
 
 class CarreraDAO {
 
@@ -17,7 +17,7 @@ class CarreraDAO {
 
     public function SearchAllData() {
         $this->task->setTables(self::TABLE);
-        $this->task->setFields('idCarrera;carDescripcion;carPeriodos;idCosto');
+        $this->task->setFields('idCarrera;carDescripcion;carPeriodos;carMeses;idCosto');
         $this->task->setOrder('carDescripcion');
         $this->task->setValuesOrder('asc');
         return $this->task->executeSelect();
@@ -26,7 +26,7 @@ class CarreraDAO {
     public function ExecuteSearch($objCarrera) {
         $idCarrera = $objCarrera->getIdCarrera();
         $this->task->setTables(self::TABLE);
-        $this->task->setFields('idCarrera;carDescripcion;carPeriodos;idCosto');
+        $this->task->setFields('idCarrera;carDescripcion;carPeriodos;carMeses;idCosto');
         $this->task->setWhereFields('idCarrera');
         $this->task->setWhereLogical('=');
         $this->task->setWhereValues($idCarrera);
@@ -38,11 +38,12 @@ class CarreraDAO {
     public function ExecuteSave($objCarrera) {
         $descripcion = $objCarrera->getDescripcion();
         $periodos = $objCarrera->getPeriodos();
+        $meses = $objCarrera->getMeses();
         $idCosto = $objCarrera->getIdCosto();
 
         $this->task->setTables(self::TABLE);
-        $this->task->setFields('idCarrera;carDescripcion;carPeriodos;idCosto');
-        $this->task->setValues($descripcion . ';' . $periodos . ';' . $idCosto);
+        $this->task->setFields('idCarrera;carDescripcion;carPeriodos;carMeses;idCosto');
+        $this->task->setValues($descripcion . ';' . $periodos . ';' . $meses . ';' . $idCosto);
         return $this->task->executeInsert('idCarrera');
     }
 
@@ -50,11 +51,12 @@ class CarreraDAO {
         $idCarrera = $objCarrera->getIdCarrera();
         $descripcion = $objCarrera->getDescripcion();
         $periodos = $objCarrera->getPeriodos();
+        $meses = $objCarrera->getMeses();
         $idCosto = $objCarrera->getIdCosto();
 
         $this->task->setTables(self::TABLE);
-        $this->task->setFields('carDescripcion;carPeriodos;idCosto');
-        $this->task->setValues($descripcion . ';' . $periodos . ';' . $idCosto);
+        $this->task->setFields('carDescripcion;carPeriodos;carMeses;idCosto');
+        $this->task->setValues($descripcion . ';' . $periodos . ';' . $meses . ';' . $idCosto);
         $this->task->setWhereFields('idCarrera');
         $this->task->setWhereLogical('=');
         $this->task->setWhereValues($idCarrera);

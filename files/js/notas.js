@@ -37,7 +37,7 @@ function comboboxUsuarioCarrera() {
 function comboboxMatricula() {
     var idUsuarioCarrera = $('#idUsuarioCarrera').val();
     $('#idMatricula option[value!=""]').remove();
-    var url = baseHTTP + 'controller/__matricula.php?action=combobox&idUsuarioCarrera='+idUsuarioCarrera;
+    var url = baseHTTP + 'controller/__matricula.php?action=combobox&idUsuarioCarrera=' + idUsuarioCarrera;
     var result = jqueryAjax(url, false, '');
     var jsonMatricula = jQuery.parseJSON(result);
     for (i = 0; i < jsonMatricula.length; i++) {
@@ -66,12 +66,12 @@ function showExtraData() {
         $("#mensajeDNI").removeClass("label-danger");
         $("#mensajeDNI").html("DNI: " + _dni);
     }
-    if(matricula.val()==''){
+    if (matricula.val() == '') {
         $(".matriculaNFO").removeClass("label-danger");
         $(".matriculaNFO").removeClass("label-success");
         $(".matriculaNFO").addClass("label-info");
         $(".matriculaNFO").html("No se seleccionó Matrícula.");
-    }else{
+    } else {
         var _ciclo = matricula.find(':selected').data('ciclo');
         var _seccion = matricula.find(':selected').data('seccion');
         var _turno = matricula.find(':selected').data('turno');
@@ -103,4 +103,80 @@ function showExtraData() {
         $("#mensajeEstado").removeClass("label-danger");
         $("#mensajeEstado").html("Estado: " + _estado);
     }
+}
+
+function gridRatings() {
+    var idCarrera = $('#idCarrera').val();
+    var idUsuaarioCarrera = $('#idUsuarioCarrera').val();
+    var idMatricula = $('#idMatricula').val();
+    if (validateShowRatings()) {
+        var objGrid = {
+            div: 'tableMyRatings',
+            url: baseHTTP + 'controller/__grid.php?action=loadGrid',
+            table: 'matricula;matriculadetalle;planestudio;curso;matriculanotas',
+            colNames: ['', 'CURSO', 'Ev1', 'Ev2', 'Ev3', 'Ev4', 'PromPract', 'ExParcial', 'Promedio', 'Ev1', 'Ev2', 'Ev3', 'Ev4', 'PromPract', 'Trabajo', 'ExFinal', 'Promedio', 'Susti', 'PromedioFinal'],
+            colNamesStyles: ['', 'CURSO', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+            colModel: [
+                {name: 'idMatriculaNotas', index: '4', align: 'center'},
+                {name: 'crsNombre', index: '3', align: 'left', class: 'cursoRatingName'},
+                {name: 'mntU1Ev1', index: '4', align: 'center', class: 'inputRatingStudent'},
+                {name: 'mntU1Ev2', index: '4', align: 'center', class: 'inputRatingStudent'},
+                {name: 'mntU1Ev3', index: '4', align: 'center', class: 'inputRatingStudent'},
+                {name: 'mntU1Ev4', index: '4', align: 'center', class: 'inputRatingStudent'},
+                {name: 'mntU1PromPract', index: '4', align: 'center', class: 'inputRatingStudent'},
+                {name: 'mntU1ExParcial', index: '4', align: 'center', class: 'inputRatingStudent'},
+                {name: 'mntU1Promedio', index: '4', align: 'center', class: 'inputRatingStudent'},
+                {name: 'mntU2Ev1', index: '4', align: 'center', class: 'inputRatingStudent'},
+                {name: 'mntU2Ev2', index: '4', align: 'center', class: 'inputRatingStudent'},
+                {name: 'mntU2Ev3', index: '4', align: 'center', class: 'inputRatingStudent'},
+                {name: 'mntU2Ev4', index: '4', align: 'center', class: 'inputRatingStudent'},
+                {name: 'mntU2PromPract', index: '4', align: 'center', class: 'inputRatingStudent'},
+                {name: 'mntU2Trabajo', index: '4', align: 'center', class: 'inputRatingStudent'},
+                {name: 'mntU2ExFinal', index: '4', align: 'center', class: 'inputRatingStudent'},
+                {name: 'mntU2Promedio', index: '4', align: 'center', class: 'inputRatingStudent'},
+                {name: 'mntSusti', index: '4', align: 'center', class: 'inputRatingStudent'},
+                {name: 'mntPromedioFinal', index: '4', align: 'center', class: 'inputRatingStudent'},
+            ],
+            join: {
+                type: 'inner;inner;inner;inner',
+                on: 'm0.idMatricula=m1.idMatricula;m1.idPlanEstudio=p2.idPlanEstudio;p2.idCurso=c3.idCurso;m1.idMatriculaDetalle=m4.idMatriculaDetalle'
+            },
+            where: {
+                fields: 'm0.idMatricula;m0.idUsuarioCarrera',
+                logical: 'like;like',
+                values: '%' + idMatricula + '%;%' + idUsuaarioCarrera
+            },
+            page: 1,
+            rowNum: 10,
+            sortName: 'c3.crsNombre',
+            sortOrder: 'asc',
+            title: 'NOTAS'
+        };
+        loadGrid(objGrid);
+        var _btn = '';
+        $('.tableMyRatings div.widget-head div.widget-icons.pull-right').html(_btn);
+        validaRatings();
+    }
+}
+
+function validateShowRatings() {
+    if (validateFormControl('idCarrera', 'number', true, true, 'Seleccionar una Carrera')) {
+        if (validateFormControl('idUsuarioCarrera', 'number', true, true, 'Seleccionar una Carrera')) {
+            if (validateFormControl('idMatricula', 'number', true, true, 'Seleccionar una Carrera')) {
+                return true;
+            }
+        }
+    }
+}
+
+function validaRatings() {
+    $.each($('.tableMyRatings .table-responsive .inputRatingStudent'), function () {
+        var _ths = $(this);
+        var rating = $.trim(_ths.html());
+        if (rating<=10){
+            _ths.css({'color':'rgb(255,0,0)'});
+        } else {
+            _ths.css({'color':'rgb(0,0,0)'});
+        }
+    });
 }

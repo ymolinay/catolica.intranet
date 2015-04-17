@@ -331,7 +331,8 @@ class Task extends Data {
         switch ($_type) {
             case "oneTable": {
                     foreach ($mWhereFields as $key => $val) {
-                        if (!empty($mWhereValues[$key])) {
+                        //if (!empty($mWhereValues[$key])) {
+                        if (trim($mWhereValues[$key]) !== '') {
                             $this->whereFields[$key] = $this->getAlias(0) . "." . $val . " " . $mWhereLogical[$key] . " '" . $mWhereValues[$key] . "'";
                         }
                     }

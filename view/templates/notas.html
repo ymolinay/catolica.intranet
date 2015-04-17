@@ -18,7 +18,7 @@
             <div class="form-group">
                 <label class="col-lg-2 control-label">Carrera</label>
                 <div class="col-lg-5">
-                    <select id="idCarrera" name="idCarrera" class="form-control" onchange="comboboxUsuarioCarrera()">
+                    <select id="idCarrera" name="idCarrera" class="form-control" onchange="comboboxUsuarioCarrera();showExtraData();comboboxMatricula();">
                         <option selected="selected" value="">Seleccionar Carrera</option>
                     </select>
                 </div>
@@ -50,14 +50,14 @@
                 </div>
             </div>
             <div class="col-lg-8 col-lg-offset-5">
-                <button type="button" class="btn btn-info btn-sm" onclick="javascript:gridAlumnos()" >Ver Notas</button>
+                <button type="button" class="btn btn-info btn-sm" onclick="gridRatings()" >Ver Notas</button>
                 <button type="reset" class="btn btn-default btn-sm" >Limpiar</button>
             </div><br />
         </form>
     {include file="../structure/endWinget.tpl"}
 <!-- -->
 <!-- contenido -->
-	<div class="tableRatings widget"></div>
+	<div class="tableMyRatings widget"></div>
 <!-- -->
 {include file="../structure/endMatterContent.tpl"}
 {include file="../structure/endMainbarContent.tpl"}

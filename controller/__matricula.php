@@ -155,6 +155,7 @@ if ($action == "delete") {
 if ($action == 'combobox') {
     $cbx = array();
     $idUsuarioCarrera = $_GET['idUsuarioCarrera'];
+    $idUsuarioCarrera = (!empty($idUsuarioCarrera)) ? $idUsuarioCarrera : 'undefined';
     $objMatriculaDAO->objMatricula->setIdUsuarioCarrera($idUsuarioCarrera);
     $combo = $objMatriculaDAO->ExecuteCompleteCombobox($objMatriculaDAO->objMatricula);
     foreach ($combo as $key => $val) {

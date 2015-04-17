@@ -182,3 +182,11 @@ input[value="20"].inputRatingStudent{color: rgb(0,0,0);}
     background: none repeat scroll 0 0 #bfbfbf;
     font-weight: bold;
 }
+
+.tableMyRatings div.table-responsive{
+    overflow-x: auto;
+}
+
+.tableMyRatings div.table-responsive td.cursoRatingName{
+    min-width: 240px;
+}

@@ -5,6 +5,7 @@ class Carrera {
     private $idCarrera;
     private $descripcion;
     private $periodos;
+    private $meses;
     private $idCosto;
 
     function getIdCarrera() {
@@ -17,6 +18,10 @@ class Carrera {
 
     function getPeriodos() {
         return $this->periodos;
+    }
+
+    function getMeses() {
+        return $this->meses;
     }
 
     function getIdCosto() {
@@ -33,6 +38,10 @@ class Carrera {
 
     function setPeriodos($periodos) {
         $this->periodos = $periodos;
+    }
+
+    function setMeses($meses) {
+        $this->meses = $meses;
     }
 
     function setIdCosto($idCosto) {

@@ -1,4 +1,5 @@
 var baseHTTP = "http://localhost/catolica.intranet/";
+//var baseHTTP = "http://www.perucatolica.com/intranet/";
 
 $.fn.datetimepicker.dates['en'] = {
     days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
@@ -585,7 +586,8 @@ function loadGrid(objGrid) {
             for (var j = 1; j <= data.rows[i].cell.length - 1; j++) {
                 //if(objGrid.colModel[j].hasOwnProperty('align')){}
                 var align = (objGrid.colModel[j].hasOwnProperty('align')) ? 'align = "' + objGrid.colModel[j].align + '"' : '';
-                table += '<td ' + align + '>' + data.rows[i].cell[j] + '</td>';
+                var _class = (objGrid.colModel[j].hasOwnProperty('class')) ? ' class = "' + objGrid.colModel[j].class + '"' : '';
+                table += '<td ' + align + _class + '>' + data.rows[i].cell[j] + '</td>';
             }
             table + '</tr>';
         }

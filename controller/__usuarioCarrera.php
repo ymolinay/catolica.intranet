@@ -83,7 +83,7 @@ if ($action == 'combobox') {
     $cbx = array();
     $combo = array();
     $idCarrera = $_GET['idCarrera'];
-    $idCarrera = (!empty($idCarrera)) ? $idCarrera : FALSE;
+    $idCarrera = (!empty($idCarrera)) ? $idCarrera : 'undefined';
     if($idCarrera){
         $objUsuarioCarreraDAO->objUsuarioCarrera->setIdCarrera($idCarrera);
         $combo = $objUsuarioCarreraDAO->ExecuteCompleteCombobox($objUsuarioCarreraDAO->objUsuarioCarrera);

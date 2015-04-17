@@ -153,3 +153,9 @@ if ($action == 'saveRatingsStudents') {
 
     echo ($error === TRUE) ? 'fail' : (($error === 'outOfRange') ? 'outOfRange' : 'success');
 }
+
+if($action=='viewMyRatings'){
+    $idCarrera=$_POST['idCarrera'];
+    $idEstudiante=$_POST['idUsuarioCarrera'];
+    $idMatricula=$_POST['idMatricula'];
+}
