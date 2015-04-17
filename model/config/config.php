@@ -2,8 +2,8 @@
 //genera valores de conexión
 class Config {
     public $host = 'localhost';
-    public $user = 'cato';
-    public $password = '_cato007_';
+    public $user = 'root';//cato
+    public $password = '';//_cato007_
     public $dataBase = 'catolicadb';
     public $baseHTTP = 'http://localhost/catolica.intranet/';
 //    public $host = '104.238.124.175';
