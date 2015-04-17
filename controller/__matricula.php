@@ -4,11 +4,13 @@ session_start();
 require_once __DIR__ . '/../model/dao/matriculaDAO.php';
 require_once __DIR__ . '/../model/dao/matriculaDetalleDAO.php';
 require_once __DIR__ . '/../model/dao/matriculaNotasDAO.php';
+require_once __DIR__ . '/../model/dao/tipoBeneficioDAO.php';
 require_once __DIR__ . '/../model/dao/gridDAO.php';
 
 $objMatriculaDAO = new MatriculaDAO();
 $objMatriculaDetalleDAO = new MatriculaDetalleDAO();
 $objMatriculaNotasDAO = new MatriculaNotasDAO();
+$objTipoBeneficioDAO = new TipoBeneficioDAO();
 $objGridDAO = new GridDAO();
 
 $action = $_GET["action"];
@@ -158,7 +160,30 @@ if ($action == 'combobox') {
     $objMatriculaDAO->objMatricula->setIdUsuarioCarrera($idUsuarioCarrera);
     $combo = $objMatriculaDAO->ExecuteCompleteCombobox($objMatriculaDAO->objMatricula);
     foreach ($combo as $key => $val) {
-        $cbx[$key] = array("idMatricula" => $val->idMatricula, "mtcFecha" => $val->mtcFecha, "mtcHora" => $val->mtcHora, "idTipoBeneficio" => $val->idTipoBeneficio, "tboDescripcion" => $val->tboDescripcion, "idSeccion" => $val->idSeccion, "scnDescripcion" => $val->scnDescripcion, "idSede" => $val->idSede, "sdeNombre" => $val->sdeNombre, "idEstadoMatricula" => $val->idEstadoMatricula, "etmDescripcion" => $val->etmDescripcion, "idCiclo" => $val->idCiclo, "cloDescripcion" => $val->cloDescripcion, "idTurno" => $val->idTurno, "troDescripcion" => $val->troDescripcion);
+		$objTipoBeneficioDAO->objTipoBeneficio->setIdTipoBeneficio($val->idTipoBeneficio);
+		$arrayBeneficio = $objTipoBeneficioDAO->SearchTipoBeneficio($objTipoBeneficioDAO->objTipoBeneficio);
+        $cbx[$key] = array(
+			"idMatricula" => $val->idMatricula, 
+			"mtcFecha" => $val->mtcFecha, 
+			"mtcHora" => $val->mtcHora, 
+			"idTipoBeneficio" => $val->idTipoBeneficio, 
+			"tboDescripcion" => $val->tboDescripcion, 
+			"idSeccion" => $val->idSeccion, 
+			"scnDescripcion" => $val->scnDescripcion, 
+			"idSede" => $val->idSede, 
+			"sdeNombre" => $val->sdeNombre, 
+			"idEstadoMatricula" => $val->idEstadoMatricula, 
+			"etmDescripcion" => $val->etmDescripcion, 
+			"idCiclo" => $val->idCiclo, 
+			"cloDescripcion" => $val->cloDescripcion, 
+			"idTurno" => $val->idTurno, 
+			"troDescripcion" => $val->troDescripcion, 
+			//"tboDescripcion" => $arrayBeneficio[0]->tboDescripcion,
+			"tboPagoMatricula" => $arrayBeneficio[0]->tboPagoMatricula,
+			"tboPagoMensual" => $arrayBeneficio[0]->tboPagoMensual,
+			"tboPaMatriculaDesc" => $arrayBeneficio[0]->tboPaMatriculaDesc,
+			"tboPaMensualDesc" => $arrayBeneficio[0]->tboPaMensualDesc
+		);
     }
     echo json_encode($cbx);
 }

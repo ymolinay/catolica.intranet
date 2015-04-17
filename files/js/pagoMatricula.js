@@ -97,6 +97,7 @@ function comboboxMatricula() {
         opt.setAttribute("data-turno", jsonMatricula[i].troDescripcion);
         opt.setAttribute("data-sede", jsonMatricula[i].sdeNombre);
         opt.setAttribute("data-estado", jsonMatricula[i].etmDescripcion);
+        opt.setAttribute("data-beneficio", jsonMatricula[i].tboDescripcion);
         $('#idMatricula').append(opt);
     }
 }
@@ -127,6 +128,7 @@ function showExtraData() {
         var _turno = matricula.find(':selected').data('turno');
         var _sede = matricula.find(':selected').data('sede');
         var _estado = matricula.find(':selected').data('estado');
+        var _beneficio = matricula.find(':selected').data('beneficio');
         /***************/
         $("#mensajeCiclo").addClass("label-info");
         $("#mensajeCiclo").removeClass("label-success");
@@ -152,6 +154,11 @@ function showExtraData() {
         $("#mensajeEstado").removeClass("label-success");
         $("#mensajeEstado").removeClass("label-danger");
         $("#mensajeEstado").html("Estado: " + _estado);
+        /***************/
+        $("#mensajeBeneficio").addClass("label-info");
+        $("#mensajeBeneficio").removeClass("label-success");
+        $("#mensajeBeneficio").removeClass("label-danger");
+        $("#mensajeBeneficio").html("Beneficio: " + _beneficio);
     }
 }
 //function generateMatricula() {
