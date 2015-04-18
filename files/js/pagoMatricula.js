@@ -5,6 +5,43 @@ $(document).ready(function () {
 	showExtraData();
 });
 
+function gridPagosMatricula() {
+    var idMatricula = $('#idMatricula').val();
+	
+	if(idMatricula > 0){
+		var objGrid = {
+			div: 'tablePagosMatricula',
+			url: baseHTTP + 'controller/__grid.php?action=loadGrid',
+			table: 'pagomatricula',
+			colNames: ['', 'TIPO PAGO', 'MODO PAGO', 'TIPO COMPROBANTE', 'MONTO', 'BENEFICIO', 'MONTO C/DESCUENTO', 'FECHA'],
+			colModel: [
+				{name: 'idPagoMatricula', index: '0', align: 'center'},
+				{name: 'pgmTipoPago', index: '0'},
+				{name: 'pgmModoPago', index: '0'},
+				{name: 'pgmTipoComprobante', index: '0'},
+				{name: 'pgmPago', index: '0'},
+				{name: 'pgmBeneficio', index: '0'},
+				{name: 'pgmPagoDesc', index: '0'},
+				{name: 'pgmFecha', index: '0'}
+			],
+			where: {
+				fields: 'p0.idMatricula',
+				logical: '=',
+				values: idMatricula
+			},
+			page: 1,
+			rowNum: 20,
+			sortName: 'idPagoMatricula',
+			sortOrder: 'asc',
+			title: 'PAGOS MATRICULAS',
+			check: ""
+		};
+		loadGrid(objGrid);
+		var _btn = '';
+		$('.tablePagosMatricula div.widget-head div.widget-icons.pull-right').html(_btn);
+	}
+}
+
 function validatePagoMatricula() {
     if (validateFormControl('idCarrera', 'number', true, true, 'Seleccionar Carrera.')) {
 		if (validateFormControl('idUsuarioCarrera', 'number', true, true, 'Seleccionar Estudiante.')) {
@@ -170,13 +207,13 @@ function showExtraData() {
 		$("#Beneficio").val(_beneficio);
 		$("#FPago").val( (day<10 ? '0' : '') + day + '-' + (month<10 ? '0' : '') + month + '-' + date.getFullYear() );
         /***************/
-		if(arrayCantidad.carMeses > arrayCantidad.pagos && arrayCantidad.pagos == 0)
+		if(arrayCantidad.pagos == 0)
 		{
 			$("#TipoPago").val("Matricula");
 			$("#Pago").val(_pagoMatricula);
 			$("#PagoDesc").val(_paMatriculaDesc);
 		}
-        else if(arrayCantidad.carMeses >= arrayCantidad.pagos && arrayCantidad.pagos > 0)
+        else if(arrayCantidad.carMeses >= (arrayCantidad.pagos - 1) && arrayCantidad.pagos > 0)
 		{
 			$("#TipoPago").val("Mensualidad");
 			$("#Pago").val(_pagoMensual);
