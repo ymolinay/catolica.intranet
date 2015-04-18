@@ -38,11 +38,13 @@ perfil
         </ul>
     </li>
     {/if}
-    {if $sessionIdPerfil==1 or $sessionIdPerfil==3}  
+    {if $sessionIdPerfil==1 or $sessionIdPerfil==2 or $sessionIdPerfil==3}  
     <li {$VActive[4]} class="has_sub"><a href=""><i class="fa fa-users"></i> Alumnos <span class="pull-right"><i class="fa fa-chevron-right"></i></span></a> 
         <ul>
+            {if $sessionIdPerfil==1 or $sessionIdPerfil==3}
             <li><a href="registrarAlumno.php">Registrar Alumno</a></li>
             <li><a href="alumnos.php">Lista de Alumnos</a></li>
+            {/if}
             <li><a href="notas.php">Mis Notas</a></li>
         </ul>
     </li>

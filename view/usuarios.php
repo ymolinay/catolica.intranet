@@ -1,6 +1,7 @@
 <?php
 
 include('../files/dll/includes.php');
+($sessionIdPerfil == 1 || $sessionIdPerfil == 3) ? '' : header('location:error404.php');
 $html->assign('titlePage', 'Usuarios');
 $html->assign('headerContent', 'Configuración Usuario');
 $html->assign('headerIconContent', 'fa fa-tasks');

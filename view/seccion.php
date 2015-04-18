@@ -1,6 +1,7 @@
 <?php
 
 include('../files/dll/includes.php');
+($sessionIdPerfil == 1 || $sessionIdPerfil == 3) ? '' : header('location:error404.php');
 $html->assign('titlePage', 'Secciones');
 $html->assign('headerContent', 'Configuración de Secciones');
 $html->assign('headerIconContent', 'fa fa-wrench');

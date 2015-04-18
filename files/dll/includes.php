@@ -12,7 +12,7 @@ $url = $_SERVER['REQUEST_URI'];
 $url = explode('/', $url);
 $url = explode('.', $url[count($url)-1]);
 $url = $url[0];
-if (!($_SESSION["sessionIdAcceso"]) && $url!='login') { header('location:' . $baseHTTP . 'view/login.php'); }
+if (!($_SESSION["sessionIdAcceso"]) && $url!='login' && $url!='error404') { header('location:' . $baseHTTP . 'view/login.php'); }
 /* .:: smarty ::. */
 require_once __DIR__ . '/smarty/libs/Smarty.class.php';
 $html = new Smarty;
@@ -31,6 +31,12 @@ $sessionIdPersonal = $_SESSION["sessionIdPersonal"];
 $sessionPersonal = $_SESSION["sessionPersonal"];
 $sessionEmail = $_SESSION["sessionEmail"];
 $sessionIdAcceso = $_SESSION["sessionIdAcceso"];
+/*Perfiles*/
+//1->administrador
+//2->alumno
+//3->administrativo
+//4->docente
+/*Perfiles-FIN*/
 //
 $html->assign('sessionIdUsuario', $sessionIdUsuario);
 $html->assign('sessionUsuario', $sessionUsuario);
