@@ -171,7 +171,7 @@ function showExtraData() {
         $("#mensajeEstado").html("Estado: " + _estado);
         /***************/
 		$("#insBeneficio").val(_beneficio);
-		$("#FPago").val( (day<10 ? '0' : '') + day + '/' + (month<10 ? '0' : '') + month + '/' + date.getFullYear() );
+		$("#FPago").val( (day<10 ? '0' : '') + day + '-' + (month<10 ? '0' : '') + month + '-' + date.getFullYear() );
         /***************/
 		if(false)
 		{
