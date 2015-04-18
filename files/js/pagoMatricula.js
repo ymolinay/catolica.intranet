@@ -2,57 +2,30 @@ $(document).ready(function () {
     comboboxCarrera();
     comboboxUsuarioCarrera();
 	comboboxMatricula();
+	showExtraData();
 });
 
-function validateMatricula() {
-    if (validateFormControl('idUsuarioCarrera', 'number', true, true, 'Estudiante / Inscripción no válido.')) {
-        if (validateFormControl('idCiclo', 'number', true, true, 'Seleccionar ciclo.')) {
-            if (validateFormControl('idSede', 'number', true, true, 'Seleccionar sede.')) {
-                if (validateFormControl('idSeccion', 'number', true, true, 'Seleccionar Seccion.')) {
-                    if (numberCheckCursos() > 0) {
-                        if (validateDuplicateMatricula() === 0) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-function validateShowCursos() {
-    if (validateFormControl('idUsuarioCarrera', 'number', true, true, 'Estudiante / Inscripción no válido.')) {
-        if (validateFormControl('idSede', 'number', true, true, 'Seleccionar sede.')) {
-            if (validateFormControl('idCiclo', 'number', true, true, 'Seleccionar ciclo.')) {
-                if (validateFormControl('idTurno', 'number', true, true, 'Seleccionar Turno.')) {
-                    if (validateFormControl('idSeccion', 'number', true, true, 'Seleccionar Seccion.')) {
-                        if (validateFormControl('idTipoBeneficio', 'number', true, true, 'Seleccionar Beneficio.')) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-function numberCheckCursos() {
-    var _count = 0;
-    //$("input[type=checkbox][name='_gridCheckBox[]']:checked").each(function () {
-    $('.tablePlanEstudiosMatricula tbody tr td input[type=checkbox][name="_gridCheckBox[]"]:checked').each(function () {
-        _count++;
-    });
-    openPopUp('Seleccionar cursos', 'Seleccionar al menos un curso.', '', '', '');
-    return _count;
-}
-
-function comboboxBeneficio() {
-    $('#idTipoBeneficio option[value!=""]').remove();
-    var url = baseHTTP + 'controller/__tipoBeneficio.php?action=combobox';
-    var result = jqueryAjax(url, false, '');
-    var jsonTipoBeneicio = jQuery.parseJSON(result);
-    for (i = 0; i < jsonTipoBeneicio.length; i++) {
-        $('#idTipoBeneficio').append(new Option(jsonTipoBeneicio[i].tboDescripcion + ' - (' + jsonTipoBeneicio[i].tboDescuentoPorcentaje + '%)', jsonTipoBeneicio[i].idTipoBeneficio));
+function validatePagoMatricula() {
+    if (validateFormControl('idCarrera', 'number', true, true, 'Seleccionar Carrera.')) {
+		if (validateFormControl('idUsuarioCarrera', 'number', true, true, 'Seleccionar Estudiante.')) {
+			if (validateFormControl('idMatricula', 'number', true, true, 'Seleccionar Matricula.')) {
+				if (validateFormControl('TipoPago', 'text', true, true, 'Indicar el Tipo de Pago.')) {
+					if (validateFormControl('ModoPago', 'text', true, true, 'Seleccionar Modo de Pago.')) {
+						if (validateFormControl('TipoComprobante', 'text', true, true, 'Seleccionar Tipo de Comprobante.')) {
+							if (validateFormControl('Pago', 'decimal', true, true, 'Ingresar Monto numérico.')) {
+								if (validateFormControl('Beneficio', 'text', true, true, 'Seleccionar Seccion.')) {
+									if (validateFormControl('PagoDesc', 'decimal', true, true, 'Ingresar Monto numérico.')) {
+										if (validateFormControl('FPago', 'date', true, true, 'Seleccionar una fecha correcta.')) {
+											return true;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
     }
 }
 
@@ -105,6 +78,25 @@ function comboboxMatricula() {
     }
 }
 
+function cantidadMeses() {
+    var idMatricula = $('#idMatricula').val();
+    var url = baseHTTP + 'controller/__pagoMatricula.php?action=countPago&idMatricula='+idMatricula;
+    var result = jqueryAjax(url, false, '');
+    var jsonPago = jQuery.parseJSON(result);
+    if (jsonPago[0].carMeses == jsonPago[0].pagos) {
+        $('#pagoPendiente').removeClass('label-success');
+        $('#pagoPendiente').addClass('label-default');
+        $('#pagoPendiente').html('No hay pagos pendientes.');
+		$('#buttonRegister').prop('disabled', true);
+    } else {
+        $('#pagoPendiente').addClass('label-success');
+        $('#pagoPendiente').removeClass('label-default');
+        $('#pagoPendiente').html('Pagos Pendientes encontrados.');
+		$('#buttonRegister').prop('disabled', false);
+    }
+	return jsonPago[0];
+}
+
 function showExtraData() {
     var student = $('#idUsuarioCarrera');
     var matricula = $('#idMatricula');
@@ -130,7 +122,12 @@ function showExtraData() {
 		$('input[type="text"]').each(function() {
 			$(this).val("");
 		});
+        $('#pagoPendiente').removeClass('label-success');
+        $('#pagoPendiente').addClass('label-default');
+        $('#pagoPendiente').html('No hay pagos pendientes.');
+		$('#buttonRegister').prop('disabled', true);
     }else{
+		var arrayCantidad = cantidadMeses();
         var _ciclo = matricula.find(':selected').data('ciclo');
         var _seccion = matricula.find(':selected').data('seccion');
         var _turno = matricula.find(':selected').data('turno');
@@ -170,20 +167,20 @@ function showExtraData() {
         $("#mensajeEstado").removeClass("label-danger");
         $("#mensajeEstado").html("Estado: " + _estado);
         /***************/
-		$("#insBeneficio").val(_beneficio);
+		$("#Beneficio").val(_beneficio);
 		$("#FPago").val( (day<10 ? '0' : '') + day + '-' + (month<10 ? '0' : '') + month + '-' + date.getFullYear() );
         /***************/
-		if(false)
+		if(arrayCantidad.carMeses > arrayCantidad.pagos && arrayCantidad.pagos == 0)
 		{
-			$("#insTipoPago").val("Matricula");
-			$("#insPago").val(_pagoMatricula);
-			$("#insPagoDesc").val(_paMatriculaDesc);
+			$("#TipoPago").val("Matricula");
+			$("#Pago").val(_pagoMatricula);
+			$("#PagoDesc").val(_paMatriculaDesc);
 		}
-        else
+        else if(arrayCantidad.carMeses >= arrayCantidad.pagos && arrayCantidad.pagos > 0)
 		{
-			$("#insTipoPago").val("Mensualidad");
-			$("#insPago").val(_pagoMensual);
-			$("#insPagoDesc").val(_paMensualDesc);
+			$("#TipoPago").val("Mensualidad");
+			$("#Pago").val(_pagoMensual);
+			$("#PagoDesc").val(_paMensualDesc);
 		}
     }
 }

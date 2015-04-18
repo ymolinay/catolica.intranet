@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../config/mysqli.data.php';
 require_once __DIR__ . '/../entity/pagoMatricula.php';
 
-class MatriculaDAO {
+class PagoMatriculaDAO {
 
     public $objPagoMatricula;
     private $task;
@@ -25,10 +25,11 @@ class MatriculaDAO {
         $Pago = $objPagoMatricula->getPago();
         $PagoDesc = $objPagoMatricula->getPagoDesc();
         $Beneficio = $objPagoMatricula->getBeneficio();
+        $idMatricula = $objPagoMatricula->getIdMatricula();
         $Indicador = $objPagoMatricula->getIndicador();
         $this->task->setTables(self::TABLE);
-        $this->task->setFields('idPagoMatricula;pgmFecha;pgmHora;pgmTipoPago;pgmModoPago;pgmTipoComprobante;pgmPago;pgmPagoDesc;pgmBeneficio;pgmIndicador');
-        $this->task->setValues($Fecha . ';' . $Hora . ';' . $TipoPago . ';' . $ModoPago . ';' . $TipoComprobante . ';' . $Pago . ';' . $PagoDesc . ';' . $Beneficio . ';' . $Indicador);
+        $this->task->setFields('idPagoMatricula;pgmFecha;pgmHora;pgmTipoPago;pgmModoPago;pgmTipoComprobante;pgmPago;pgmPagoDesc;pgmBeneficio;idMatricula;pgmIndicador');
+        $this->task->setValues($Fecha . ';' . $Hora . ';' . $TipoPago . ';' . $ModoPago . ';' . $TipoComprobante . ';' . $Pago . ';' . $PagoDesc . ';' . $Beneficio . ';' . $idMatricula . ';' . $Indicador);
         $result[0] = $this->task->executeInsert('idPagoMatricula');
         $result[1] = $idPagoMatricula;
         return $result;
@@ -61,16 +62,6 @@ class MatriculaDAO {
         return $result;
     }
 
-    public function CurrentStudentsSeccion($objPagoMatricula) {
-        $idSeccion = $objPagoMatricula->getIdSeccion();
-        $this->task->setTables(self::TABLE);
-        $this->task->setFields('idUsuarioCarrera;idCiclo;idSeccion;idSede');
-        $this->task->setWhereFields('idSeccion;idEstadoPagoMatricula;pgmIndicador');
-        $this->task->setWhereLogical('=;=;=');
-        $this->task->setWhereValues($idSeccion . ';1;1');
-        return $this->task->executeSelect();
-    }
-
     public function DuplicatePagoMatricula($objPagoMatricula) {
         $idCiclo = $objPagoMatricula->getIdCiclo();
         $idUsuarioCarrera = $objPagoMatricula->getIdUsuarioCarrera();
@@ -81,6 +72,19 @@ class MatriculaDAO {
         $this->task->setWhereLogical('=;=;=;=');
         $this->task->setWhereValues($idUsuarioCarrera . ';' . $idCiclo . ';' . $estadoMatricula . ';1');
         return $this->task->executeSelect();
+    }
+
+    public function CountPago($objPagoMatricula) {
+        $idMatricula = $objPagoMatricula->getIdMatricula();
+        $this->task->setTables(self::TABLE . ';matricula;usuariocarrera;carrera');
+        $this->task->setFields('carMeses,COUNT(*) as pagos');
+        $this->task->setIndex('3;0');
+        $this->task->setTypeJoin('inner;inner;inner');
+        $this->task->setOnJoin('p0.idMatricula=m1.idMatricula;m1.idUsuarioCarrera=u2.idUsuarioCarrera;u2.idCarrera=c3.idCarrera');
+        $this->task->setWhereFields('p0.idMatricula');
+        $this->task->setWhereLogical('=');
+        $this->task->setWhereValues($idMatricula);
+        return $this->task->executeMultiSelect();
     }
 
     public function SearchPagoMatriculaID($objPagoMatricula) {

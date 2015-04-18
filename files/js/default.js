@@ -337,6 +337,9 @@ function confirmSave(_table, _form, _extraJS, _type) {
     if (table === 'docenteSeccionCurso') {
         validate = validateDocenteSeccionCurso();
     }
+    if (table === 'pagoMatricula') {
+        validate = validatePagoMatricula();
+    }
     //if (table === 'cuenta') {validate = validateCustomer();}
     //if (table === 'sedetemp') {validate = validateSede();}
     //if (table === 'areatemp') {validate = validateArea();}

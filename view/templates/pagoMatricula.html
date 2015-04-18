@@ -15,9 +15,7 @@
 	<form id="formInscripcion" name="formInscripcion" class="form-horizontal" role="form" >
 		{include file="../structure/beginWinget.tpl"}PROCESAR PAGO MATRICULA
 		{include file="../structure/contentWinget.tpl"}
-			<input id="idInscripcion" name="idInscripcion" type="text" class="notVisible">
-			<input id="idInscripcionMarketing" name="idInscripcionMarketing" type="text" class="notVisible">
-			<input id="idPersonal" name="idPersonal" type="text" class="notVisible">
+			<input id="idPagoMatricula" name="idPagoMatricula" type="text" class="notVisible">
 			<!--<input id="userType" name="userType" type="hidden" value="YWx1bW5v">-->
 			<div class="form-group">
                 <label class="col-lg-2 control-label">Carrera</label>
@@ -43,6 +41,7 @@
                         <option selected="selected" value="">Seleccionar Matrícula</option>
                     </select>
                 </div>
+				<span id="pagoPendiente" class="label label-default" style="padding:10px;">No hay pagos pendientes.</span>
             </div>
 			<div class="form-group">
                 <div class="clearfix col-lg-10 col-lg-offset-2">
@@ -56,49 +55,49 @@
 			<div class="form-group">
 				<label class="col-lg-2 control-label">Tipo Pago</label>
 				<div class="col-lg-3">
-					<input id="insTipoPago" name="insTipoPago" type="text" class="form-control" placeholder="Tipo Pago" readonly >
+					<input id="TipoPago" name="TipoPago" type="text" class="form-control" placeholder="Tipo Pago" readonly >
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-lg-2 control-label">Modo de Pago</label>
 				<div class="col-lg-3">
-					<select id="insModoPago" name="insModoPago" class="form-control">
-						<option value="1">Total</option>
+					<select id="ModoPago" name="ModoPago" class="form-control">
+						<option value="Total">Total</option>
 					</select>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-lg-2 control-label">Tipo Comprobante</label>
 				<div class="col-lg-3">
-					<select id="insTipoComprobante" name="insTipoComprobante" class="form-control">
-						<option value="1">Recibo</option>
-						<option value="2">Boleta</option>
-						<option value="3">Factura</option>
+					<select id="TipoComprobante" name="TipoComprobante" class="form-control">
+						<option value="Recibo">Recibo</option>
+						<option value="Boleta">Boleta</option>
+						<option value="Factura">Factura</option>
 					</select>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-lg-2 control-label">Monto Mensualidad</label>
+				<label class="col-lg-2 control-label">Monto</label>
 				<div class="col-lg-3">
-					<input id="insPago" name="insPago" type="text" class="form-control" placeholder="Monto Mensualidad" readonly >
+					<input id="Pago" name="Pago" type="text" class="form-control" placeholder="Monto" readonly >
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-lg-2 control-label">Beneficio</label>
 				<div class="col-lg-3">
-					<input id="insBeneficio" name="insBeneficio" type="text" class="form-control" placeholder="Beneficio" readonly >
+					<input id="Beneficio" name="Beneficio" type="text" class="form-control" placeholder="Beneficio" readonly >
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-lg-2 control-label">Monto con Descuento</label>
 				<div class="col-lg-3">
-					<input id="insPagoDesc" name="insPagoDesc" type="text" class="form-control" placeholder="Monto con Descuento" readonly >
+					<input id="PagoDesc" name="PagoDesc" type="text" class="form-control" placeholder="Monto con Descuento" readonly >
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-lg-2 control-label">Fecha de Pago</label>
 				<div class="col-lg-3">
-					<div id="insFPago" name="insFPago" class="input-append input-group dtpicker">
+					<div class="input-append input-group dtpicker">
 						<input id="FPago" name="FPago" data-format="dd/MM/yyyy" type="text" class="form-control" placeholder="Fecha de Pago" readonly >
 						<span class="input-group-addon add-on">
 							<i data-time-icon="fa fa-times" data-date-icon="fa fa-calendar" class="fa fa-calendar"></i>
@@ -107,7 +106,7 @@
 				</div>
 			</div>
 			<div class="col-lg-5 col-lg-offset-5">
-				<button type="button" class="btn btn-info btn-sm" onclick="finalizarPago()" >Registrar</button>
+				<button type="button" id="buttonRegister" class="btn btn-info btn-sm" onclick="confirmSave('cGFnb01hdHJpY3VsYQ==','Zm9ybUluc2NyaXBjaW9u','','')" >Registrar</button>
 				<button type="reset" class="btn btn-default btn-sm" >Limpiar</button>
 			</div>
 		{include file="../structure/endWinget.tpl"}
