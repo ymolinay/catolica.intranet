@@ -22,7 +22,7 @@
 			<div class="form-group">
                 <label class="col-lg-2 control-label">Carrera</label>
                 <div class="col-lg-5">
-                    <select id="idCarrera" name="idCarrera" class="form-control" onchange="comboboxUsuarioCarrera()">
+                    <select id="idCarrera" name="idCarrera" class="form-control" onchange="comboboxUsuarioCarrera();comboboxMatricula();showExtraData();">
                         <option selected="selected" value="">Seleccionar Carrera</option>
                     </select>
                 </div>
@@ -51,28 +51,18 @@
                     <span id="mensajeTurno" class="label label-info matriculaNFO" style="padding:10px;">No se seleccionó Matrícula.</span>
                     <span id="mensajeSede" class="label label-info matriculaNFO" style="padding:10px;">No se seleccionó Matrícula.</span>
                     <span id="mensajeEstado" class="label label-info matriculaNFO" style="padding:10px;">No se seleccionó Matrícula.</span>
-                    <span id="mensajeBeneficio" class="label label-info matriculaNFO" style="padding:10px;">No se seleccionó Matrícula.</span>
                 </div>
             </div>
 			<div class="form-group">
 				<label class="col-lg-2 control-label">Tipo Pago</label>
-				<div class="col-lg-5">
-					<div class="radio">
-						<label>
-							<input type="radio" name="insSexo" id="insSexoM" value="M" checked="checked">Matricula
-						</label>
-					</div>
-					<div class="radio">
-						<label>
-							<input type="radio" name="insSexo" id="insSexoF" value="F" >Mensualidad
-						</label>
-					 </div>	
+				<div class="col-lg-3">
+					<input id="insTipoPago" name="insTipoPago" type="text" class="form-control" placeholder="Tipo Pago" readonly >
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-lg-2 control-label">Modo de Pago</label>
 				<div class="col-lg-3">
-					<select id="insEstadocivil" name="insEstadocivil" class="form-control">
+					<select id="insModoPago" name="insModoPago" class="form-control">
 						<option value="1">Total</option>
 					</select>
 				</div>
@@ -80,7 +70,7 @@
 			<div class="form-group">
 				<label class="col-lg-2 control-label">Tipo Comprobante</label>
 				<div class="col-lg-3">
-					<select id="tdocumento" name="tdocumento" class="form-control">
+					<select id="insTipoComprobante" name="insTipoComprobante" class="form-control">
 						<option value="1">Recibo</option>
 						<option value="2">Boleta</option>
 						<option value="3">Factura</option>
@@ -88,22 +78,28 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-lg-2 control-label">Monto</label>
+				<label class="col-lg-2 control-label">Monto Mensualidad</label>
 				<div class="col-lg-3">
-					<input id="insNombre" name="insNombre" type="text" class="form-control" placeholder="Pago" value="350,00" >
+					<input id="insPago" name="insPago" type="text" class="form-control" placeholder="Monto Mensualidad" readonly >
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-lg-2 control-label">Descuento</label>
+				<label class="col-lg-2 control-label">Beneficio</label>
 				<div class="col-lg-3">
-					<input id="insNombre" name="insNombre" type="text" class="form-control" placeholder="Descuento" value="0,00" >
+					<input id="insBeneficio" name="insBeneficio" type="text" class="form-control" placeholder="Beneficio" readonly >
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-lg-2 control-label">Monto con Descuento</label>
+				<div class="col-lg-3">
+					<input id="insPagoDesc" name="insPagoDesc" type="text" class="form-control" placeholder="Monto con Descuento" readonly >
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-lg-2 control-label">Fecha de Pago</label>
 				<div class="col-lg-3">
-					<div id="insFNacimiento" name="insFNacimiento" class="input-append input-group dtpicker">
-						<input id="FNacimiento" name="FNacimiento" data-format="dd-MM-yyyy" type="text" class="form-control">
+					<div id="insFPago" name="insFPago" class="input-append input-group dtpicker">
+						<input id="FPago" name="FPago" data-format="dd/MM/yyyy" type="text" class="form-control" placeholder="Fecha de Pago" readonly >
 						<span class="input-group-addon add-on">
 							<i data-time-icon="fa fa-times" data-date-icon="fa fa-calendar" class="fa fa-calendar"></i>
 						</span>

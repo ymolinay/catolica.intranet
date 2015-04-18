@@ -90,7 +90,6 @@ function comboboxMatricula() {
     var result = jqueryAjax(url, false, '');
     var jsonMatricula = jQuery.parseJSON(result);
     for (i = 0; i < jsonMatricula.length; i++) {
-		console.log(jsonMatricula[i]);
         var opt = new Option(jsonMatricula[i].mtcFecha, jsonMatricula[i].idMatricula);
         opt.setAttribute("data-ciclo", jsonMatricula[i].cloDescripcion);
         opt.setAttribute("data-seccion", jsonMatricula[i].scnDescripcion);
@@ -98,6 +97,10 @@ function comboboxMatricula() {
         opt.setAttribute("data-sede", jsonMatricula[i].sdeNombre);
         opt.setAttribute("data-estado", jsonMatricula[i].etmDescripcion);
         opt.setAttribute("data-beneficio", jsonMatricula[i].tboDescripcion);
+        opt.setAttribute("data-pago-matricula", jsonMatricula[i].tboPagoMatricula);
+        opt.setAttribute("data-pago-mensual", jsonMatricula[i].tboPagoMensual);
+        opt.setAttribute("data-pa-matricula-desc", jsonMatricula[i].tboPaMatriculaDesc);
+        opt.setAttribute("data-pa-mensual-desc", jsonMatricula[i].tboPaMensualDesc);
         $('#idMatricula').append(opt);
     }
 }
@@ -105,6 +108,7 @@ function comboboxMatricula() {
 function showExtraData() {
     var student = $('#idUsuarioCarrera');
     var matricula = $('#idMatricula');
+	
     if (student.val() == '') {
         $("#mensajeDNI").removeClass("label-danger");
         $("#mensajeDNI").removeClass("label-success");
@@ -122,6 +126,10 @@ function showExtraData() {
         $(".matriculaNFO").removeClass("label-success");
         $(".matriculaNFO").addClass("label-info");
         $(".matriculaNFO").html("No se seleccionó Matrícula.");
+        //$(".beneficioNFO").html("No se seleccionó Matrícula.");
+		$('input[type="text"]').each(function() {
+			$(this).val("");
+		});
     }else{
         var _ciclo = matricula.find(':selected').data('ciclo');
         var _seccion = matricula.find(':selected').data('seccion');
@@ -129,6 +137,13 @@ function showExtraData() {
         var _sede = matricula.find(':selected').data('sede');
         var _estado = matricula.find(':selected').data('estado');
         var _beneficio = matricula.find(':selected').data('beneficio');
+        var _pagoMatricula = matricula.find(':selected').data('pagoMatricula');
+        var _pagoMensual = matricula.find(':selected').data('pagoMensual');
+        var _paMatriculaDesc = matricula.find(':selected').data('paMatriculaDesc');
+        var _paMensualDesc = matricula.find(':selected').data('paMensualDesc');
+		var date = new Date();
+		var month = date.getMonth()+1;
+		var day = date.getDate();
         /***************/
         $("#mensajeCiclo").addClass("label-info");
         $("#mensajeCiclo").removeClass("label-success");
@@ -155,10 +170,21 @@ function showExtraData() {
         $("#mensajeEstado").removeClass("label-danger");
         $("#mensajeEstado").html("Estado: " + _estado);
         /***************/
-        $("#mensajeBeneficio").addClass("label-info");
-        $("#mensajeBeneficio").removeClass("label-success");
-        $("#mensajeBeneficio").removeClass("label-danger");
-        $("#mensajeBeneficio").html("Beneficio: " + _beneficio);
+		$("#insBeneficio").val(_beneficio);
+		$("#FPago").val( (day<10 ? '0' : '') + day + '/' + (month<10 ? '0' : '') + month + '/' + date.getFullYear() );
+        /***************/
+		if(false)
+		{
+			$("#insTipoPago").val("Matricula");
+			$("#insPago").val(_pagoMatricula);
+			$("#insPagoDesc").val(_paMatriculaDesc);
+		}
+        else
+		{
+			$("#insTipoPago").val("Mensualidad");
+			$("#insPago").val(_pagoMensual);
+			$("#insPagoDesc").val(_paMensualDesc);
+		}
     }
 }
 //function generateMatricula() {
