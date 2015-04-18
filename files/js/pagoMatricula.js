@@ -121,8 +121,7 @@ function cantidadMeses() {
     var url = baseHTTP + 'controller/__pagoMatricula.php?action=countPago&idMatricula='+idMatricula;
     var result = jqueryAjax(url, false, '');
     var jsonPago = jQuery.parseJSON(result);
-	jsonPago[0].pagos = jsonPago[0].pagos - 1;
-    if (jsonPago[0].carMeses == jsonPago[0].pagos) {
+    if (jsonPago[0].carMeses == (jsonPago[0].pagos - 1)) {
         $('#pagoPendiente').removeClass('label-success');
         $('#pagoPendiente').addClass('label-default');
         $('#pagoPendiente').html('No hay pagos pendientes.');
@@ -216,7 +215,7 @@ function showExtraData() {
 			$("#Pago").val(_pagoMatricula);
 			$("#PagoDesc").val(_paMatriculaDesc);
 		}
-        else if(arrayCantidad.carMeses >= arrayCantidad.pagos && arrayCantidad.pagos > 0)
+        else if(arrayCantidad.carMeses >= (arrayCantidad.pagos - 1) && arrayCantidad.pagos > 0)
 		{
 			$("#TipoPago").val("Mensualidad");
 			$("#Pago").val(_pagoMensual);
