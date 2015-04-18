@@ -43,7 +43,8 @@ if ($action == "save") {
         $matricula = $objPagoMatriculaDAO->ExecuteSave($objPagoMatriculaDAO->objPagoMatricula);
         $idPagoMatricula = $matricula[1];
     }
-	
+    
+    $error = ($matricula[0] !== TRUE) ? TRUE : FALSE;
     echo ($error) ? 'fail' : 'success';
 }
 
