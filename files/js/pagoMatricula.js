@@ -120,7 +120,7 @@ function cantidadMeses() {
     var url = baseHTTP + 'controller/__pagoMatricula.php?action=countPago&idMatricula=' + idMatricula;
     var result = jqueryAjax(url, false, '');
     var jsonPago = jQuery.parseJSON(result);
-    if (jsonPago[0].carMeses == jsonPago[0].pagos) {
+    if (jsonPago[0].carMeses == jsonPago[0].pagos - 1) {
         $('#pagoPendiente').removeClass('label-success');
         $('#pagoPendiente').addClass('label-default');
         $('#pagoPendiente').html('No hay pagos pendientes.');
