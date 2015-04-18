@@ -7,6 +7,7 @@ $(document).ready(function () {
 
 function gridPagosMatricula() {
     var idMatricula = $('#idMatricula').val();
+	console.log(idMatricula);
 	
 	if(idMatricula > 0){
 		var objGrid = {
@@ -120,7 +121,7 @@ function cantidadMeses() {
     var url = baseHTTP + 'controller/__pagoMatricula.php?action=countPago&idMatricula='+idMatricula;
     var result = jqueryAjax(url, false, '');
     var jsonPago = jQuery.parseJSON(result);
-    if (jsonPago[0].carMeses == jsonPago[0].pagos) {
+    if (jsonPago[0].carMeses == (jsonPago[0].pagos - 1)) {
         $('#pagoPendiente').removeClass('label-success');
         $('#pagoPendiente').addClass('label-default');
         $('#pagoPendiente').html('No hay pagos pendientes.');
@@ -207,6 +208,7 @@ function showExtraData() {
 		$("#Beneficio").val(_beneficio);
 		$("#FPago").val( (day<10 ? '0' : '') + day + '-' + (month<10 ? '0' : '') + month + '-' + date.getFullYear() );
         /***************/
+		console.log(arrayCantidad);
 		if(arrayCantidad.pagos == 0)
 		{
 			$("#TipoPago").val("Matricula");
