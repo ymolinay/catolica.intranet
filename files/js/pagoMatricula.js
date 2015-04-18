@@ -7,7 +7,6 @@ $(document).ready(function () {
 
 function gridPagosMatricula() {
     var idMatricula = $('#idMatricula').val();
-	console.log(idMatricula);
 	
 	if(idMatricula > 0){
 		var objGrid = {
@@ -69,6 +68,7 @@ function validatePagoMatricula() {
 
 function comboboxCarrera() {
     $('#idCarrera option[value!=""]').remove();
+	$('div.tablePagosMatricula').html('');
     var url = baseHTTP + 'controller/__carrera.php?action=combobox';
     var result = jqueryAjax(url, false, '');
     var jsonCarrera = jQuery.parseJSON(result);
@@ -81,6 +81,7 @@ function comboboxCarrera() {
 
 function comboboxUsuarioCarrera() {
     var idCarrera = $('#idCarrera').val();
+	$('div.tablePagosMatricula').html('');
     $('#idUsuarioCarrera option[value!=""]').remove();
     var url = baseHTTP + 'controller/__usuarioCarrera.php?action=combobox&idCarrera=' + idCarrera;
     var result = jqueryAjax(url, false, '');
@@ -96,6 +97,7 @@ function comboboxUsuarioCarrera() {
 
 function comboboxMatricula() {
     var idUsuarioCarrera = $('#idUsuarioCarrera').val();
+	$('div.tablePagosMatricula').html('');
     $('#idMatricula option[value!=""]').remove();
     var url = baseHTTP + 'controller/__matricula.php?action=combobox&idUsuarioCarrera='+idUsuarioCarrera;
     var result = jqueryAjax(url, false, '');
@@ -164,6 +166,7 @@ function showExtraData() {
         $('#pagoPendiente').addClass('label-default');
         $('#pagoPendiente').html('No hay pagos pendientes.');
 		$('#buttonRegister').prop('disabled', true);
+		$('div.tablePagosMatricula').html('');
     }else{
 		var arrayCantidad = cantidadMeses();
         var _ciclo = matricula.find(':selected').data('ciclo');
@@ -208,7 +211,6 @@ function showExtraData() {
 		$("#Beneficio").val(_beneficio);
 		$("#FPago").val( (day<10 ? '0' : '') + day + '-' + (month<10 ? '0' : '') + month + '-' + date.getFullYear() );
         /***************/
-		console.log(arrayCantidad);
 		if(arrayCantidad.pagos == 0)
 		{
 			$("#TipoPago").val("Matricula");
