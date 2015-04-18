@@ -1,5 +1,5 @@
-//var baseHTTP = "http://localhost/catolica.intranet/";
-var baseHTTP = "http://www.perucatolica.com/intranet/";
+var baseHTTP = "http://localhost/catolica.intranet/";
+//var baseHTTP = "http://www.perucatolica.com/intranet/";
 
 $.fn.datetimepicker.dates['en'] = {
     days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
