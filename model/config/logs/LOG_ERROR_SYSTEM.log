@@ -77,3 +77,7 @@ Archivo: mysqli.data.php	Error 00003: Error al ejecutar la consulta {call spTran
 Archivo: mysqli.data.php	Error 00003: Error al ejecutar la consulta {call spTransaction("SELECT","docenteseccioncurso","MAX(idDocenteSeccionCurso)","","","","","","");}	Tiempo: 05.04.2015 10:31:40
 Archivo: mysqli.data.php	Error 00002: Host '201.240.41.193' is not allowed to connect to this MySQL server	Tiempo: 17.04.2015 07:16:58
 Archivo: mysqli.data.php	Error 00002: Host '201.240.41.193' is not allowed to connect to this MySQL server	Tiempo: 17.04.2015 07:16:58
+Archivo: mysqli.data.php	Error 00002: Access denied for user 'cato'@'localhost' (using password: YES)	Tiempo: 18.04.2015 05:47:14
+Archivo: mysqli.data.php	Error 00002: Access denied for user 'cato'@'localhost' (using password: YES)	Tiempo: 18.04.2015 05:47:14
+Archivo: mysqli.data.php	Error 00002: Access denied for user 'cato'@'localhost' (using password: YES)	Tiempo: 18.04.2015 05:47:19
+Archivo: mysqli.data.php	Error 00002: Access denied for user 'cato'@'localhost' (using password: YES)	Tiempo: 18.04.2015 05:47:19
