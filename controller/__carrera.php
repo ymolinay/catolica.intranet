@@ -10,6 +10,7 @@ $objGridDAO = new GridDAO();
 $action = $_GET["action"];
 
 if ($action == 'combobox') {
+    
     $cbx = array();
     $combo = $objCursoDAO->SearchAllData();
     foreach ($combo as $key => $val) {

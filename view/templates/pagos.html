@@ -23,8 +23,8 @@
         <label class="col-lg-2 control-label">Carrera</label>
         <div class="col-lg-5">
             <select id="idCarrera" name="idCarrera" class="form-control" onchange="comboboxUsuarioCarrera();
-                            comboboxMatricula();
-                            showExtraData();">
+                    comboboxMatricula();
+                    showExtraData();">
                 <option selected="selected" value="">Seleccionar Carrera</option>
             </select>
         </div>
@@ -33,7 +33,7 @@
         <label class="col-lg-2 control-label">Estudiante</label>
         <div class="col-lg-5">
             <select id="idUsuarioCarrera" name="idUsuarioCarrera" class="form-control" onchange="showExtraData();
-                            comboboxMatricula();">
+                    comboboxMatricula();">
                 <option selected="selected" value="">Seleccionar Estudiante</option>
             </select>
         </div>
@@ -57,10 +57,13 @@
             <span id="mensajeEstado" class="label label-info matriculaNFO" style="padding:10px;">No se seleccionó Matrícula.</span>
         </div>
     </div>
-    <div class="col-lg-5 col-lg-offset-5">
-        <button type="button" id="buttonRegister" class="btn btn-info btn-sm" onclick="gridPagosMatricula()" >Ver Pagos</button>
-        <button type="reset" class="btn btn-default btn-sm" >Limpiar</button>
+    <div class="form-group">
+        <div class="col-lg-5 col-lg-offset-5">
+            <button type="button" id="buttonRegister" class="btn btn-info btn-sm" onclick="gridPagosMatricula()" >Ver Pagos</button>
+            <button type="reset" class="btn btn-default btn-sm" >Limpiar</button>
+        </div>
     </div>
+
     {include file="../structure/endWinget.tpl"}
 </form>
 <div class="tablePagosMatricula widget"></div>

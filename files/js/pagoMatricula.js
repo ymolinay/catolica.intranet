@@ -124,12 +124,12 @@ function cantidadMeses() {
     var result = jqueryAjax(url, false, '');
     var jsonPago = jQuery.parseJSON(result);
     if (jsonPago[0].carMeses == jsonPago[0].pagos - 1) {
-        $('#pagoPendiente').removeClass('label-success');
+        $('#pagoPendiente').removeClass('label-danger');
         $('#pagoPendiente').addClass('label-default');
         $('#pagoPendiente').html('No hay pagos pendientes.');
         $('#buttonRegister').prop('disabled', true);
     } else {
-        $('#pagoPendiente').addClass('label-success');
+        $('#pagoPendiente').addClass('label-danger');
         $('#pagoPendiente').removeClass('label-default');
         $('#pagoPendiente').html('Pagos Pendientes encontrados.');
         $('#buttonRegister').prop('disabled', false);
