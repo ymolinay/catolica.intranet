@@ -115,6 +115,25 @@ function comboboxMatricula() {
     }
 }
 
+function cantidadMeses() {
+    var idMatricula = $('#idMatricula').val();
+    var url = baseHTTP + 'controller/__pagoMatricula.php?action=countPago&idMatricula=' + idMatricula;
+    var result = jqueryAjax(url, false, '');
+    var jsonPago = jQuery.parseJSON(result);
+    if (jsonPago[0].carMeses == jsonPago[0].pagos - 1) {
+        $('#pagoPendiente').removeClass('label-success');
+        $('#pagoPendiente').addClass('label-default');
+        $('#pagoPendiente').html('No hay pagos pendientes.');
+        $('#buttonRegister').prop('disabled', true);
+    } else {
+        $('#pagoPendiente').addClass('label-success');
+        $('#pagoPendiente').removeClass('label-default');
+        $('#pagoPendiente').html('Pagos Pendientes encontrados.');
+        $('#buttonRegister').prop('disabled', false);
+    }
+    return jsonPago[0];
+}
+
 function showExtraData() {
     var student = $('#idUsuarioCarrera');
     var matricula = $('#idMatricula');
@@ -143,7 +162,9 @@ function showExtraData() {
         $('#pagoPendiente').removeClass('label-success');
         $('#pagoPendiente').addClass('label-default');
         $('#pagoPendiente').html('No hay pagos pendientes.');
+        $('#buttonRegister').prop('disabled', true);
     } else {
+        var arrayCantidad = cantidadMeses();
         var _ciclo = matricula.find(':selected').data('ciclo');
         var _seccion = matricula.find(':selected').data('seccion');
         var _turno = matricula.find(':selected').data('turno');
@@ -186,6 +207,18 @@ function showExtraData() {
         $("#Beneficio").val(_beneficio);
         $("#FPago").val((day < 10 ? '0' : '') + day + '-' + (month < 10 ? '0' : '') + month + '-' + date.getFullYear());
         /***************/
+        if (arrayCantidad.pagos == 0)
+        {
+            $("#TipoPago").val("Matricula");
+            $("#Pago").val(_pagoMatricula);
+            $("#PagoDesc").val(_paMatriculaDesc);
+        }
+        else if (arrayCantidad.carMeses >= (arrayCantidad.pagos - 1) && arrayCantidad.pagos > 0)
+        {
+            $("#TipoPago").val("Mensualidad");
+            $("#Pago").val(_pagoMensual);
+            $("#PagoDesc").val(_paMensualDesc);
+        }
     }
 }
 
