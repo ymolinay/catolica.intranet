@@ -8,7 +8,7 @@ $(document).ready(function () {
 function gridPagosMatricula() {
     var idMatricula = $('#idMatricula').val();
 
-	if(idMatricula > 0){
+    if (idMatricula > 0) {
         var objGrid = {
             div: 'tablePagosMatricula',
             url: baseHTTP + 'controller/__grid.php?action=loadGrid',
@@ -115,25 +115,6 @@ function comboboxMatricula() {
     }
 }
 
-function cantidadMeses() {
-    var idMatricula = $('#idMatricula').val();
-    var url = baseHTTP + 'controller/__pagoMatricula.php?action=countPago&idMatricula=' + idMatricula;
-    var result = jqueryAjax(url, false, '');
-    var jsonPago = jQuery.parseJSON(result);
-    if (jsonPago[0].carMeses == jsonPago[0].pagos) {
-        $('#pagoPendiente').removeClass('label-success');
-        $('#pagoPendiente').addClass('label-default');
-        $('#pagoPendiente').html('No hay pagos pendientes.');
-        $('#buttonRegister').prop('disabled', true);
-    } else {
-        $('#pagoPendiente').addClass('label-success');
-        $('#pagoPendiente').removeClass('label-default');
-        $('#pagoPendiente').html('Pagos Pendientes encontrados.');
-        $('#buttonRegister').prop('disabled', false);
-    }
-    return jsonPago[0];
-}
-
 function showExtraData() {
     var student = $('#idUsuarioCarrera');
     var matricula = $('#idMatricula');
@@ -221,144 +202,4 @@ function showExtraData() {
         }
     }
 }
-//function generateMatricula() {
-//    var idPlanEstudio = new Array();//recorro los cursos seleccionados
-//    $('#tableCursos tbody tr td input[type=checkbox]:checked').each(function () {
-//        idPlanEstudio.push($(this).val());
-//    });
-//    var data = 'idUsuarioCarrera=' + $('#_idUsuarioCarrera').val() + '&idCiclo=' + $('#_idCiclo').val() + '&idSeccion=' + $('#_idSeccion').val() + '&planEstudioInscripcion=' + idPlanEstudio.join(';');
-//    var url = baseHTTP + 'controller/__matricula.php?action=save&' + data;
-//    var result = jqueryAjax(url, true, 'quest');
-//    if (result === 'success') {
-//        $('.modal-body').html('Registro actualizado con éxito. El estudiante debe cancelar el primer pago para activar esta matrícula.');
-//        $('.modal-footer').html('<button id="confirm" class="btn btn-primary" type="button" onclick="closePopUp();clearForm(\'Zm9ybU1hdHJpY3VsYQ==\');" style="border-radius: 0px"><span class="glyphicon glyphicon-ok"></span> OK</button>');
-//    } else {
-//        $('.modal-body').html('Error al actualizar el registro.');
-//        $('.modal-footer').html('<button id="confirm" class="btn btn-primary" type="button" onclick="closePopUp();" style="border-radius: 0px"><span class="glyphicon glyphicon-ok"></span> OK</button>');
-//    }
-//}
 
-function confirmGenerateMatricula() {
-    var title = 'Confirmar guardar registro';
-    var body = '<div class="quest">¿Desea guardar el registro actual?</div>';
-    var actionSave = "generateMatricula();";
-    openPopUp(title, body, '', actionSave);
-}
-
-
-/*function gridGeneratePlanEstudio() {
- if (validateShowCursos() === true) {
- var UserProfession = $('#idUsuarioCarrera').val();
- UserProfession = (UserProfession === undefined) ? '' : UserProfession;
- var Ciclo = $('#idCiclo').val();
- Ciclo = (Ciclo === undefined) ? '' : Ciclo;
- 
- var objGrid = {
- div: 'tablePlanEstudiosMatricula',
- url: baseHTTP + 'controller/__grid.php?action=loadGrid',
- table: 'usuariocarrera;usuario;personal;tipobeneficio;carrera;planestudio;curso;ciclo',
- colNames: ['', 'CICLO', 'CURSO'],
- colModel: [
- {name: 'idPlanEstudio', index: '5', align: 'left'},
- {name: 'cloDescripcion', index: '7'},
- {name: 'crsNombre', index: '6'}
- ],
- join: {
- type: 'inner;inner;inner;inner;inner;inner;inner',
- on: 'u0.idUsuario=u1.idUsuario;u1.idPersonal=p2.idPersonal;u0.idTipoBeneficio=t3.idTipoBeneficio;u0.idCarrera=c4.idCarrera;c4.idCarrera=p5.idCarrera;p5.idCurso=c6.idCurso;p5.idCiclo=c7.idCiclo'
- },
- where: {
- fields: 'u0.idUsuarioCarrera;c7.idCiclo',
- logical: '=;=',
- values: UserProfession + ';' + Ciclo
- },
- page: 1,
- rowNum: 100,
- sortName: 'c7.idCiclo,p5.idPlanEstudio',
- sortOrder: 'asc',
- title: 'CURSOS PENDIENTES',
- checkbox: {
- prefix: 'crs',
- //accion: 'alert(this.id);'
- accion: ''
- }
- };
- loadGrid(objGrid);
- var _btn = '<button class="btn btn-sm btn-info" type="button" onclick="confirmSave(\'bWF0cmljdWxh\',\'Zm9ybU1hdHJpY3VsYQ==\',\'disbledShowButton();\',\'\')">Generar Matrícula</button>';
- $('.tablePlanEstudiosMatricula div.widget-head div.widget-icons.pull-right').html(_btn);
- }
- }*/
-
-function gridGeneratePlanEstudio() {
-    if (validateShowCursos() === true) {
-        var UserProfession = $('#idUsuarioCarrera').val();
-        UserProfession = (UserProfession === undefined) ? '' : UserProfession;
-        var Ciclo = $('#idCiclo').val();
-        Ciclo = (Ciclo === undefined) ? '' : Ciclo;
-
-        var objGrid = {
-            div: 'tablePlanEstudiosMatricula',
-            url: baseHTTP + 'controller/__grid.php?action=loadGrid',
-            table: 'usuariocarrera;usuario;personal;carrera;planestudio;curso;ciclo',
-            colNames: ['', 'CICLO', 'CURSO'],
-            colModel: [
-                {name: 'idPlanEstudio', index: '4', align: 'left'},
-                {name: 'cloDescripcion', index: '6'},
-                {name: 'crsNombre', index: '5'}
-            ],
-            join: {
-                type: 'inner;inner;inner;inner;inner;inner',
-                on: 'u0.idUsuario=u1.idUsuario;u1.idPersonal=p2.idPersonal;u0.idCarrera=c3.idCarrera;c3.idCarrera=p4.idCarrera;p4.idCurso=c5.idCurso;p4.idCiclo=c6.idCiclo'
-            },
-            where: {
-                fields: 'u0.idUsuarioCarrera;c6.idCiclo',
-                logical: '=;=',
-                values: UserProfession + ';' + Ciclo
-            },
-            page: 1,
-            rowNum: 100,
-            sortName: 'c6.idCiclo,p4.idPlanEstudio',
-            sortOrder: 'asc',
-            title: 'CURSOS PENDIENTES',
-            checkbox: {
-                prefix: 'crs',
-                //accion: 'alert(this.id);'
-                accion: ''
-            }
-        };
-        loadGrid(objGrid);
-        var _btn = '<button class="btn btn-sm btn-info" type="button" onclick="confirmSave(\'bWF0cmljdWxh\',\'Zm9ybU1hdHJpY3VsYQ==\',\'disbledShowButton();\',\'\')">Generar Matrícula</button>';
-        $('.tablePlanEstudiosMatricula div.widget-head div.widget-icons.pull-right').html(_btn);
-    }
-}
-
-function printMatricula() {
-    var pdfURL = baseHTTP + 'files/PDF/fichaMatricula.pdf';
-    window.open(pdfURL);
-}
-
-function comboboxCarrera_DELETE() {
-    $('#idCarrera option[value!=""]').remove();
-    var url = baseHTTP + 'controller/__carrera.php?action=combobox';
-    var result = jqueryAjax(url, false, '');
-    var jsonCarrera = jQuery.parseJSON(result);
-    for (i = 0; i < jsonCarrera.length; i++) {
-        $('#idCarrera').append(new Option(jsonCarrera[i].carDescripcion, jsonCarrera[i].idCarrera));
-    }
-}
-
-function disbledShowButton() {
-    $('#buttonShowCourses').addClass('disabled');
-    $('.tablePlanEstudiosMatricula').empty();
-    showExtraData();
-}
-
-function validateDuplicateMatricula() {
-    var _idCiclo = $('#idCiclo').val();
-    var _idUsuarioCarrera = $('#idUsuarioCarrera').val();
-    var url = baseHTTP + 'controller/__matricula.php?action=searchDuplicate&_idCiclo=' + _idCiclo + '&_idUsuarioCarrera=' + _idUsuarioCarrera;
-    var duplicate = jqueryAjax(url, false, '');
-    duplicate = jQuery.parseJSON(duplicate);
-    openPopUp('Registro duplicado', 'Este alumno ya tiene una matrícula activa para el ciclo seleccionado.', '', '', '');
-    return duplicate.count;
-}

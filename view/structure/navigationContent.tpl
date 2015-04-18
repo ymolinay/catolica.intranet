@@ -46,6 +46,7 @@ perfil
             <li><a href="alumnos.php">Lista de Alumnos</a></li>
             {/if}
             <li><a href="notas.php">Mis Notas</a></li>
+            <li><a href="pagos.php">Mis Pagos</a></li>
         </ul>
     </li>
     {/if}
