@@ -1,10 +1,11 @@
 <?php
 
-class PagoMatricula{
-    private $idPagoMatricula;
-    private $TipoPago;
-    private $ModoPago;
+class Pagos{
+    private $idPagos;
+    private $idTipoPago;
+    private $idModoPago;
     private $TipoComprobante;
+    private $NumComprobante;
     private $Pago;
     private $PagoDesc;
     private $Beneficio;
@@ -13,20 +14,24 @@ class PagoMatricula{
     private $idMatricula;
     private $Indicador;
     
-    function getIdPagoMatricula() {
-        return $this->idPagoMatricula;
+    function getIdPagos() {
+        return $this->idPagos;
     }
 
-    function getTipoPago() {
-        return $this->TipoPago;
+    function getIdTipoPago() {
+        return $this->idTipoPago;
     }
 
-    function getModoPago() {
-        return $this->ModoPago;
+    function getIdModoPago() {
+        return $this->idModoPago;
     }
 
     function getTipoComprobante() {
         return $this->TipoComprobante;
+    }
+
+    function getNumComprobante() {
+        return $this->NumComprobante;
     }
 
     function getPago() {
@@ -57,20 +62,24 @@ class PagoMatricula{
         return $this->Indicador;
     }
 
-    function setIdPagoMatricula($idPagoMatricula) {
-        $this->idPagoMatricula = $idPagoMatricula;
+    function setIdPagos($idPagos) {
+        $this->idPagos = $idPagos;
     }
 
-    function setTipoPago($TipoPago) {
-        $this->TipoPago = $TipoPago;
+    function setIdTipoPago($idTipoPago) {
+        $this->idTipoPago = $idTipoPago;
     }
 
-    function setModoPago($ModoPago) {
-        $this->ModoPago = $ModoPago;
+    function setIdModoPago($idModoPago) {
+        $this->idModoPago = $idModoPago;
     }
 
     function setTipoComprobante($TipoComprobante) {
         $this->TipoComprobante = $TipoComprobante;
+    }
+
+    function setNumComprobante($NumComprobante) {
+        $this->NumComprobante = $NumComprobante;
     }
 
     function setPago($Pago) {

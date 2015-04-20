@@ -1,11 +1,11 @@
 <?php
 
 session_start();
-require_once __DIR__ . '/../model/dao/pagoMatriculaDAO.php';
+require_once __DIR__ . '/../model/dao/pagosDAO.php';
 require_once __DIR__ . '/../model/dao/matriculaDAO.php';
 require_once __DIR__ . '/../model/dao/carreraDAO.php';
 
-$objPagoMatriculaDAO = new PagoMatriculaDAO();
+$objPagosDAO = new PagosDAO();
 $objMatriculaDAO = new MatriculaDAO();
 $objCarreraDAO = new CarreraDAO();
 
@@ -13,10 +13,11 @@ $action = $_GET["action"];
 
 if ($action == "save") {
     $error = TRUE;
-    $idPagoMatricula = $_GET['idPagoMatricula'];
-    $TipoPago = $_GET['TipoPago'];
-    $ModoPago = $_GET['ModoPago'];
+    $idPagos = $_GET['idPagos'];
+    $idTipoPago = $_GET['idTipoPago'];
+    $idModoPago = $_GET['idModoPago'];
     $TipoComprobante = $_GET['TipoComprobante'];
+    $NumComprobante = $_GET['NumComprobante'];
     $Pago = $_GET['Pago'];
     $PagoDesc = $_GET['PagoDesc'];
     $Beneficio = $_GET['Beneficio'];
@@ -25,23 +26,24 @@ if ($action == "save") {
     $idMatricula = $_GET['idMatricula'];
     $Indicador = 1;
 
-    $objPagoMatriculaDAO->objPagoMatricula->setIdPagoMatricula($idPagoMatricula);
-    $objPagoMatriculaDAO->objPagoMatricula->setTipoPago($TipoPago);
-    $objPagoMatriculaDAO->objPagoMatricula->setModoPago($ModoPago);
-    $objPagoMatriculaDAO->objPagoMatricula->setTipoComprobante($TipoComprobante);
-    $objPagoMatriculaDAO->objPagoMatricula->setPago($Pago);
-    $objPagoMatriculaDAO->objPagoMatricula->setPagoDesc($PagoDesc);
-    $objPagoMatriculaDAO->objPagoMatricula->setBeneficio($Beneficio);
-    $objPagoMatriculaDAO->objPagoMatricula->setFecha($Fecha);
-    $objPagoMatriculaDAO->objPagoMatricula->setHora($Hora);
-    $objPagoMatriculaDAO->objPagoMatricula->setIdMatricula($idMatricula);
-    $objPagoMatriculaDAO->objPagoMatricula->setIndicador($Indicador);
+    $objPagosDAO->objPagos->setIdPagos($idPagos);
+    $objPagosDAO->objPagos->setIdTipoPago($idTipoPago);
+    $objPagosDAO->objPagos->setIdModoPago($idModoPago);
+    $objPagosDAO->objPagos->setTipoComprobante($TipoComprobante);
+    $objPagosDAO->objPagos->setNumComprobante($NumComprobante);
+    $objPagosDAO->objPagos->setPago($Pago);
+    $objPagosDAO->objPagos->setPagoDesc($PagoDesc);
+    $objPagosDAO->objPagos->setBeneficio($Beneficio);
+    $objPagosDAO->objPagos->setFecha($Fecha);
+    $objPagosDAO->objPagos->setHora($Hora);
+    $objPagosDAO->objPagos->setIdMatricula($idMatricula);
+    $objPagosDAO->objPagos->setIndicador($Indicador);
 
-    if ($idPagoMatricula != '') {
-        $matricula = $objPagoMatriculaDAO->ExecuteUpdate($objPagoMatriculaDAO->objPagoMatricula);
+    if ($idPagos != '') {
+        $matricula = $objPagosDAO->ExecuteUpdate($objPagosDAO->objPagos);
     } else {
-        $matricula = $objPagoMatriculaDAO->ExecuteSave($objPagoMatriculaDAO->objPagoMatricula);
-        $idPagoMatricula = $matricula[1];
+        $matricula = $objPagosDAO->ExecuteSave($objPagosDAO->objPagos);
+        $idPagos = $matricula[1];
     }
     
     $error = ($matricula[0] !== TRUE) ? TRUE : FALSE;
@@ -50,8 +52,8 @@ if ($action == "save") {
 
 if ($action == "countPago") {
     $idMatricula = $_GET['idMatricula'];
-    $objPagoMatriculaDAO->objPagoMatricula->setIdMatricula($idMatricula);
-    $pagos = $objPagoMatriculaDAO->CountPago($objPagoMatriculaDAO->objPagoMatricula);
+    $objPagosDAO->objPagos->setIdMatricula($idMatricula);
+    $pagos = $objPagosDAO->CountPago($objPagosDAO->objPagos);
     echo json_encode($pagos);
 }
 
@@ -62,10 +64,10 @@ if ($action == "searchDuplicate") {
     $idUsuarioCarrera = (!empty($idUsuarioCarrera)) ? $idUsuarioCarrera : FALSE;
     if ($idCiclo && $idUsuarioCarrera) {
         $estadoMatricula = 1;
-        $objPagoMatriculaDAO->objPagoMatricula->setIdCiclo($idCiclo);
-        $objPagoMatriculaDAO->objPagoMatricula->setIdUsuarioCarrera($idUsuarioCarrera);
-        $objPagoMatriculaDAO->objPagoMatricula->setIdEstadoMatricula($estadoMatricula);
-        $duplicateMatricula = $objPagoMatriculaDAO->DuplicateMatricula($objPagoMatriculaDAO->objPagoMatricula);
+        $objPagosDAO->objPagos->setIdCiclo($idCiclo);
+        $objPagosDAO->objPagos->setIdUsuarioCarrera($idUsuarioCarrera);
+        $objPagosDAO->objPagos->setIdEstadoMatricula($estadoMatricula);
+        $duplicateMatricula = $objPagosDAO->DuplicateMatricula($objPagosDAO->objPagos);
     } else {
         $duplicateMatricula = FALSE;
     }
@@ -80,8 +82,8 @@ if ($action == "findMatricula") {
     $idMatricula = base64_decode($_GET['_id']);
     $idMatricula = (!empty($idMatricula)) ? $idMatricula : FALSE;
     if ($idMatricula) {
-        $objPagoMatriculaDAO->objPagoMatricula->setIdMatricula($idMatricula);
-        $jsonMatricula = $objPagoMatriculaDAO->SearchMatriculaID($objPagoMatriculaDAO->objPagoMatricula);
+        $objPagosDAO->objPagos->setIdMatricula($idMatricula);
+        $jsonMatricula = $objPagosDAO->SearchMatriculaID($objPagosDAO->objPagos);
         $jsonMatricula = $jsonMatricula[0];
     } else {
         $jsonMatricula = FALSE;
@@ -96,9 +98,9 @@ if ($action == "delete") {
     $code = $_GET['code'];
     $indicador = 1;
     if ($code == '1234') {
-        $objPagoMatriculaDAO->objPagoMatricula->setIdMatricula($idMatricula);
-        $objPagoMatriculaDAO->objPagoMatricula->setIndicador($indicador);
-        $matricula = $objPagoMatriculaDAO->ExecuteDelete($objPagoMatriculaDAO->objPagoMatricula);
+        $objPagosDAO->objPagos->setIdMatricula($idMatricula);
+        $objPagosDAO->objPagos->setIndicador($indicador);
+        $matricula = $objPagosDAO->ExecuteDelete($objPagosDAO->objPagos);
         $error = ($matricula !== TRUE) ? TRUE : FALSE;
         echo ($error) ? 'fail' : 'success';
     } else {
@@ -110,8 +112,8 @@ if ($action == 'combobox') {
     $cbx = array();
     $idUsuarioCarrera = $_GET['idUsuarioCarrera'];
     $idUsuarioCarrera = (!empty($idUsuarioCarrera)) ? $idUsuarioCarrera : 'undefined';
-    $objPagoMatriculaDAO->objPagoMatricula->setIdUsuarioCarrera($idUsuarioCarrera);
-    $combo = $objPagoMatriculaDAO->ExecuteCompleteCombobox($objPagoMatriculaDAO->objPagoMatricula);
+    $objPagosDAO->objPagos->setIdUsuarioCarrera($idUsuarioCarrera);
+    $combo = $objPagosDAO->ExecuteCompleteCombobox($objPagosDAO->objPagos);
     foreach ($combo as $key => $val) {
 		$objTipoBeneficioDAO->objTipoBeneficio->setIdTipoBeneficio($val->idTipoBeneficio);
 		$arrayBeneficio = $objTipoBeneficioDAO->SearchTipoBeneficio($objTipoBeneficioDAO->objTipoBeneficio);
@@ -131,7 +133,7 @@ if ($action == 'combobox') {
 			"cloDescripcion" => $val->cloDescripcion, 
 			"idTurno" => $val->idTurno, 
 			"troDescripcion" => $val->troDescripcion,
-			"tboPagoMatricula" => $arrayBeneficio[0]->tboPagoMatricula,
+			"tboPagos" => $arrayBeneficio[0]->tboPagos,
 			"tboPagoMensual" => $arrayBeneficio[0]->tboPagoMensual,
 			"tboPaMatriculaDesc" => $arrayBeneficio[0]->tboPaMatriculaDesc,
 			"tboPaMensualDesc" => $arrayBeneficio[0]->tboPaMensualDesc

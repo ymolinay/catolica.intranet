@@ -46,7 +46,7 @@ perfil
             <li><a href="alumnos.php">Lista de Alumnos</a></li>
             {/if}
             <li><a href="notas.php">Mis Notas</a></li>
-            <li><a href="pagos.php">Mis Pagos</a></li>
+            <li><a href="misPagos.php">Mis Pagos</a></li>
         </ul>
     </li>
     {/if}
@@ -56,7 +56,7 @@ perfil
             <li><a href="generarInscripcionCarrera.php">Inscribir Alumno</a></li>
             <li><a href="adjuntarArchivos.php">Adjuntar Archivos</a></li>
             <li><a href="generarMatricula.php">Matricular Alumno</a></li>
-            <li><a href="pagoMatricula.php">Pago Matricula</a></li>
+            <li><a href="pagos.php">Pagos</a></li>
             <li><a href="mantenimientoMatricula.php">Mantenimiento Matricula</a></li>
         </ul>
     </li>
