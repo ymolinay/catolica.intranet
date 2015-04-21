@@ -369,10 +369,7 @@ function selectAllCourses() {
     if (chk) {
         _chkAll = true;
     }
-
     $('.tablePlanEstudiosMatricula tbody tr td input[type=checkbox][name="_gridCheckBox[]"]').each(function () {
         $(this).prop('checked', _chkAll);
     });
-
-
 }
