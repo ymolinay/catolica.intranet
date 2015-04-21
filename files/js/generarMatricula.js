@@ -274,7 +274,7 @@ function confirmGenerateMatricula() {
  loadGrid(objGrid);
  var _btn = '<button class="btn btn-sm btn-info" type="button" onclick="confirmSave(\'bWF0cmljdWxh\',\'Zm9ybU1hdHJpY3VsYQ==\',\'disbledShowButton();\',\'\')">Generar Matrícula</button>';
  $('.tablePlanEstudiosMatricula div.widget-head div.widget-icons.pull-right').html(_btn);
- }
+ }º
  }*/
 
 function gridGeneratePlanEstudio() {
@@ -288,7 +288,7 @@ function gridGeneratePlanEstudio() {
             div: 'tablePlanEstudiosMatricula',
             url: baseHTTP + 'controller/__grid.php?action=loadGrid',
             table: 'usuariocarrera;usuario;personal;carrera;planestudio;curso;ciclo',
-            colNames: ['', 'CICLO', 'CURSO'],
+            colNames: ['<center><input type="checkbox" onclick="selectAllCourses();" id="selectAll"></center>', 'CICLO', 'CURSO'],
             colModel: [
                 {name: 'idPlanEstudio', index: '4', align: 'left'},
                 {name: 'cloDescripcion', index: '6'},
@@ -361,4 +361,18 @@ function validateDuplicateMatricula() {
     duplicate = jQuery.parseJSON(duplicate);
     openPopUp('Registro duplicado', 'Este alumno ya tiene una matrícula activa para el ciclo seleccionado.', '', '', '');
     return duplicate.count;
+}
+
+function selectAllCourses() {
+    var chk = $('#selectAll').prop('checked');
+    var _chkAll = false;
+    if (chk) {
+        _chkAll = true;
+    }
+
+    $('.tablePlanEstudiosMatricula tbody tr td input[type=checkbox][name="_gridCheckBox[]"]').each(function () {
+        $(this).prop('checked', _chkAll);
+    });
+
+
 }
