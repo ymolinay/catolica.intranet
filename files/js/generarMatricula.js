@@ -6,6 +6,7 @@ $(document).ready(function () {
     comboboxTurno();
     comboboxCarrera();
     comboboxBeneficio();
+    showExtraData();
 });
 
 function validateMatricula() {
