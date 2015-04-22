@@ -22,6 +22,7 @@ perfil
             <li><a href="usuarios.php">Usuarios</a></li>
             <li><a href="carreras.php">Carreras</a></li>
             <li><a href="cursos.php">Cursos</a></li>
+            <li><a href="planEstudio.php">Plan de Estudios</a></li>
             <li><a href="seccion.php">Secciones</a></li>
             <li><a href="horarios.php">Horarios</a></li>
             <!--<li><a href="docentes.php">Docentes</a></li>-->

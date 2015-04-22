@@ -2,6 +2,7 @@
 
 class PlanEstudio {
     private $idPlanEstudio;
+    private $notaMinima;
     private $idCarrera;
     private $idCurso;
     private $idCiclo;
@@ -9,6 +10,10 @@ class PlanEstudio {
     
     function getIdPlanEstudio() {
         return $this->idPlanEstudio;
+    }
+
+    function getNotaMinima() {
+        return $this->notaMinima;
     }
 
     function getIdCarrera() {
@@ -31,6 +36,10 @@ class PlanEstudio {
         $this->idPlanEstudio = $idPlanEstudio;
     }
 
+    function setNotaMinima($notaMinima) {
+        $this->notaMinima = $notaMinima;
+    }
+
     function setIdCarrera($idCarrera) {
         $this->idCarrera = $idCarrera;
     }
@@ -48,4 +57,5 @@ class PlanEstudio {
     }
 
 
+    
 }

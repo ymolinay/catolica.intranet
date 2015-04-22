@@ -38,3 +38,12 @@ if ($action == 'save') {
 
     echo ($error) ? 'fail' : 'success';
 }
+
+if ($action == "combobox") {
+    $cbx = array();
+    $combo = $objCursoDAO->ExecuteCompleteCombobox();
+    foreach ($combo as $key => $val) {
+        $cbx[$key] = array("idCurso" => $val->idCurso, "crsNombre" => $val->crsNombre);
+    }
+    echo json_encode($cbx);
+}

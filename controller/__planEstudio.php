@@ -46,3 +46,40 @@ if ($action == "comboboxAsignarCursos") {
     }
     echo json_encode($cbx);
 }
+
+if ($action == 'save') {
+    $error = TRUE;
+    $idPlanEstudio = $_GET['inputIdPlan'];
+    $nonaMinima = $_GET['inputMinRating'];
+    $idCarrera = $_GET['idCarrera'];
+    $idCiclo = $_GET['idCiclo'];
+    $idCurso = $_GET['idCurso'];
+    $indicador = '1';
+
+    $objPlanEstudioDAO->objPlanEstudio->setIdPlanEstudio($idPlanEstudio);
+    $objPlanEstudioDAO->objPlanEstudio->setNotaMinima($nonaMinima);
+    $objPlanEstudioDAO->objPlanEstudio->setIdCarrera($idCarrera);
+    $objPlanEstudioDAO->objPlanEstudio->setIdCiclo($idCiclo);
+    $objPlanEstudioDAO->objPlanEstudio->setIdCurso($idCurso);
+    $objPlanEstudioDAO->objPlanEstudio->setPldIndicador($indicador);
+
+    if ($idPlanEstudio != '') {
+        $planEstudioSave = $objPlanEstudioDAO->ExecuteUpdate($objPlanEstudioDAO->objPlanEstudio);
+    } else {
+        $planEstudioSave = $objPlanEstudioDAO->ExecuteSave($objPlanEstudioDAO->objPlanEstudio);
+    }
+
+    $error = ($planEstudioSave !== TRUE) ? TRUE : FALSE;
+
+    echo ($error) ? 'fail' : 'success';
+}
+
+if ($action == 'find') {
+    $idPlanEstudio = base64_decode($_GET['idPlan']);
+    $objPlanEstudioDAO->objPlanEstudio->setIdPlanEstudio($idPlanEstudio);
+    $planEstudioFound = $objPlanEstudioDAO->ExecuteSearch($objPlanEstudioDAO->objPlanEstudio);
+    $planEstudioFound = $planEstudioFound[0];
+
+    $jsonPlanEstudio = array("idPlanEstudio" => $planEstudioFound->idPlanEstudio, "pldNotaMinima" => $planEstudioFound->pldNotaMinima, "idCarrera" => $planEstudioFound->idCarrera, "idCurso" => $planEstudioFound->idCurso, "idCiclo" => $planEstudioFound->idCiclo);
+    echo json_encode($jsonPlanEstudio);
+}

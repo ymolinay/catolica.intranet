@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__.'/../config/mysqli.data.php';
-require_once __DIR__.'/../entity/curso.php';
+require_once __DIR__ . '/../config/mysqli.data.php';
+require_once __DIR__ . '/../entity/curso.php';
 
 class CursoDAO {
 
@@ -14,7 +14,7 @@ class CursoDAO {
         $this->objCurso = new Curso();
         $this->task = new Task();
     }
-    
+
     public function ExecuteSearch($objCurso) {
         $idCurso = $objCurso->getIdCurso();
         $this->task->setTables(self::TABLE);
@@ -49,6 +49,17 @@ class CursoDAO {
         $this->task->setWhereLogical('=');
         $this->task->setWhereValues($idCurso);
         return $this->task->executeUpdate();
+    }
+
+    public function ExecuteCompleteCombobox() {
+        $this->task->setTables(self::TABLE);
+        $this->task->setFields('idCurso;crsNombre');
+        $this->task->setWhereFields('crsIndicador');
+        $this->task->setWhereLogical('=');
+        $this->task->setWhereValues('1');
+        $this->task->setOrder('crsNombre');
+        $this->task->setValuesOrder('asc');
+        return $this->task->executeSelect();
     }
 
 }

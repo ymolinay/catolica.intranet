@@ -47,4 +47,44 @@ class PlanEstudioDAO {
         return $this->task->executeMultiSelect();
     }
 
+    public function ExecuteSave($objPlanEstudio) {
+        $notaMinima = $objPlanEstudio->getNotaMinima();
+        $idCarrera = $objPlanEstudio->getIdCarrera();
+        $idCurso = $objPlanEstudio->getIdCurso();
+        $idCiclo = $objPlanEstudio->getIdCiclo();
+        $indicador = $objPlanEstudio->getPldIndicador();
+        $this->task->setTables(self::TABLE);
+        $this->task->setFields('idPlanEstudio;pldNotaMinima;idCarrera;idCurso;idCiclo;pldIndicador');
+        $this->task->setValues($notaMinima . ';' . $idCarrera . ';' . $idCurso . ';' . $idCiclo . ';' . $indicador);
+        return $this->task->executeInsert('idPlanEstudio');
+    }
+    
+    public function ExecuteUpdate($objPlanEstudio) {
+        $idPlanEstudio = $objPlanEstudio->getIdPlanEstudio();
+        $notaMinima = $objPlanEstudio->getNotaMinima();
+        $idCarrera = $objPlanEstudio->getIdCarrera();
+        $idCurso = $objPlanEstudio->getIdCurso();
+        $idCiclo = $objPlanEstudio->getIdCiclo();
+        $indicador = $objPlanEstudio->getPldIndicador();
+        $this->task->setTables(self::TABLE);
+        $this->task->setFields('pldNotaMinima;idCarrera;idCurso;idCiclo;pldIndicador');
+        $this->task->setValues($notaMinima . ';' . $idCarrera . ';' . $idCurso . ';' . $idCiclo . ';' . $indicador);
+        $this->task->setWhereFields('idPlanEstudio');
+        $this->task->setWhereLogical('=');
+        $this->task->setWhereValues($idPlanEstudio);
+        return $this->task->executeUpdate();
+    }
+    
+    public function ExecuteSearch($objPlanEstudio) {
+        $idPlanEstudio = $objPlanEstudio->getIdPlanEstudio();
+        $this->task->setTables(self::TABLE);
+        $this->task->setFields('idPlanEstudio;pldNotaMinima;idCarrera;idCurso;idCiclo;pldIndicador');
+        $this->task->setWhereFields('idPlanEstudio');
+        $this->task->setWhereLogical('=');
+        $this->task->setWhereValues($idPlanEstudio);
+        $this->task->setOrder('idPlanEstudio');
+        $this->task->setValuesOrder('asc');
+        return $this->task->executeSelect();
+    }
+
 }

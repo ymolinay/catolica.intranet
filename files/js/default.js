@@ -340,6 +340,9 @@ function confirmSave(_table, _form, _extraJS, _type) {
     if (table === 'pagos') {
         validate = validatePagos();
     }
+    if (table === 'planEstudio') {
+        validate = validatePlanEstudio();
+    }
     //if (table === 'cuenta') {validate = validateCustomer();}
     //if (table === 'sedetemp') {validate = validateSede();}
     //if (table === 'areatemp') {validate = validateArea();}
