@@ -2,6 +2,8 @@ $(document).ready(function () {
     comboboxCarrera();
     comboboxUsuarioCarrera();
     comboboxMatricula();
+    comboboxTipoPago();
+    comboboxModoPago();
     showExtraData();
 });
 
@@ -73,7 +75,7 @@ function validatePagos() {
 
 function comboboxCarrera() {
     $('#idCarrera option[value!=""]').remove();
-    $('div.tablePagosMatricula').html('');
+    $('div.tablePagos').html('');
     var url = baseHTTP + 'controller/__carrera.php?action=combobox';
     var result = jqueryAjax(url, false, '');
     var jsonCarrera = jQuery.parseJSON(result);
@@ -86,7 +88,7 @@ function comboboxCarrera() {
 
 function comboboxUsuarioCarrera() {
     var idCarrera = $('#idCarrera').val();
-    $('div.tablePagosMatricula').html('');
+    $('div.tablePagos').html('');
     $('#idUsuarioCarrera option[value!=""]').remove();
     var url = baseHTTP + 'controller/__usuarioCarrera.php?action=combobox&idCarrera=' + idCarrera;
     var result = jqueryAjax(url, false, '');
@@ -102,7 +104,7 @@ function comboboxUsuarioCarrera() {
 
 function comboboxMatricula() {
     var idUsuarioCarrera = $('#idUsuarioCarrera').val();
-    $('div.tablePagosMatricula').html('');
+    $('div.tablePagos').html('');
     $('#idMatricula option[value!=""]').remove();
     var url = baseHTTP + 'controller/__matricula.php?action=combobox&idUsuarioCarrera=' + idUsuarioCarrera;
     var result = jqueryAjax(url, false, '');
@@ -120,6 +122,29 @@ function comboboxMatricula() {
         opt.setAttribute("data-pa-matricula-desc", jsonMatricula[i].tboPaMatriculaDesc);
         opt.setAttribute("data-pa-mensual-desc", jsonMatricula[i].tboPaMensualDesc);
         $('#idMatricula').append(opt);
+    }
+}
+
+function comboboxTipoPago() {
+    $('#idTipoPago option[value!=""]').remove();
+    var url = baseHTTP + 'controller/__tipoPago.php?action=combobox';
+    var result = jqueryAjax(url, false, '');
+    var jsonTipoPago = jQuery.parseJSON(result);
+    for (i = 0; i < jsonTipoPago.length; i++) {
+        var opt = new Option(jsonTipoPago[i].tppDescripcion, jsonTipoPago[i].idTipoPago);
+        opt.setAttribute("data-monto", jsonTipoPago[i].tppMonto);
+        $('#idTipoPago').append(opt);
+    }
+}
+
+function comboboxModoPago() {
+    $('#idModoPago option[value!=""]').remove();
+    var url = baseHTTP + 'controller/__modoPago.php?action=combobox';
+    var result = jqueryAjax(url, false, '');
+    var jsonModoPago = jQuery.parseJSON(result);
+    for (i = 0; i < jsonModoPago.length; i++) {
+        var opt = new Option(jsonModoPago[i].mdpDescripcion, jsonModoPago[i].idModoPago);
+        $('#idModoPago').append(opt);
     }
 }
 
@@ -171,7 +196,7 @@ function showExtraData() {
         $('#pagoPendiente').addClass('label-default');
         $('#pagoPendiente').html('No hay pagos pendientes.');
         $('#buttonRegister').prop('disabled', true);
-        $('div.tablePagosMatricula').html('');
+        $('div.tablePagos').html('');
     } else {
         var arrayCantidad = cantidadMeses();
         var _ciclo = matricula.find(':selected').data('ciclo');
