@@ -25,6 +25,8 @@ perfil
             <li><a href="planEstudio.php">Plan de Estudios</a></li>
             <li><a href="seccion.php">Secciones</a></li>
             <li><a href="horarios.php">Horarios</a></li>
+            <li><a href="tipoPago.php">Tipo de Pago</a></li>
+            <li><a href="modoPago.php">Modo de Pago</a></li>
             <!--<li><a href="docentes.php">Docentes</a></li>-->
         </ul>
     </li>
