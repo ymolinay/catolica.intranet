@@ -21,7 +21,7 @@ class ModoPagoDAO {
         $Indicador = $objModoPago->getIndicador();
         $this->task->setTables(self::TABLE);
         $this->task->setFields('idModoPago;mdpDescripcion;mdpIndicador');
-        $this->task->setValues($Descripcion . ';' . $Monto . ';' . $Indicador);
+        $this->task->setValues($Descripcion . ';' . $Indicador);
         $result[0] = $this->task->executeInsert('idModoPago');
         $result[1] = $idModoPago;
         return $result;

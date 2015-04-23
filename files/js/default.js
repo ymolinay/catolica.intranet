@@ -343,6 +343,12 @@ function confirmSave(_table, _form, _extraJS, _type) {
     if (table === 'planEstudio') {
         validate = validatePlanEstudio();
     }
+    if (table === 'tipoPago') {
+        validate = validateTipoPago();
+    }
+    if (table === 'modoPago') {
+        validate = validateModoPago();
+    }
     //if (table === 'cuenta') {validate = validateCustomer();}
     //if (table === 'sedetemp') {validate = validateSede();}
     //if (table === 'areatemp') {validate = validateArea();}
