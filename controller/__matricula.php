@@ -179,10 +179,7 @@ if ($action == 'combobox') {
 			"cloDescripcion" => $val->cloDescripcion, 
 			"idTurno" => $val->idTurno, 
 			"troDescripcion" => $val->troDescripcion,
-			"tboPagoMatricula" => $arrayBeneficio[0]->tboPagoMatricula,
-			"tboPagoMensual" => $arrayBeneficio[0]->tboPagoMensual,
-			"tboPaMatriculaDesc" => $arrayBeneficio[0]->tboPaMatriculaDesc,
-			"tboPaMensualDesc" => $arrayBeneficio[0]->tboPaMensualDesc
+			"tboDescuentoPorcentaje" => $arrayBeneficio[0]->tboDescuentoPorcentaje
 		);
     }
     echo json_encode($cbx);

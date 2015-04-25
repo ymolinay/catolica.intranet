@@ -17,7 +17,7 @@ class TipoBeneficioDAO {
 
     public function SearchAllData() {
         $this->task->setTables(self::TABLE);
-        $this->task->setFields('idTipoBeneficio;tboDescripcion;tboPagoMatricula;tboPagoMensual;tboDescuentoPorcentaje;tboPaMatriculaDesc;tboPaMensualDesc');
+        $this->task->setFields('idTipoBeneficio;tboDescripcion;idTipoPago;tboDescuentoPorcentaje');
         $this->task->setWhereFields('tboIndicador');
         $this->task->setWhereLogical('=');
         $this->task->setWhereValues('1');
@@ -29,7 +29,7 @@ class TipoBeneficioDAO {
     public function SearchTipoBeneficio($objTipoBeneficio) {
         $idTipoBeneficio = $objTipoBeneficio->getIdTipoBeneficio();
         $this->task->setTables(self::TABLE);
-        $this->task->setFields('idTipoBeneficio;tboDescripcion;tboPagoMatricula;tboPagoMensual;tboDescuentoPorcentaje;tboPaMatriculaDesc;tboPaMensualDesc');
+        $this->task->setFields('idTipoBeneficio;tboDescripcion;idTipoPago;tboDescuentoPorcentaje');
         $this->task->setWhereFields('idTipoBeneficio;tboIndicador');
         $this->task->setWhereLogical('=;=');
         $this->task->setWhereValues($idTipoBeneficio, '1');

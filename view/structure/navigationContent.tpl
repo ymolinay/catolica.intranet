@@ -27,6 +27,7 @@ perfil
             <li><a href="horarios.php">Horarios</a></li>
             <li><a href="tipoPago.php">Tipo de Pago</a></li>
             <li><a href="modoPago.php">Modo de Pago</a></li>
+            <li><a href="tipoBeneficio.php">Tipo de Beneficio</a></li>
             <!--<li><a href="docentes.php">Docentes</a></li>-->
         </ul>
     </li>

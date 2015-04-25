@@ -3,11 +3,8 @@
 class TipoBeneficio{
     private $idTipoBeneficio;
     private $descripcion;
-    private $pagoMatricula;
-    private $pagoMensual;
     private $descuentoPorcentaje;
-    private $paMatriculaDesc;
-    private $paMensualDesc;
+    private $idTipoPago;
     private $indicador;
     
     function getIdTipoBeneficio() {
@@ -18,24 +15,12 @@ class TipoBeneficio{
         return $this->descripcion;
     }
 
-    function getPagoMatricula() {
-        return $this->pagoMatricula;
-    }
-
-    function getPagoMensual() {
-        return $this->pagoMensual;
-    }
-
     function getDescuentoPorcentaje() {
         return $this->descuentoPorcentaje;
     }
 
-    function getPaMatriculaDesc() {
-        return $this->paMatriculaDesc;
-    }
-
-    function getPaMensualDesc() {
-        return $this->paMensualDesc;
+    function getIdTipoPago() {
+        return $this->idTipoPago;
     }
 
     function getIndicador() {
@@ -50,24 +35,12 @@ class TipoBeneficio{
         $this->descripcion = $descripcion;
     }
 
-    function setPagoMatricula($pagoMatricula) {
-        $this->pagoMatricula = $pagoMatricula;
-    }
-
-    function setPagoMensual($pagoMensual) {
-        $this->pagoMensual = $pagoMensual;
-    }
-
     function setDescuentoPorcentaje($descuentoPorcentaje) {
         $this->descuentoPorcentaje = $descuentoPorcentaje;
     }
 
-    function setPaMatriculaDesc($paMatriculaDesc) {
-        $this->paMatriculaDesc = $paMatriculaDesc;
-    }
-
-    function setPaMensualDesc($paMensualDesc) {
-        $this->paMensualDesc = $paMensualDesc;
+    function setIdTipoPago($idTipoPago) {
+        $this->idTipoPago = $idTipoPago;
     }
 
     function setIndicador($indicador) {

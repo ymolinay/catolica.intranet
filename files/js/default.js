@@ -181,6 +181,9 @@ function validateFormControl(_controlId, _expression, _setFocus, _icon, _msg) {
     if (_expression === 'text200') {
         expr = /^([\.\w\s\áéíóúñÁÉÍÓÚÑ]{1,200})$/;
     }
+    if (_expression === 'document') {
+        expr = /^([\w0-9\s\-\a-zA-Z]{1,250})$/;
+    }
     if (_expression === 'number') {
         expr = /^([0-9]{1,})$/;
     }
@@ -348,6 +351,9 @@ function confirmSave(_table, _form, _extraJS, _type) {
     }
     if (table === 'modoPago') {
         validate = validateModoPago();
+    }
+    if (table === 'tipoBeneficio') {
+        validate = validateTipoBeneficio();
     }
     //if (table === 'cuenta') {validate = validateCustomer();}
     //if (table === 'sedetemp') {validate = validateSede();}

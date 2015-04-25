@@ -53,14 +53,16 @@ function validatePagos() {
     if (validateFormControl('idCarrera', 'number', true, true, 'Seleccionar Carrera.')) {
         if (validateFormControl('idUsuarioCarrera', 'number', true, true, 'Seleccionar Estudiante.')) {
             if (validateFormControl('idMatricula', 'number', true, true, 'Seleccionar Matricula.')) {
-                if (validateFormControl('TipoPago', 'text', true, true, 'Indicar el Tipo de Pago.')) {
-                    if (validateFormControl('ModoPago', 'text', true, true, 'Seleccionar Modo de Pago.')) {
+                if (validateFormControl('idTipoPago', 'number', true, true, 'Indicar el Tipo de Pago.')) {
+                    if (validateFormControl('idModoPago', 'number', true, true, 'Seleccionar Modo de Pago.')) {
                         if (validateFormControl('TipoComprobante', 'text', true, true, 'Seleccionar Tipo de Comprobante.')) {
-                            if (validateFormControl('Pago', 'decimal', true, true, 'Ingresar Monto numérico.')) {
-                                if (validateFormControl('Beneficio', 'text', true, true, 'Seleccionar Seccion.')) {
-                                    if (validateFormControl('PagoDesc', 'decimal', true, true, 'Ingresar Monto numérico.')) {
-                                        if (validateFormControl('FPago', 'date', true, true, 'Seleccionar una fecha correcta.')) {
-                                            return true;
+                            if (validateFormControl('NumComprobante', 'document', true, true, 'Ingresar Número de Comprobante.')) {
+                                if (validateFormControl('Pago', 'decimal', true, true, 'Ingresar Monto numérico.')) {
+                                    if (validateFormControl('Beneficio', 'text', true, true, 'Seleccionar Seccion.')) {
+                                        if (validateFormControl('PagoDesc', 'decimal', true, true, 'Ingresar Monto numérico.')) {
+                                            if (validateFormControl('FPago', 'date', true, true, 'Seleccionar una fecha correcta.')) {
+                                                return true;
+                                            }
                                         }
                                     }
                                 }
@@ -117,10 +119,7 @@ function comboboxMatricula() {
         opt.setAttribute("data-sede", jsonMatricula[i].sdeNombre);
         opt.setAttribute("data-estado", jsonMatricula[i].etmDescripcion);
         opt.setAttribute("data-beneficio", jsonMatricula[i].tboDescripcion);
-        opt.setAttribute("data-pago-matricula", jsonMatricula[i].tboPagoMatricula);
-        opt.setAttribute("data-pago-mensual", jsonMatricula[i].tboPagoMensual);
-        opt.setAttribute("data-pa-matricula-desc", jsonMatricula[i].tboPaMatriculaDesc);
-        opt.setAttribute("data-pa-mensual-desc", jsonMatricula[i].tboPaMensualDesc);
+        opt.setAttribute("data-descuento-porcentaje", jsonMatricula[i].tboDescuentoPorcentaje);
         $('#idMatricula').append(opt);
     }
 }
@@ -170,6 +169,7 @@ function cantidadMeses() {
 function showExtraData() {
     var student = $('#idUsuarioCarrera');
     var matricula = $('#idMatricula');
+    var idTipoPago = $('#idTipoPago');
 
     if (student.val() == '') {
         $("#mensajeDNI").removeClass("label-danger");
@@ -205,10 +205,8 @@ function showExtraData() {
         var _sede = matricula.find(':selected').data('sede');
         var _estado = matricula.find(':selected').data('estado');
         var _beneficio = matricula.find(':selected').data('beneficio');
-        var _pagoMatricula = matricula.find(':selected').data('pagoMatricula');
-        var _pagoMensual = matricula.find(':selected').data('pagoMensual');
-        var _paMatriculaDesc = matricula.find(':selected').data('paMatriculaDesc');
-        var _paMensualDesc = matricula.find(':selected').data('paMensualDesc');
+        var _porcentaje = parseFloat(matricula.find(':selected').data('descuentoPorcentaje'));
+        var _monto = parseFloat(idTipoPago.find(':selected').data('monto'));
         var date = new Date();
         var month = date.getMonth() + 1;
         var day = date.getDate();
@@ -241,17 +239,16 @@ function showExtraData() {
         $("#Beneficio").val(_beneficio);
         $("#FPago").val((day < 10 ? '0' : '') + day + '-' + (month < 10 ? '0' : '') + month + '-' + date.getFullYear());
         /***************/
-        if (arrayCantidad.pagos == 0)
+        if(idTipoPago.val() == '')
         {
-            $("#TipoPago").val("Matricula");
-            $("#Pago").val(_pagoMatricula);
-            $("#PagoDesc").val(_paMatriculaDesc);
+            //$("#TipoPago").val("Matricula");
+            $("#Pago").val("-");
+            $("#PagoDesc").val("-");
         }
-        else if (arrayCantidad.carMeses >= (arrayCantidad.pagos - 1) && arrayCantidad.pagos > 0)
+        else
         {
-            $("#TipoPago").val("Mensualidad");
-            $("#Pago").val(_pagoMensual);
-            $("#PagoDesc").val(_paMensualDesc);
+            $("#Pago").val(_monto);
+            $("#PagoDesc").val(_monto * (100 - _porcentaje) / 100);
         }
     }
 }
