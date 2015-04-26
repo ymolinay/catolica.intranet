@@ -12,11 +12,15 @@ if ($action == "save") {
     $idTipoPago = $_GET['idTipoPago'];
     $Descripcion = $_GET['Descripcion'];
     $Monto = $_GET['Monto'];
+    $Obligatorio = $_GET['Obligatorio'];
+    $Orden = $_GET['Orden'];
     $Indicador = 1;
 
     $objTipoPagoDAO->objTipoPago->setIdTipoPago($idTipoPago);
     $objTipoPagoDAO->objTipoPago->setDescripcion($Descripcion);
     $objTipoPagoDAO->objTipoPago->setMonto($Monto);
+    $objTipoPagoDAO->objTipoPago->setMonto($Obligatorio);
+    $objTipoPagoDAO->objTipoPago->setMonto(Orden);
     $objTipoPagoDAO->objTipoPago->setIndicador($Indicador);
 
     if ($idTipoPago != '') {
@@ -86,10 +90,16 @@ if ($action == 'combobox') {
     $combo = $objTipoPagoDAO->ExecuteCompleteCombobox($objTipoPagoDAO->objTipoPago);
     foreach ($combo as $key => $val) {
         $cbx[$key] = array(
-			"idTipoPago" => $val->idTipoPago,
-			"tppDescripcion" => $val->tppDescripcion,
-			"tppMonto" => $val->tppMonto
-		);
+            "idTipoPago" => $val->idTipoPago,
+            "tppDescripcion" => $val->tppDescripcion,
+            "tppMonto" => $val->tppMonto
+        );
     }
     echo json_encode($cbx);
+}
+
+if ($action == 'countObligatorio') {
+    $objTipoPagoDAO->objTipoPago->setObligatorio(1);
+    $obligatorios = $objTipoPagoDAO->ExecuteCountObligatorio($objTipoPagoDAO->objTipoPago);
+    echo json_encode($obligatorios);
 }

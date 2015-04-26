@@ -161,26 +161,27 @@ if ($action == 'combobox') {
     $objMatriculaDAO->objMatricula->setIdUsuarioCarrera($idUsuarioCarrera);
     $combo = $objMatriculaDAO->ExecuteCompleteCombobox($objMatriculaDAO->objMatricula);
     foreach ($combo as $key => $val) {
-		$objTipoBeneficioDAO->objTipoBeneficio->setIdTipoBeneficio($val->idTipoBeneficio);
-		$arrayBeneficio = $objTipoBeneficioDAO->SearchTipoBeneficio($objTipoBeneficioDAO->objTipoBeneficio);
+        $objTipoBeneficioDAO->objTipoBeneficio->setIdTipoBeneficio($val->idTipoBeneficio);
+        $arrayBeneficio = $objTipoBeneficioDAO->SearchTipoBeneficio($objTipoBeneficioDAO->objTipoBeneficio);
         $cbx[$key] = array(
-			"idMatricula" => $val->idMatricula, 
-			"mtcFecha" => $val->mtcFecha, 
-			"mtcHora" => $val->mtcHora, 
-			"idTipoBeneficio" => $val->idTipoBeneficio, 
-			"tboDescripcion" => $val->tboDescripcion, 
-			"idSeccion" => $val->idSeccion, 
-			"scnDescripcion" => $val->scnDescripcion, 
-			"idSede" => $val->idSede, 
-			"sdeNombre" => $val->sdeNombre, 
-			"idEstadoMatricula" => $val->idEstadoMatricula, 
-			"etmDescripcion" => $val->etmDescripcion, 
-			"idCiclo" => $val->idCiclo, 
-			"cloDescripcion" => $val->cloDescripcion, 
-			"idTurno" => $val->idTurno, 
-			"troDescripcion" => $val->troDescripcion,
-			"tboDescuentoPorcentaje" => $arrayBeneficio[0]->tboDescuentoPorcentaje
-		);
+            "idMatricula" => $val->idMatricula, 
+            "mtcFecha" => $val->mtcFecha, 
+            "mtcHora" => $val->mtcHora, 
+            "idTipoBeneficio" => $val->idTipoBeneficio, 
+            "tboDescripcion" => $val->tboDescripcion, 
+            "idSeccion" => $val->idSeccion, 
+            "scnDescripcion" => $val->scnDescripcion, 
+            "idSede" => $val->idSede, 
+            "sdeNombre" => $val->sdeNombre, 
+            "idEstadoMatricula" => $val->idEstadoMatricula, 
+            "etmDescripcion" => $val->etmDescripcion, 
+            "idCiclo" => $val->idCiclo, 
+            "cloDescripcion" => $val->cloDescripcion, 
+            "idTurno" => $val->idTurno, 
+            "troDescripcion" => $val->troDescripcion,
+            "idTipoPago" => $arrayBeneficio[0]->idTipoPago,
+            "tboDescuentoPorcentaje" => $arrayBeneficio[0]->tboDescuentoPorcentaje
+        );
     }
     echo json_encode($cbx);
 }

@@ -104,4 +104,13 @@ class TipoPagoDAO {
         return $this->task->executeMultiSelect();
     }
 
+    public function ExecuteCountObligatorio($objTipoPago) {
+        $Obligatorio = $objTipoPago->getObligatorio();
+        $this->task->setTables(self::TABLE);
+        $this->task->setFields('idTipoPago');
+        $this->task->setWhereFields('tppObligatorio');
+        $this->task->setWhereLogical('=');
+        $this->task->setWhereValues($Obligatorio);
+        return $this->task->executeSelect();
+    }
 }

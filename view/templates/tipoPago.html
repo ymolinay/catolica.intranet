@@ -29,6 +29,19 @@
         </div>
     </div>
     <div class="form-group">
+        <label class="col-lg-2 control-label">Obligatorio</label>
+        <div class="col-lg-3">
+            <input id="Obligatorio" name="Obligatorio" type="checkbox" class="form-control" onclick="countObligatorio()">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Orden</label>
+        <div class="col-lg-3">
+            <input id="Orden" name="Orden" type="text" class="form-control" placeholder="Orden" readonly >
+        </div>
+        <!--<button type="button" id="buttonChangeOrder" class="btn btn-info btn-sm" onclick="changeOrder()" >Cambiar Orden</button>-->
+    </div>
+    <div class="form-group">
         <div class="col-lg-5 col-lg-offset-5">
             <button type="button" id="buttonRegister" class="btn btn-info btn-sm" onclick="confirmSave('dGlwb1BhZ28=', 'Zm9ybVRpcG9QYWdv', 'gridTipoPago()', '')" >Registrar</button>
             <button type="reset" class="btn btn-default btn-sm" >Limpiar</button>

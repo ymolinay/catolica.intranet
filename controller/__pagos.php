@@ -52,7 +52,9 @@ if ($action == "save") {
 
 if ($action == "countPago") {
     $idMatricula = $_GET['idMatricula'];
+    $idTipoPago = $_GET['idTipoPago'];
     $objPagosDAO->objPagos->setIdMatricula($idMatricula);
+    $objPagosDAO->objPagos->setIdTipoPago($idTipoPago);
     $pagos = $objPagosDAO->CountPago($objPagosDAO->objPagos);
     echo json_encode($pagos);
 }
@@ -115,29 +117,29 @@ if ($action == 'combobox') {
     $objPagosDAO->objPagos->setIdUsuarioCarrera($idUsuarioCarrera);
     $combo = $objPagosDAO->ExecuteCompleteCombobox($objPagosDAO->objPagos);
     foreach ($combo as $key => $val) {
-		$objTipoBeneficioDAO->objTipoBeneficio->setIdTipoBeneficio($val->idTipoBeneficio);
-		$arrayBeneficio = $objTipoBeneficioDAO->SearchTipoBeneficio($objTipoBeneficioDAO->objTipoBeneficio);
+        $objTipoBeneficioDAO->objTipoBeneficio->setIdTipoBeneficio($val->idTipoBeneficio);
+        $arrayBeneficio = $objTipoBeneficioDAO->SearchTipoBeneficio($objTipoBeneficioDAO->objTipoBeneficio);
         $cbx[$key] = array(
-			"idMatricula" => $val->idMatricula, 
-			"mtcFecha" => $val->mtcFecha, 
-			"mtcHora" => $val->mtcHora, 
-			"idTipoBeneficio" => $val->idTipoBeneficio, 
-			"tboDescripcion" => $val->tboDescripcion, 
-			"idSeccion" => $val->idSeccion, 
-			"scnDescripcion" => $val->scnDescripcion, 
-			"idSede" => $val->idSede, 
-			"sdeNombre" => $val->sdeNombre, 
-			"idEstadoMatricula" => $val->idEstadoMatricula, 
-			"etmDescripcion" => $val->etmDescripcion, 
-			"idCiclo" => $val->idCiclo, 
-			"cloDescripcion" => $val->cloDescripcion, 
-			"idTurno" => $val->idTurno, 
-			"troDescripcion" => $val->troDescripcion,
-			"tboPagos" => $arrayBeneficio[0]->tboPagos,
-			"tboPagoMensual" => $arrayBeneficio[0]->tboPagoMensual,
-			"tboPaMatriculaDesc" => $arrayBeneficio[0]->tboPaMatriculaDesc,
-			"tboPaMensualDesc" => $arrayBeneficio[0]->tboPaMensualDesc
-		);
+            "idMatricula" => $val->idMatricula, 
+            "mtcFecha" => $val->mtcFecha, 
+            "mtcHora" => $val->mtcHora, 
+            "idTipoBeneficio" => $val->idTipoBeneficio, 
+            "tboDescripcion" => $val->tboDescripcion, 
+            "idSeccion" => $val->idSeccion, 
+            "scnDescripcion" => $val->scnDescripcion, 
+            "idSede" => $val->idSede, 
+            "sdeNombre" => $val->sdeNombre, 
+            "idEstadoMatricula" => $val->idEstadoMatricula, 
+            "etmDescripcion" => $val->etmDescripcion, 
+            "idCiclo" => $val->idCiclo, 
+            "cloDescripcion" => $val->cloDescripcion, 
+            "idTurno" => $val->idTurno, 
+            "troDescripcion" => $val->troDescripcion,
+            "tboPagos" => $arrayBeneficio[0]->tboPagos,
+            "tboPagoMensual" => $arrayBeneficio[0]->tboPagoMensual,
+            "tboPaMatriculaDesc" => $arrayBeneficio[0]->tboPaMatriculaDesc,
+            "tboPaMensualDesc" => $arrayBeneficio[0]->tboPaMensualDesc
+        );
     }
     echo json_encode($cbx);
 }

@@ -27,10 +27,10 @@ function gridPagos() {
                 {name: 'pgsPagoDesc', index: '0'},
                 {name: 'pgsFecha', index: '0'}
             ],
-			join: {
-				type: 'inner;inner',
-				on: 'p0.idTipoPago=t1.idTipoPago;p0.idModoPago=m2.idModoPago'
-			},
+                join: {
+                    type: 'inner;inner',
+                    on: 'p0.idTipoPago=t1.idTipoPago;p0.idModoPago=m2.idModoPago'
+                },
             where: {
                 fields: 'idMatricula',
                 logical: '=',
@@ -84,6 +84,7 @@ function comboboxCarrera() {
     for (i = 0; i < jsonCarrera.length; i++) {
         var opt = new Option(jsonCarrera[i].carDescripcion, jsonCarrera[i].idCarrera);
         opt.setAttribute("data-maxCiclo", jsonCarrera[i].carPeriodos);
+        opt.setAttribute("data-meses", jsonCarrera[i].carMeses);
         $('#idCarrera').append(opt);
     }
 }
@@ -119,6 +120,7 @@ function comboboxMatricula() {
         opt.setAttribute("data-sede", jsonMatricula[i].sdeNombre);
         opt.setAttribute("data-estado", jsonMatricula[i].etmDescripcion);
         opt.setAttribute("data-beneficio", jsonMatricula[i].tboDescripcion);
+        opt.setAttribute("data-id-tipo-pago", jsonMatricula[i].idTipoPago);
         opt.setAttribute("data-descuento-porcentaje", jsonMatricula[i].tboDescuentoPorcentaje);
         $('#idMatricula').append(opt);
     }
@@ -149,10 +151,49 @@ function comboboxModoPago() {
 
 function cantidadMeses() {
     var idMatricula = $('#idMatricula').val();
-    var url = baseHTTP + 'controller/__pagos.php?action=countPago&idMatricula=' + idMatricula;
+    var meses = $('#idCarrera').find(':selected').data('meses');
+    var url = baseHTTP + 'controller/__tipoPago.php?action=countObligatorio';
     var result = jqueryAjax(url, false, '');
-    var jsonPago = jQuery.parseJSON(result);
-    if (jsonPago[0].carMeses == jsonPago[0].pagos - 1) {
+    var jsonTipoPago = jQuery.parseJSON(result);
+    
+    $.each(jsonTipoPago, function(index, element) {
+        var url = baseHTTP + 'controller/__pagos.php?action=countPago&idMatricula=' + idMatricula + '&idTipoPago=' + element.idTipoPago;
+        var result = jqueryAjax(url, false, '');
+        var jsonPago = jQuery.parseJSON(result);
+        
+        if(element.idTipoPago == 2){
+            if (jsonPago[0].pagos == meses) {
+                $('#idTipoPago option[value="' + element.idTipoPago + '"]').remove();
+                $('#pagoPendiente').removeClass('label-danger');
+                $('#pagoPendiente').addClass('label-default');
+                $('#pagoPendiente').html('No hay pagos pendientes.');
+                $('#buttonRegister').prop('disabled', true);
+            }else{
+                $('#pagoPendiente').addClass('label-danger');
+                $('#pagoPendiente').removeClass('label-default');
+                $('#pagoPendiente').html('Pagos pendientes: ' + (meses - jsonPago[0].pagos) + ' mensualidades.');
+                $('#buttonRegister').prop('disabled', false);
+            }
+        }else{
+            if (jsonPago[0].pagos == 0) {
+                $('#pagoPendiente').addClass('label-danger');
+                $('#pagoPendiente').removeClass('label-default');
+                $('#pagoPendiente').html('Pagos pendientes: matricula y ' + (meses - jsonPago[0].pagos) + ' mensualidades.');
+                $('#buttonRegister').prop('disabled', false);
+                $('#idTipoPago option[value="2"]').remove();
+                return false;
+            }else{
+                $('#idTipoPago option[value="' + element.idTipoPago + '"]').remove();
+            }
+        }
+    });
+    /*
+    if (jsonPago[0].pagos == 0) {
+        $('#pagoPendiente').removeClass('label-danger');
+        $('#pagoPendiente').addClass('label-default');
+        $('#pagoPendiente').html('Pagos pendientes: matricula y ' + (jsonPago[0].carMeses - jsonPago[0].pagos + 1) + ' mensualidades.');
+        $('#buttonRegister').prop('disabled', false);
+    } else if (jsonPago[0].carMeses == jsonPago[0].pagos - 1) {
         $('#pagoPendiente').removeClass('label-danger');
         $('#pagoPendiente').addClass('label-default');
         $('#pagoPendiente').html('No hay pagos pendientes.');
@@ -160,10 +201,10 @@ function cantidadMeses() {
     } else {
         $('#pagoPendiente').addClass('label-danger');
         $('#pagoPendiente').removeClass('label-default');
-        $('#pagoPendiente').html('Pagos Pendientes encontrados.');
+        $('#pagoPendiente').html('Pagos pendientes: ' + (jsonPago[0].carMeses - jsonPago[0].pagos + 1) + ' mensualidades.');
         $('#buttonRegister').prop('disabled', false);
     }
-    return jsonPago[0];
+    return jsonPago[0];*/
 }
 
 function showExtraData() {
@@ -198,7 +239,7 @@ function showExtraData() {
         $('#buttonRegister').prop('disabled', true);
         $('div.tablePagos').html('');
     } else {
-        var arrayCantidad = cantidadMeses();
+        cantidadMeses();
         var _ciclo = matricula.find(':selected').data('ciclo');
         var _seccion = matricula.find(':selected').data('seccion');
         var _turno = matricula.find(':selected').data('turno');
@@ -206,6 +247,7 @@ function showExtraData() {
         var _estado = matricula.find(':selected').data('estado');
         var _beneficio = matricula.find(':selected').data('beneficio');
         var _porcentaje = parseFloat(matricula.find(':selected').data('descuentoPorcentaje'));
+        var _idTipoPago = parseFloat(matricula.find(':selected').data('idTipoPago'));
         var _monto = parseFloat(idTipoPago.find(':selected').data('monto'));
         var date = new Date();
         var month = date.getMonth() + 1;
@@ -245,10 +287,15 @@ function showExtraData() {
             $("#Pago").val("-");
             $("#PagoDesc").val("-");
         }
-        else
+        else if(idTipoPago.val() == _idTipoPago)
         {
             $("#Pago").val(_monto);
             $("#PagoDesc").val(_monto * (100 - _porcentaje) / 100);
+        }
+        else
+        {
+            $("#Pago").val(_monto);
+            $("#PagoDesc").val(_monto);
         }
     }
 }

@@ -3,25 +3,25 @@ $(document).ready(function () {
 });
 
 function gridModoPago() {
-	var objGrid = {
-		div: 'tableModoPago',
-		url: baseHTTP + 'controller/__grid.php?action=loadGrid',
-		table: 'modopago',
-		colNames: ['', 'TIPO PAGO'],
-		colModel: [
-			{name: 'idModoPago', index: '0', align: 'center'},
-			{name: 'mdpDescripcion', index: '0'}
-		],
-		page: 1,
-		rowNum: 20,
-		sortName: 'idModoPago',
-		sortOrder: 'asc',
-		title: 'MODOS DE PAGO',
-		check: ""
-	};
-	loadGrid(objGrid);
-	var _btn = '';
-	$('.tableModoPago div.widget-head div.widget-icons.pull-right').html(_btn);
+    var objGrid = {
+        div: 'tableModoPago',
+        url: baseHTTP + 'controller/__grid.php?action=loadGrid',
+        table: 'modopago',
+        colNames: ['', 'TIPO PAGO'],
+        colModel: [
+            {name: 'idModoPago', index: '0', align: 'center'},
+            {name: 'mdpDescripcion', index: '0'}
+        ],
+        page: 1,
+        rowNum: 20,
+        sortName: 'idModoPago',
+        sortOrder: 'asc',
+        title: 'MODOS DE PAGO',
+        check: ""
+    };
+    loadGrid(objGrid);
+    var _btn = '';
+    $('.tableModoPago div.widget-head div.widget-icons.pull-right').html(_btn);
 }
 
 function validateModoPago() {

@@ -71,21 +71,19 @@ class PagosDAO {
         $this->task->setFields('idPagos;idUsuarioCarrera;idCiclo;idSeccion;idSede');
         $this->task->setWhereFields('idUsuarioCarrera;idCiclo;idEstadoMatricula;pgsIndicador');
         $this->task->setWhereLogical('=;=;=;=');
-        $this->task->setWhereValues($idUsuarioCarrera . ';' . $idCiclo . ';' . $estadoMatricula . ';1');
+        $this->task->setWhereValues($idUsuarioCarrera . ';' . $idCiclo . ';' . $estadoPagos . ';1');
         return $this->task->executeSelect();
     }
 
     public function CountPago($objPagos) {
         $idMatricula = $objPagos->getIdMatricula();
-        $this->task->setTables(self::TABLE . ';matricula;usuariocarrera;carrera');
-        $this->task->setFields('carMeses,COUNT(*) as pagos');
-        $this->task->setIndex('3;0');
-        $this->task->setTypeJoin('inner;inner;inner');
-        $this->task->setOnJoin('p0.idMatricula=m1.idMatricula;m1.idUsuarioCarrera=u2.idUsuarioCarrera;u2.idCarrera=c3.idCarrera');
-        $this->task->setWhereFields('p0.idMatricula');
-        $this->task->setWhereLogical('=');
-        $this->task->setWhereValues($idMatricula);
-        return $this->task->executeMultiSelect();
+        $idTipoPago = $objPagos->getIdTipoPago();
+        $this->task->setTables(self::TABLE);
+        $this->task->setFields('idMatricula;idTipoPago,COUNT(*) as pagos');
+        $this->task->setWhereFields('idMatricula;idTipoPago');
+        $this->task->setWhereLogical('=;=');
+        $this->task->setWhereValues($idMatricula . ';' . $idTipoPago);
+        return $this->task->executeSelect();
     }
 
     public function SearchPagosID($objPagos) {
