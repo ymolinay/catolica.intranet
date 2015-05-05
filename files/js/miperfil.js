@@ -1,5 +1,6 @@
 $(document).ready(function () {
-	findUsuario();
+    findUsuario();
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function findUsuario(){

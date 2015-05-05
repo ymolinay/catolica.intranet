@@ -1,6 +1,7 @@
 $(document).ready(function () {
     gridAlumnos();
     searchDataInscripcion();
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function gridAlumnos() {

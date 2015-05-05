@@ -7,6 +7,7 @@ $(document).ready(function () {
     comboboxCarrera();
     comboboxBeneficio();
     showExtraData();
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function validateMatricula() {

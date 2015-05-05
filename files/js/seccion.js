@@ -5,6 +5,7 @@ $(document).ready(function () {
     comboboxCarrera();
     comboboxCiclos();
     gridSeccion();
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function comboboxCarrera() {

@@ -6,6 +6,7 @@ $(document).ready(function () {
     comboboxDocente();
     comboboxCursosPlanEstudio();
     gridDocentesCursos();
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function comboboxCarrera() {

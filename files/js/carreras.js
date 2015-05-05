@@ -1,5 +1,6 @@
 $(document).ready(function () {
     gridCarreras();
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function gridCarreras() {

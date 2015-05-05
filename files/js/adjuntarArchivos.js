@@ -4,7 +4,7 @@ $(document).ready(function () {
     gridStudentProfession();
     beginFileUploadComponent();
     $('#filesProfession').fadeOut();
-
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function comboboxCarrera() {

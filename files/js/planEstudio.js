@@ -2,6 +2,7 @@ $(document).ready(function () {
     comboboxCarrera();
     comboboxCiclo();
     comboboxCurso();
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function comboboxCarrera() {

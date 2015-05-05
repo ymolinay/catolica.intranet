@@ -1,5 +1,6 @@
 $(document).ready(function () {
     gridCursos();
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function gridCursos() {

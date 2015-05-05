@@ -1,5 +1,6 @@
 $(document).ready(function () {
     gridUsuarios();
+    $('#backgroundLoading').fadeOut('slow');
 });
 function editUsuario(id) {
     var url = baseHTTP + 'controller/__personal.php?action=find&idPersonal=' + id;

@@ -50,6 +50,47 @@
     display:none;
 }
 
+#backgroundLoading{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    z-index: 3000;
+    background-color: #000;
+    filter:alpha(opacity=0.7);
+    -moz-opacity: 0.7;
+    opacity: 0.7;
+    /*display:none;*/
+}
+
+#backgroundLoading .loading{
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 5em;
+    height: 5em;
+    margin-top: -2.5em;
+    margin-left: -2.5em;
+}
+
+#backgroundLoading .loading .cog1{
+    position: absolute;
+    top: -.5em;
+    left: -.35em;
+}
+
+#backgroundLoading .loading .cog2{
+    position: absolute;
+    left: .35em;
+}
+
+#backgroundLoading .loading .cog3{
+    position: absolute;
+    top: .5em;
+    left: -.35em;
+}
+
 .notVisible{
     visibility: hidden;
     display: none;

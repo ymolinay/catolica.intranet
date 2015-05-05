@@ -7,6 +7,7 @@ $(document).ready(function() {
         if (event.which == 13) { logIn();}
     });
     verifyRequest();
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function validateLogin(){

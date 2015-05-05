@@ -1,6 +1,7 @@
 $(document).ready(function () {
     clearFormNotas();
     comboboxTurno();
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function comboboxDocente() {

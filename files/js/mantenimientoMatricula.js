@@ -8,6 +8,7 @@ $(document).ready(function () {
     comboboxEstado();
     comboboxBeneficio();
     gridMatricula();
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function validateMatricula() {

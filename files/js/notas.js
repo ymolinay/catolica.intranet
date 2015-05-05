@@ -4,6 +4,7 @@ $(document).ready(function () {
     comboboxMatricula();
 //    comboboxCiclos();
 //    comboboxSeccion();
+    $('#backgroundLoading').fadeOut('slow');
 
 });
 

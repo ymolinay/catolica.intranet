@@ -2,6 +2,7 @@ $(document).ready(function () {
     comboboxUbigeo();
     gridStudent();
     searchDataInscripcion();
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function validatePersonal() {

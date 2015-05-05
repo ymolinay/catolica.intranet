@@ -2,6 +2,7 @@ $(document).ready(function () {
     comboboxCarrera();
     comboboxAlumno();
     currentDateTime();
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function comboboxCarrera() {

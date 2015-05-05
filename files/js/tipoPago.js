@@ -1,5 +1,6 @@
 $(document).ready(function () {
     gridTipoPago();
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function gridTipoPago() {

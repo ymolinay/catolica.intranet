@@ -5,6 +5,7 @@ $(document).ready(function () {
     comboboxTipoPago();
     comboboxModoPago();
     showExtraData();
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function gridPagos() {

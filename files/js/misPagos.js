@@ -3,6 +3,7 @@ $(document).ready(function () {
     comboboxUsuarioCarrera();
     comboboxMatricula();
     showExtraData();
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function gridPagos() {

@@ -1,6 +1,7 @@
 $(document).ready(function () {
     comboboxTipoPago();
     gridTipoBeneficio();
+    $('#backgroundLoading').fadeOut('slow');
 });
 
 function gridTipoBeneficio() {
